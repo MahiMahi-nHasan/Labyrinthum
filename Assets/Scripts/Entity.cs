@@ -94,4 +94,6 @@ public abstract class Entity : MonoBehaviour
     // Override this method with special behavior in subclasses
     public abstract void Special();
     public bool CanUseSpecial => mana >= manaRequiredForSpecial;
+
+    public void SelectMove(Move move) => state.plannedMove = move;
 }

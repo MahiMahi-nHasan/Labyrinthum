@@ -6,16 +6,10 @@ public class Battle
 {
     Entity[] entities;
 
-    // Start is called before the first frame update
-    void Start()
+    // Call this constructor in a MonoBehaviour to make a new list of entities
+    public Battle(Entity[] entities)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        this.entities = entities;
     }
 
     // Assume that all entities in entities list are alive
