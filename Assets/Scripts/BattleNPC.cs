@@ -1,11 +1,22 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
 public abstract class BattleNPC : Entity
 {
+    public Button selectionButton;
+
     public static int[,] moveSelectionMatrix = {
         {0, 0, 0, 0},
         {0, 0, 0, 0},
         {0, 0, 0, 0},
         {0, 0, 0, 0}
     };
+
+    void Update()
+    {
+        selectionButton.enabled = BattleInterface.active.targeting;
+    }
 
     public static void UpdateMoveSelectionMatrix(Entity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
 
@@ -34,11 +45,28 @@ public abstract class BattleNPC : Entity
         for (int i = 0; i < numOptions; i++)
             total += moveSelectionMatrix[(int)state, i];
 
-        // Divide each entry by the sum to get the probability
         float[] probs = new float[numOptions];
-        for (int i = 0; i < numOptions; i++)
-            probs[i] = moveSelectionMatrix[(int)state, i] / (float)total;
+
+        // If no data, default to attack
+        if (total == 0)
+            probs[0] = 1;
+        else
+        {
+            // Divide each entry by the sum to get the probability
+            for (int i = 0; i < numOptions; i++)
+                probs[i] = moveSelectionMatrix[(int)state, i] / (float)total;
+        }
 
         return probs;
+    }
+
+    public void SelectTarget(List<Entity> targets)
+    {
+        state.target = targets[Random.Range(0, targets.Count)];
+    }
+
+    public void SelectThisAsTarget()
+    {
+        BattleInterface.active.SelectTarget(this);
     }
 }

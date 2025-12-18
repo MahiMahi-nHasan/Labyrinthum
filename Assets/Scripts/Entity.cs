@@ -40,6 +40,8 @@ public abstract class Entity : MonoBehaviour
         public bool alive;
     }
 
+    public string entityName;
+
     public int strength;
     public int defense;
     public int speed;
@@ -56,6 +58,14 @@ public abstract class Entity : MonoBehaviour
     public int defendModifier = 5;
     public bool isDefending;
 
+    void Awake()
+    {
+        if (entityName == "")
+            entityName = name;
+            
+        state.alive = true;
+    }
+
     public void SetHealthManaHeuristic()
     {
         int hmHeuristic = 0;
@@ -68,7 +78,11 @@ public abstract class Entity : MonoBehaviour
 
     public void SetPlannedMove(Move move) => state.plannedMove = move;
 
-    public int BaseDamage => (int)(strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
+    public int BaseDamage()
+    {
+        Debug.Log("Entity " + entityName + " returned base damage");
+        return (int)(strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
+    }
 
     public void TakeDamage(int baseDamage)
     {
@@ -76,15 +90,22 @@ public abstract class Entity : MonoBehaviour
         if (isDefending)
             damage -= defendModifier;
 
+        Debug.Log("Entity " + entityName + " took " + damage + " damage");
+
         health -= damage;
 
         state.alive = health > 0;
     }
 
-    public void Defend() => isDefending = true;
+    public void Defend()
+    {
+        Debug.Log("Entity " + entityName + " is defending");
+        isDefending = true;
+    }
 
     public void Recharge()
     {
+        Debug.Log("Entity " + entityName + " is recharging");
         mana += (int)(rechargeManaPercent * maxMana);
         // Clamp value to maximum
         if (mana > maxMana)
@@ -92,7 +113,7 @@ public abstract class Entity : MonoBehaviour
     }
 
     // Override this method with special behavior in subclasses
-    public abstract void Special();
+    public abstract int Special();
     public bool CanUseSpecial => mana >= manaRequiredForSpecial;
 
     public void SelectMove(Move move) => state.plannedMove = move;

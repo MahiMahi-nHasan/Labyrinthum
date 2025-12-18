@@ -1,16 +1,35 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleInterface : MonoBehaviour
 {
+    public static BattleInterface active;
+
+
     // Needs to transfer data between scenes
     // Receive all entity objects somehow
     Entity selectedEntity;
 
-    Entity[] players;
-    bool moveSelected;
+    public List<Entity> players = new();
+    bool moveSelected = false;
+    bool targetSelected = false;
+    public bool targeting = false;
+    public GameObject actionMenu;
+    public bool showActionMenu = true;
 
-    BattleNPC[] npcs;
+    public List<BattleNPC> npcs = new();
+
+    void Awake()
+    {
+        active = this;
+    }
+
+    void Update()
+    {
+        actionMenu.SetActive(showActionMenu);
+    }
 
     public void SelectMove(Entity.Move move)
     {
@@ -18,16 +37,49 @@ public class BattleInterface : MonoBehaviour
         selectedEntity.SelectMove(move);
     }
 
-    public void SelectAttack() => SelectMove(Entity.Move.ATTACK);
+    public void SelectAttack() => StartCoroutine(Attack_Coroutine());
     public void SelectSpecial() => SelectMove(Entity.Move.SPECIAL);
     public void SelectDefend() => SelectMove(Entity.Move.DEFEND);
     public void SelectRecharge() => SelectMove(Entity.Move.RECHARGE);
 
-    public IEnumerator SetMoves()
+    public IEnumerator Attack_Coroutine()
     {
-        for (int i = 0; i < players.Length; i++)
+        yield return StartCoroutine(SetTarget());
+        SelectMove(Entity.Move.ATTACK);
+    }
+
+    public void SelectTarget(Entity e)
+    {
+        targetSelected = true;
+        selectedEntity.state.target = e;
+    }
+
+    public IEnumerator SetTarget()
+    {
+        targeting = true;
+        targetSelected = false;
+
+        Debug.Log("Waiting for target to be selected");
+
+        while (!targetSelected)
+            yield return new WaitForEndOfFrame();
+
+        Debug.Log("Target selected!");
+        targeting = false;
+    }
+
+    public IEnumerator SetMoves(Action onComplete)
+    {
+        Debug.Log("Setting moves for all entities");
+
+        showActionMenu = true;
+
+        for (int i = 0; i < players.Count; i++)
         {
+            Debug.Log("Selecting move for player " + i);
+
             selectedEntity = players[i];
+            moveSelected = false;
 
             while (!moveSelected)
                 yield return new WaitForEndOfFrame();
@@ -35,11 +87,18 @@ public class BattleInterface : MonoBehaviour
             BattleNPC.UpdateMoveSelectionMatrix(selectedEntity);
         }
 
-        for (int i = 0; i < npcs.Length; i++)
+        showActionMenu = false;
+
+        for (int i = 0; i < npcs.Count; i++)
         {
+            Debug.Log("Setting move for enemy " + i);
+
             selectedEntity = npcs[i];
 
             SelectMove(npcs[i].SelectMove());
+            npcs[i].SelectTarget(players);
         }
+
+        onComplete();
     }
 }

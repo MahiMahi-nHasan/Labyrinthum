@@ -1,19 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Battle
 {
-    Entity[] entities;
+    List<Entity> entities;
 
     // Call this constructor in a MonoBehaviour to make a new list of entities
-    public Battle(Entity[] entities)
+    public Battle(List<Entity> entities)
     {
         this.entities = entities;
     }
 
     // Assume that all entities in entities list are alive
-    void SimulateRound(List<Entity> entities)
+    public void SimulateRound()
     {
         // Reset all entities to default state
         foreach (Entity e in entities)
@@ -32,11 +31,17 @@ public class Battle
             entities.RemoveAt(iMaxSpeed);
         }
 
+        Debug.Log(orderedEntities.Count);
+
         while (orderedEntities.Count > 0)
         {
             Entity e = orderedEntities.Dequeue();
 
-            if (!e.state.alive) continue;
+            if (!e.state.alive)
+            {
+                Debug.Log("Entity is dead");
+                continue;
+            }
 
             SimulateTurn(e);
         }
@@ -47,7 +52,7 @@ public class Battle
         switch (e.state.plannedMove)
         {
             case Entity.Move.ATTACK:
-                e.state.target.TakeDamage(e.BaseDamage);
+                e.state.target.TakeDamage(e.BaseDamage());
                 break;
             case Entity.Move.DEFEND:
                 e.Defend();
@@ -56,7 +61,7 @@ public class Battle
                 e.Recharge();
                 break;
             case Entity.Move.SPECIAL:
-                e.Special();
+                e.state.target.TakeDamage(e.Special());
                 break;
         }
     }
