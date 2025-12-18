@@ -408,10 +408,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdf11bd6c1434e2c827a41eef4c9a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  players:
+  - {fileID: 806626375}
   targeting: 0
+  actionMenu: {fileID: 1143400210}
   showActionMenu: 1
-  npcs: []
+  npcs:
+  - {fileID: 1154500146508525950}
 --- !u!224 &806626374 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4802923803134132278, guid: 110f4622b50e4400e9654600d01ce334, type: 3}

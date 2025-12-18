@@ -7,9 +7,6 @@ public class BattleInterface : MonoBehaviour
 {
     public static BattleInterface active;
 
-
-    // Needs to transfer data between scenes
-    // Receive all entity objects somehow
     Entity selectedEntity;
 
     public List<Entity> players = new();
@@ -38,7 +35,7 @@ public class BattleInterface : MonoBehaviour
     }
 
     public void SelectAttack() => StartCoroutine(Attack_Coroutine());
-    public void SelectSpecial() => SelectMove(Entity.Move.SPECIAL);
+    public void SelectSpecial() => StartCoroutine(Special_Coroutine());
     public void SelectDefend() => SelectMove(Entity.Move.DEFEND);
     public void SelectRecharge() => SelectMove(Entity.Move.RECHARGE);
 
@@ -46,6 +43,12 @@ public class BattleInterface : MonoBehaviour
     {
         yield return StartCoroutine(SetTarget());
         SelectMove(Entity.Move.ATTACK);
+    }
+
+    public IEnumerator Special_Coroutine()
+    {
+        yield return StartCoroutine(SetTarget());
+        SelectMove(Entity.Move.SPECIAL);
     }
 
     public void SelectTarget(Entity e)
