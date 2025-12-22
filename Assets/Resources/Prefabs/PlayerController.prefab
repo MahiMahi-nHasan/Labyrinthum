@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e440b6d2b1e747ef8c3acd9e4a68acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
   party:
   - {fileID: 7348866413777120901}

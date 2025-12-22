@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +9,6 @@ public class BattleRunner : MonoBehaviour
 
 
     private Battle battle;
-
-    public Dictionary<GameObject, Vector3> entityObjects;
 
     private List<Entity> players = new();
     private List<Entity> enemies = new();
@@ -35,42 +32,73 @@ public class BattleRunner : MonoBehaviour
         active = this;
     }
 
-    public IEnumerator StartBattle(List<OverworldEntity> playersInBattle, List<OverworldEntity> enemiesInBattle)
+    public IEnumerator CallAfterSceneLoad(string sceneName, System.Action callback, LoadSceneMode mode = LoadSceneMode.Single)
     {
-        Debug.Log("Starting battle");
-
-        AsyncOperation task = SceneManager.LoadSceneAsync(battleSceneName);
-
+        AsyncOperation task = SceneManager.LoadSceneAsync(sceneName, mode);
         while (!task.isDone)
             yield return new WaitForEndOfFrame();
 
+        callback();
+    }
+
+    public void StartBattle(List<int> playersInBattle, List<int> enemiesInBattle)
+    {
+        StartCoroutine(CallAfterSceneLoad(
+            battleSceneName,
+            () => {
+                StartBattleInternal(playersInBattle, enemiesInBattle);
+            }
+        ));
+    }
+    public void StartBattle(List<OverworldEntity> playersInBattle, List<OverworldEntity> enemiesInBattle)
+    {
+        List<int> playerIDs = new();
+        foreach (OverworldEntity e in playersInBattle)
+            playerIDs.Add(e.id);
+
+        List<int> enemyIDs = new();
+        foreach (OverworldEntity e in enemiesInBattle)
+            enemyIDs.Add(e.id);
+
+        StartBattle(playerIDs, enemyIDs);
+    }
+
+    public void StartBattleInternal(List<int> playersInBattle, List<int> enemiesInBattle)
+    {
+        Debug.Log(string.Format(
+            "Starting battle:\nPlayer count: {0}\nEnemy count: {1}",
+            playersInBattle.Count,
+            enemiesInBattle.Count
+        ));
+
         for (int i = 0; i < playersInBattle.Count; i++)
         {
-            OverworldEntity oe = playersInBattle[i];
+            GameObject battlePrefab = EntityManager.entities[playersInBattle[i]].battlePrefab;
 
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("PlayerArea").GetComponent<RectTransform>();
             float posY = i / (float)playersInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2;
 
             // Instantiate battle prefab there
-            Instantiate(oe.battlePrefab, new Vector3(0, posY), Quaternion.identity, spawnArea);
-
+            GameObject instance = Instantiate(battlePrefab, spawnArea);
+            ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
             // Add entity component of battle prefab to players list
-            players.Add(oe.battlePrefab.GetComponent<Entity>());
+            players.Add(battlePrefab.GetComponent<Entity>());
         }
         for (int i = 0; i < enemiesInBattle.Count; i++)
         {
-            OverworldEntity oe = enemiesInBattle[i];
-            
+            GameObject battlePrefab = EntityManager.entities[enemiesInBattle[i]].battlePrefab;
+
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("EnemyArea").GetComponent<RectTransform>();
             float posY = i / (float)enemiesInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2;
 
             // Instantiate battle prefab there
-            Instantiate(oe.battlePrefab, new Vector3(0, posY), Quaternion.identity, spawnArea);
+            GameObject instance = Instantiate(battlePrefab, new Vector3(0, posY), Quaternion.identity, spawnArea);
+            ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
 
-            // Add entity component of battle prefab to enemies list
-            enemies.Add(oe.battlePrefab.GetComponent<Entity>());
+            // Add entity component of battle prefab to players list
+            players.Add(battlePrefab.GetComponent<Entity>());
         }
 
         entitiesInBattle = new();
@@ -137,25 +165,7 @@ public class BattleRunner : MonoBehaviour
         SceneManager.LoadScene(gameSceneName);
 
         entitiesInBattle = new();
-        foreach (KeyValuePair<GameObject, Vector3> entry in entityObjects)
-            Instantiate(entry.Key, entry.Value, Quaternion.identity);
-    }
-
-    // Used when spawning an entity for the first time
-    public static void SpawnEntity(
-        GameObject prefab,
-        Vector3 worldPosition = new(),
-        Quaternion rotation = new(),
-        Transform parent = null
-    )
-    {
-        Instantiate(prefab, worldPosition, rotation, parent);
-        active.entityObjects.Add(prefab, worldPosition);
-    }
-
-    public static void DespawnEntity(GameObject entity)
-    {
-        active.entityObjects.Remove(entity);
-        Destroy(entity);
+        foreach (EntityData data in EntityManager.entities.Values)
+            Instantiate(data.prefab, data.position, data.rotation);
     }
 }

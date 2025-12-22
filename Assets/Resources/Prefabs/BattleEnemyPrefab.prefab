@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9188003921733163903}
   - component: {fileID: 4024172243356049948}
-  - component: {fileID: 6238606802034913643}
+  - component: {fileID: 2215942921979577754}
   m_Layer: 5
   m_Name: BattleEnemyPrefab
   m_TagString: Untagged
@@ -222,7 +222,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6238606802034913643
+--- !u!114 &2215942921979577754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,7 +231,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2569346413672870113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7520a4c95dcef48e1bc198d7623de1a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 36ab63767a7fa4d24856061e3c94a273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
+  entityName: Enemy
+  isPlayer: 0
+  strength: 0
+  defense: 0
+  speed: 0
+  health: 5
+  maxHealth: 5
+  mana: 0
+  maxMana: 0
+  lowHealthPercentThreshold: 0.35
+  manaRequiredForSpecial: 5
+  rechargeManaPercent: 0.1
+  defendModifier: 5
+  isDefending: 0
+  targetButton: {fileID: 3964828988016099294}

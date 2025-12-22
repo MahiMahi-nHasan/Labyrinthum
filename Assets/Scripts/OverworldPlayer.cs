@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OverworldPlayer : OverworldEntity
 {
@@ -6,6 +7,6 @@ public class OverworldPlayer : OverworldEntity
     {
         Debug.Log("Entered enemy hitbox");
 
-        StartCoroutine(BattleRunner.active.StartBattle(party, other.transform.parent.GetComponent<OverworldEntity>().party));
+        BattleRunner.active.StartBattle(party, other.transform.parent.GetComponent<OverworldEntity>().party);
     }
 }

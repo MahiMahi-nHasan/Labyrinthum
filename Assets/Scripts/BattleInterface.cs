@@ -21,6 +21,8 @@ public class BattleInterface : MonoBehaviour
     void Awake()
     {
         active = this;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     void Update()
@@ -79,9 +81,9 @@ public class BattleInterface : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            Debug.Log("Selecting move for " + selectedEntity.entityName);
-
             selectedEntity = players[i];
+
+            Debug.Log("Selecting move for " + selectedEntity.entityName);
             moveSelected = false;
 
             while (!moveSelected)
@@ -94,9 +96,9 @@ public class BattleInterface : MonoBehaviour
 
         for (int i = 0; i < npcs.Count; i++)
         {
-            Debug.Log("Setting move for " + selectedEntity.entityName);
-
             selectedEntity = npcs[i];
+
+            Debug.Log("Setting move for " + selectedEntity.entityName);
 
             SelectMove(((BattleNPC)selectedEntity).SelectMove());
         }
