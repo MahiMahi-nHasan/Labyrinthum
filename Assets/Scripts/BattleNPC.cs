@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public abstract class BattleNPC : Entity
 {
-    public Button selectionButton;
+    public Button targetButton;
 
     public static int[,] moveSelectionMatrix = {
         {0, 0, 0, 0},
@@ -13,12 +13,12 @@ public abstract class BattleNPC : Entity
         {0, 0, 0, 0}
     };
 
+    public static void UpdateMoveSelectionMatrix(Entity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
+
     void Update()
     {
-        selectionButton.enabled = BattleInterface.active.targeting;
+        targetButton.enabled = BattleInterface.active.targeting;
     }
-
-    public static void UpdateMoveSelectionMatrix(Entity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
 
     public Move SelectMove()
     {
@@ -58,11 +58,6 @@ public abstract class BattleNPC : Entity
         }
 
         return probs;
-    }
-
-    public void SelectTarget(List<Entity> targets)
-    {
-        state.target = targets[Random.Range(0, targets.Count)];
     }
 
     public void SelectThisAsTarget()

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Player : Entity
 {
     public override int Special()

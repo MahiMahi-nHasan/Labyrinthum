@@ -10,13 +10,13 @@ public class BattleInterface : MonoBehaviour
     Entity selectedEntity;
 
     public List<Entity> players = new();
+    public List<Entity> npcs = new();
+    
     bool moveSelected = false;
     bool targetSelected = false;
     public bool targeting = false;
     public GameObject actionMenu;
     public bool showActionMenu = true;
-
-    public List<BattleNPC> npcs = new();
 
     void Awake()
     {
@@ -79,7 +79,7 @@ public class BattleInterface : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            Debug.Log("Selecting move for player " + i);
+            Debug.Log("Selecting move for " + selectedEntity.entityName);
 
             selectedEntity = players[i];
             moveSelected = false;
@@ -94,12 +94,11 @@ public class BattleInterface : MonoBehaviour
 
         for (int i = 0; i < npcs.Count; i++)
         {
-            Debug.Log("Setting move for enemy " + i);
+            Debug.Log("Setting move for " + selectedEntity.entityName);
 
             selectedEntity = npcs[i];
 
-            SelectMove(npcs[i].SelectMove());
-            npcs[i].SelectTarget(players);
+            SelectMove(((BattleNPC)selectedEntity).SelectMove());
         }
 
         onComplete();

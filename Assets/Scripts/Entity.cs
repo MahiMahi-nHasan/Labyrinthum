@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -41,6 +42,7 @@ public abstract class Entity : MonoBehaviour
     }
 
     public string entityName;
+    public bool isPlayer;
 
     public int strength;
     public int defense;
@@ -57,14 +59,6 @@ public abstract class Entity : MonoBehaviour
     public float rechargeManaPercent = 0.1f;
     public int defendModifier = 5;
     public bool isDefending;
-
-    void Awake()
-    {
-        if (entityName == "")
-            entityName = name;
-            
-        state.alive = true;
-    }
 
     public void SetHealthManaHeuristic()
     {
@@ -86,15 +80,15 @@ public abstract class Entity : MonoBehaviour
 
     public void TakeDamage(int baseDamage)
     {
+        // Change this later
         int damage = baseDamage - defense;
         if (isDefending)
+            // Change this later
             damage -= defendModifier;
 
-        Debug.Log("Entity " + entityName + " took " + damage + " damage");
+        Debug.Log("Entity " + entityName + " will take " + damage + " damage");
 
         health -= damage;
-
-        state.alive = health > 0;
     }
 
     public void Defend()
@@ -106,10 +100,9 @@ public abstract class Entity : MonoBehaviour
     public void Recharge()
     {
         Debug.Log("Entity " + entityName + " is recharging");
-        mana += (int)(rechargeManaPercent * maxMana);
-        // Clamp value to maximum
-        if (mana > maxMana)
-            mana = maxMana;
+        mana = (int)(rechargeManaPercent * maxMana);
+
+        mana = Mathf.Clamp(mana, 0, maxMana);
     }
 
     // Override this method with special behavior in subclasses

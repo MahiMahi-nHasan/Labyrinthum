@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 5489880846910947900}
   - component: {fileID: 222557965390004115}
   - component: {fileID: 7372805014340419853}
+  - component: {fileID: 7348866413777120901}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -332,3 +333,18 @@ MonoBehaviour:
   camClipDistance: 0.5
   yLookMin: -50
   yLookMax: 80
+--- !u!114 &7348866413777120901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7104815242739876202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e440b6d2b1e747ef8c3acd9e4a68acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
+  party:
+  - {fileID: 7348866413777120901}
