@@ -38,8 +38,9 @@ public abstract class Entity : MonoBehaviour
         public Move plannedMove;
         public Element element;
         public Entity target;
-        public bool alive;
+        public bool dead;
     }
+    public Element element;
 
     public string entityName;
     public bool isPlayer;
@@ -59,6 +60,11 @@ public abstract class Entity : MonoBehaviour
     public float rechargeManaPercent = 0.1f;
     public int defendModifier = 5;
     public bool isDefending;
+
+    void Awake()
+    {
+        state.element = element;
+    }
 
     public void SetHealthManaHeuristic()
     {
@@ -89,6 +95,7 @@ public abstract class Entity : MonoBehaviour
         Debug.Log("Entity " + entityName + " will take " + damage + " damage");
 
         health -= damage;
+        state.dead = health <= 0;
     }
 
     public void Defend()

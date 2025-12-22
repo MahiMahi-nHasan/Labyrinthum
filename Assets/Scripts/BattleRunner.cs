@@ -98,7 +98,7 @@ public class BattleRunner : MonoBehaviour
             ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
 
             // Add entity component of battle prefab to players list
-            players.Add(battlePrefab.GetComponent<Entity>());
+            enemies.Add(battlePrefab.GetComponent<Entity>());
         }
 
         entitiesInBattle = new();
@@ -123,14 +123,14 @@ public class BattleRunner : MonoBehaviour
 
         bool allDead = true;
         foreach (Entity player in players)
-            if (player.state.alive)
+            if (!player.state.dead)
                 allDead = false;
         if (allDead)
             gameState = GameState.LOSE;
 
         allDead = true;
         foreach (Entity enemy in enemies)
-            if (enemy.state.alive)
+            if (!enemy.state.dead)
                 allDead = false;
         if (allDead)
             gameState = GameState.WIN;
@@ -165,7 +165,7 @@ public class BattleRunner : MonoBehaviour
         SceneManager.LoadScene(gameSceneName);
 
         entitiesInBattle = new();
-        foreach (EntityData data in EntityManager.entities.Values)
-            Instantiate(data.prefab, data.position, data.rotation);
+        foreach (int id in EntityManager.entities.Keys)
+            EntityManager.SpawnExistingEntity(id);
     }
 }

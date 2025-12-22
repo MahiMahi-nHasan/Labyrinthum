@@ -31,13 +31,11 @@ public class Battle
             entities.RemoveAt(iMaxSpeed);
         }
 
-        Debug.Log(orderedEntities.Count);
-
         while (orderedEntities.Count > 0)
         {
             Entity e = orderedEntities.Dequeue();
 
-            if (!e.state.alive)
+            if (e.state.dead)
             {
                 Debug.Log(e.entityName + " is dead");
                 continue;
@@ -49,6 +47,7 @@ public class Battle
 
     void SimulateTurn(Entity e)
     {
+        Debug.Log("Health = " + e.health);
         switch (e.state.plannedMove)
         {
             case Entity.Move.ATTACK:

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,7 +72,7 @@ public class BattleInterface : MonoBehaviour
         targeting = false;
     }
 
-    public IEnumerator SetMoves(Action onComplete)
+    public IEnumerator SetMoves(System.Action onComplete)
     {
         Debug.Log("Setting moves for all entities");
 
@@ -82,6 +81,8 @@ public class BattleInterface : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             selectedEntity = players[i];
+
+            if (selectedEntity.state.dead) continue;
 
             Debug.Log("Selecting move for " + selectedEntity.entityName);
             moveSelected = false;
@@ -96,11 +97,19 @@ public class BattleInterface : MonoBehaviour
 
         for (int i = 0; i < npcs.Count; i++)
         {
+            if (selectedEntity.state.dead) continue;
+
             selectedEntity = npcs[i];
 
             Debug.Log("Setting move for " + selectedEntity.entityName);
 
-            SelectMove(((BattleNPC)selectedEntity).SelectMove());
+            Entity.Move move = ((BattleNPC)selectedEntity).GetDecidedMove();
+            SelectMove(move);
+
+            if (move == Entity.Move.ATTACK || move == Entity.Move.SPECIAL)
+            {
+                SelectTarget(players[Random.Range(0, players.Count)]);
+            }
         }
 
         onComplete();

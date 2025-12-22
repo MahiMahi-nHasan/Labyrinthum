@@ -20,8 +20,10 @@ public abstract class BattleNPC : Entity
         targetButton.enabled = BattleInterface.active.targeting;
     }
 
-    public Move SelectMove()
+    public Move GetDecidedMove()
     {
+        Debug.Log("Enemy is selecting move");
+        
         float[] probabilities = ComputeProbabilitiesForState(state.hmHeuristic);
 
         // Select random move weighted by selection data
@@ -33,6 +35,8 @@ public abstract class BattleNPC : Entity
             if (r <= 0)
                 break;
         }
+
+        Debug.Log("Enemy selected " + (Move)i);
 
         return (Move)i;
     }
