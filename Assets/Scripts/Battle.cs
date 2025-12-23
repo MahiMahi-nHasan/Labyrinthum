@@ -47,7 +47,6 @@ public class Battle
 
     void SimulateTurn(Entity e)
     {
-        Debug.Log("Health = " + e.health);
         switch (e.state.plannedMove)
         {
             case Entity.Move.ATTACK:

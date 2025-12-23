@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f87317563d549439a730b8d72cbe52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  element: 0
   entityName: Player
   isPlayer: 1
   strength: 5

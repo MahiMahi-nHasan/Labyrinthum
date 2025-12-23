@@ -15,8 +15,9 @@ public abstract class BattleNPC : Entity
 
     public static void UpdateMoveSelectionMatrix(Entity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
 
-    void Update()
+    new void Update()
     {
+        base.Update();
         targetButton.enabled = BattleInterface.active.targeting;
     }
 

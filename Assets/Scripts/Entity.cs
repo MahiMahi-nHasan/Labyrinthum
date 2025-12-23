@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -32,6 +32,7 @@ public abstract class Entity : MonoBehaviour
     }
 
     // Contains all necessary data to train transition matrices
+    [Serializable]
     public struct EntityState
     {
         public State hmHeuristic;
@@ -45,12 +46,37 @@ public abstract class Entity : MonoBehaviour
     public string entityName;
     public bool isPlayer;
 
+    public int id;
     public int strength;
     public int defense;
     public int speed;
-    public int health;
+    public int health
+    {
+        get
+        {
+            return EntityManager.entities[id].health;
+        }
+        set
+        {
+            EntityData data = EntityManager.entities[id];
+            data.health = value;
+            EntityManager.entities[id] = data;
+        }
+    }
     public int maxHealth;
-    public int mana;
+    public int mana
+    {
+        get
+        {
+            return EntityManager.entities[id].health;
+        }
+        set
+        {
+            EntityData data = EntityManager.entities[id];
+            data.mana = value;
+            EntityManager.entities[id] = data;
+        }
+    }
     public int maxMana;
 
     public EntityState state;
@@ -64,6 +90,12 @@ public abstract class Entity : MonoBehaviour
     void Awake()
     {
         state.element = element;
+        health = maxHealth;
+    }
+
+    protected void Update()
+    {
+        //Debug.Log(entityName + state.dead);
     }
 
     public void SetHealthManaHeuristic()
@@ -91,6 +123,9 @@ public abstract class Entity : MonoBehaviour
         if (isDefending)
             // Change this later
             damage -= defendModifier;
+
+        // Ensure damage is not negative
+        damage = Math.Max(0, damage);
 
         Debug.Log("Entity " + entityName + " will take " + damage + " damage");
 

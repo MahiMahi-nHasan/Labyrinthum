@@ -28,8 +28,15 @@ public class BattleRunner : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        active = this;
+        if (active == null)
+        {
+            active = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public IEnumerator CallAfterSceneLoad(string sceneName, System.Action callback, LoadSceneMode mode = LoadSceneMode.Single)
@@ -82,6 +89,7 @@ public class BattleRunner : MonoBehaviour
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, spawnArea);
             ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
+            instance.GetComponent<Entity>().id = playersInBattle[i];
             // Add entity component of battle prefab to players list
             players.Add(battlePrefab.GetComponent<Entity>());
         }
@@ -96,6 +104,7 @@ public class BattleRunner : MonoBehaviour
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, new Vector3(0, posY), Quaternion.identity, spawnArea);
             ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
+            instance.GetComponent<Entity>().id = enemiesInBattle[i];
 
             // Add entity component of battle prefab to players list
             enemies.Add(battlePrefab.GetComponent<Entity>());
@@ -121,19 +130,7 @@ public class BattleRunner : MonoBehaviour
             battle.SimulateRound();
         }));
 
-        bool allDead = true;
-        foreach (Entity player in players)
-            if (!player.state.dead)
-                allDead = false;
-        if (allDead)
-            gameState = GameState.LOSE;
-
-        allDead = true;
-        foreach (Entity enemy in enemies)
-            if (!enemy.state.dead)
-                allDead = false;
-        if (allDead)
-            gameState = GameState.WIN;
+        UpdateGameState();
 
         switch (gameState)
         {
@@ -149,15 +146,44 @@ public class BattleRunner : MonoBehaviour
         }
     }
 
+    void UpdateGameState()
+    {
+        bool allDead = true;
+        foreach (Entity player in players)
+        {
+            bool dead = player.health <= 0;
+            Debug.Log(player.entityName + " is dead: " + dead);
+            if (!dead)
+                allDead = false;
+        }
+        if (allDead)
+        {
+            gameState = GameState.LOSE;
+            return;
+        }
+
+        allDead = true;
+        foreach (Entity enemy in enemies)
+        {
+            bool dead = enemy.health <= 0;
+            if (dead)
+                allDead = false;
+        }
+        if (allDead)
+            gameState = GameState.WIN;
+    }
+
     public void OnPlayerWin()
     {
         // Do something
+        Debug.Log("Player won");
         LoadGameScene();
     }
 
     public void OnPlayerLose()
     {
         // Do something
+        Debug.Log("Player lost");
     }
 
     public void LoadGameScene()

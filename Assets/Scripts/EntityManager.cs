@@ -37,10 +37,10 @@ public static class EntityManager
     {
         EntityData data = entities[id];
 
-        GameObject go = MonoBehaviour.Instantiate(data.prefab, data.position, data.rotation);
-        go.GetComponent<OverworldEntity>().id = id;
+        GameObject instance = MonoBehaviour.Instantiate(data.prefab, data.position, data.rotation);
+        instance.GetComponent<OverworldEntity>().id = id;
 
-        data.instance = go;
+        data.instance = instance;
         // Update dictionary data to store instance
         entities[id] = data;
     }
@@ -59,4 +59,6 @@ public struct EntityData
     public GameObject instance;
     public Vector3 position;
     public Quaternion rotation;
+    public int health { get; set; }
+    public int mana { get; set; }
 }
