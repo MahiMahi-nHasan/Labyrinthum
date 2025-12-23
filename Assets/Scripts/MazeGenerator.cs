@@ -14,6 +14,14 @@ public class MazeGenerator : MonoBehaviour
     public GameObject startMarkerPrefab;
     public GameObject endMarkerPrefab;
 
+    [Header("Treasure")]
+    public GameObject treasureChestPrefab;
+    public bool spawnTreasureChests = true;
+    [Range(0f, 1f)]
+    [Tooltip("Chance that a chest spawns at any dead end (0-1). Default 0.25 = 25% chance")]
+    public float spawnTreasureChance = 0.25f;
+    public float treasureYOffset = 0.05f;
+
     void Start()
     {
         GenerateMaze();
@@ -75,6 +83,9 @@ public class MazeGenerator : MonoBehaviour
 
         CreateMarkerAt(start, Color.green);
         CreateMarkerAt(end, Color.red);
+
+        if (spawnTreasureChests)
+            PlaceTreasureChests();
     }
 
     void CreateMarkerAt(Vector2Int cell, Color color)
@@ -91,6 +102,82 @@ public class MazeGenerator : MonoBehaviour
             mr.material.color = color;
         }
         walls.Add(marker); 
+    }
+
+    void PlaceTreasureChests()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                // skip start and end
+                if ((x == 0 && y == 0) || (x == width - 1 && y == height - 1))
+                    continue;
+
+                int openCount = 0;
+                Vector2Int[] dirs = new Vector2Int[] {
+                    new Vector2Int(-1,0),
+                    new Vector2Int(1,0),
+                    new Vector2Int(0,-1),
+                    new Vector2Int(0,1)
+                };
+
+                foreach (var d in dirs)
+                {
+                    int nx = x + d.x;
+                    int ny = y + d.y;
+                    if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+
+                    Vector3 a = new Vector3(x * wallSize, 0f, y * wallSize);
+                    Vector3 b = new Vector3(nx * wallSize, 0f, ny * wallSize);
+                    Vector3 mid = (a + b) / 2f;
+
+                    bool wallFound = false;
+                    foreach (var w in walls)
+                    {
+                        if (w == null) continue;
+                        // compare in XZ plane using wall's Y position for a consistent comparison
+                        Vector3 wp = new Vector3(mid.x, w.transform.position.y, mid.z);
+                        if (Vector3.Distance(w.transform.position, wp) < wallSize * 0.1f)
+                        {
+                            wallFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!wallFound) openCount++;
+                }
+
+                if (openCount == 1)
+                {
+                    // spawn only with the configured chance (0-1)
+                    if (Random.value > spawnTreasureChance)
+                        continue;
+
+                    Vector3 pos = new Vector3(x * wallSize, treasureYOffset, y * wallSize);
+                    GameObject chest = null;
+                    if (treasureChestPrefab != null)
+                    {
+                        chest = Instantiate(treasureChestPrefab, pos, Quaternion.identity, this.transform);
+                    }
+                    else
+                    {
+                        chest = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        chest.transform.position = pos;
+                        chest.transform.localScale = Vector3.one * (wallSize * 0.4f);
+                        chest.transform.parent = this.transform;
+                        var r = chest.GetComponent<Renderer>();
+                        if (r != null)
+                        {
+                            r.material = new Material(Shader.Find("Standard"));
+                            r.material.color = Color.yellow;
+                        }
+                    }
+
+                    walls.Add(chest);
+                }
+            }
+        }
     }
 
     void CreateWall(Vector3 position, Vector3 scale)
