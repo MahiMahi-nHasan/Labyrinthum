@@ -70,7 +70,7 @@ public class BattleRunner : MonoBehaviour
         StartBattle(playerIDs, enemyIDs);
     }
 
-    public void StartBattleInternal(List<int> playersInBattle, List<int> enemiesInBattle)
+    private void StartBattleInternal(List<int> playersInBattle, List<int> enemiesInBattle)
     {
         Debug.Log(string.Format(
             "Starting battle:\nPlayer count: {0}\nEnemy count: {1}",
@@ -80,6 +80,7 @@ public class BattleRunner : MonoBehaviour
 
         for (int i = 0; i < playersInBattle.Count; i++)
         {
+            Debug.Log("Adding entity #" + playersInBattle[i] + " to players");
             GameObject battlePrefab = EntityManager.entities[playersInBattle[i]].battlePrefab;
 
             // Determine placement on screen
@@ -90,11 +91,12 @@ public class BattleRunner : MonoBehaviour
             GameObject instance = Instantiate(battlePrefab, spawnArea);
             ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
             instance.GetComponent<Entity>().id = playersInBattle[i];
-            // Add entity component of battle prefab to players list
-            players.Add(battlePrefab.GetComponent<Entity>());
+            // Add entity component of instance to players list
+            players.Add(instance.GetComponent<Entity>());
         }
         for (int i = 0; i < enemiesInBattle.Count; i++)
         {
+            Debug.Log("Adding entity id#" + enemiesInBattle[i] + " to enemies");
             GameObject battlePrefab = EntityManager.entities[enemiesInBattle[i]].battlePrefab;
 
             // Determine placement on screen
@@ -106,8 +108,8 @@ public class BattleRunner : MonoBehaviour
             ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
             instance.GetComponent<Entity>().id = enemiesInBattle[i];
 
-            // Add entity component of battle prefab to players list
-            enemies.Add(battlePrefab.GetComponent<Entity>());
+            // Add entity component of instance to players list
+            enemies.Add(instance.GetComponent<Entity>());
         }
 
         entitiesInBattle = new();
@@ -149,11 +151,9 @@ public class BattleRunner : MonoBehaviour
     void UpdateGameState()
     {
         bool allDead = true;
-        foreach (Entity player in players)
+        foreach (Entity e in players)
         {
-            bool dead = player.health <= 0;
-            Debug.Log(player.entityName + " is dead: " + dead);
-            if (!dead)
+            if (!e.state.dead)
                 allDead = false;
         }
         if (allDead)
@@ -163,10 +163,9 @@ public class BattleRunner : MonoBehaviour
         }
 
         allDead = true;
-        foreach (Entity enemy in enemies)
+        foreach (Entity e in enemies)
         {
-            bool dead = enemy.health <= 0;
-            if (dead)
+            if (!e.state.dead)
                 allDead = false;
         }
         if (allDead)
@@ -188,10 +187,33 @@ public class BattleRunner : MonoBehaviour
 
     public void LoadGameScene()
     {
-        SceneManager.LoadScene(gameSceneName);
+        Debug.Log(entitiesInBattle.Count);
+        foreach (Entity e in entitiesInBattle)
+            Debug.Log(e.entityName + "#" + e.id);
 
-        entitiesInBattle = new();
-        foreach (int id in EntityManager.entities.Keys)
-            EntityManager.SpawnExistingEntity(id);
+        Debug.Log(players.Count);
+        foreach (Entity e in players)
+            Debug.Log(e.entityName + "#" + e.id);
+
+        Debug.Log(enemies.Count);
+        foreach (Entity e in enemies)
+            Debug.Log(e.entityName + "#" + e.id);
+        
+        foreach (Entity e in enemies)
+        {
+            Debug.Log("Removing enemy " + e.entityName + " with id#" + e.id);
+            EntityManager.RemoveEntity(e.id);
+        }
+
+        Debug.Log("Removed dead entities");
+        
+        StartCoroutine(CallAfterSceneLoad(gameSceneName, () =>
+        {
+            Debug.Log("Scene loaded");
+
+            EntityManager.SpawnAllEntities();
+
+            Debug.Log("Spawned entities");
+        }));
     }
 }

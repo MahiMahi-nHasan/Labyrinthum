@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EntitySpawner : MonoBehaviour
@@ -5,7 +6,7 @@ public class EntitySpawner : MonoBehaviour
     // Singleton system
     public static EntitySpawner instance;
 
-    public GameObject[] preexistingEntities;
+    public List<SpawnData> spawnList;
 
     void Awake()
     {
@@ -23,10 +24,21 @@ public class EntitySpawner : MonoBehaviour
         }
         #endregion
 
-        foreach (GameObject e in preexistingEntities)
+        foreach (SpawnData data in spawnList)
         {
-            EntityManager.CreateEntity(e, e.transform.position, e.transform.rotation);
-            Destroy(e);
+            EntityManager.CreateEntity(
+                data.prefab,
+                data.position,
+                Quaternion.Euler(data.eulerAngles)
+            );
         }
     }
+}
+
+[System.Serializable]
+public struct SpawnData
+{
+    public GameObject prefab;
+    public Vector3 position;
+    public Vector3 eulerAngles;
 }

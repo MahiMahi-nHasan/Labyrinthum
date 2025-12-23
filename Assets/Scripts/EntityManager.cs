@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class EntityManager
@@ -30,12 +31,21 @@ public static class EntityManager
 
     public static void RemoveEntity(int id)
     {
+        EntityData removed = entities[id];
+        // Only destroy the gameobject if it is not currently spawned in
+        if (removed.instance != null)
+            MonoBehaviour.Destroy(removed.instance);
         entities.Remove(id);
     }
 
     public static void SpawnExistingEntity(int id)
     {
         EntityData data = entities[id];
+
+        // Do not create a second instance of this entity
+        if (data.instance != null) return;
+
+        Debug.Log("Spawning entity with id " + id);
 
         GameObject instance = MonoBehaviour.Instantiate(data.prefab, data.position, data.rotation);
         instance.GetComponent<OverworldEntity>().id = id;
@@ -47,8 +57,9 @@ public static class EntityManager
 
     public static void SpawnAllEntities()
     {
-        foreach (int id in entities.Keys)
-            SpawnExistingEntity(id);
+        List<int> keys = entities.Keys.ToList();
+        for (int i = 0; i < keys.Count; i++)
+            SpawnExistingEntity(keys[i]);
     }
 }
 
