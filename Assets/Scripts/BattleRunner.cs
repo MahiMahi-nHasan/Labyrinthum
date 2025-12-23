@@ -78,6 +78,7 @@ public class BattleRunner : MonoBehaviour
             enemiesInBattle.Count
         ));
 
+        players = new();
         for (int i = 0; i < playersInBattle.Count; i++)
         {
             Debug.Log("Adding entity #" + playersInBattle[i] + " to players");
@@ -94,6 +95,8 @@ public class BattleRunner : MonoBehaviour
             // Add entity component of instance to players list
             players.Add(instance.GetComponent<Entity>());
         }
+
+        enemies = new();
         for (int i = 0; i < enemiesInBattle.Count; i++)
         {
             Debug.Log("Adding entity id#" + enemiesInBattle[i] + " to enemies");

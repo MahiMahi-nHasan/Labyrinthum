@@ -323,6 +323,9 @@ MonoBehaviour:
   - prefab: {fileID: 6913796708687121901, guid: cef67f0c07de64e55ac08352e2d16805, type: 3}
     position: {x: 0, y: 0, z: 6.5}
     eulerAngles: {x: 0, y: 0, z: 0}
+  - prefab: {fileID: 6913796708687121901, guid: cef67f0c07de64e55ac08352e2d16805, type: 3}
+    position: {x: 0, y: 0, z: 8.5}
+    eulerAngles: {x: 0, y: 0, z: 0}
 --- !u!4 &1676567016
 Transform:
   m_ObjectHideFlags: 0
