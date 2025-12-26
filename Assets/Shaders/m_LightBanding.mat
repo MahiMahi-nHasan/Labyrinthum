@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: m_FogOfWar
-  m_Shader: {fileID: -6465566751694194690, guid: dd30f4f4da0bd4b3a86f832cceb9fc84, type: 3}
+  m_Name: m_LightBanding
+  m_Shader: {fileID: -6465566751694194690, guid: 7bbb2285acd634456845db4cbc33a71d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -37,8 +37,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Cutoff: 0.04
-    - _Threshold: 0.01
-    m_Colors:
-    - _Fog_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Resolution: 32
+    m_Colors: []
   m_BuildTextureStacks: []
