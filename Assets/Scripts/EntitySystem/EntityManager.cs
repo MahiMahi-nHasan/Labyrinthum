@@ -29,6 +29,26 @@ public static class EntityManager
         return id;
     }
 
+    public static int LinkEntity(GameObject instance)
+    {
+        id++;
+
+        Debug.Log("Linking entity with id " + id);
+
+        EntityData data = new()
+        {
+            prefab = instance.GetComponent<OverworldEntity>().Prefab,
+            battlePrefab = instance.GetComponent<OverworldEntity>().battlePrefab,
+            instance = instance,
+            position = instance.transform.position,
+            rotation = instance.transform.rotation
+        };
+
+        entities.Add(id, data);
+
+        return id;
+    }
+
     public static void RemoveEntity(int id)
     {
         EntityData removed = entities[id];

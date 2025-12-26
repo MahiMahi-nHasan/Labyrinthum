@@ -24,6 +24,7 @@ public class EntitySpawner : MonoBehaviour
         }
         #endregion
 
+        /*
         foreach (SpawnData data in spawnList)
         {
             EntityManager.CreateEntity(
@@ -32,6 +33,11 @@ public class EntitySpawner : MonoBehaviour
                 Quaternion.Euler(data.eulerAngles)
             );
         }
+        */
+
+        OverworldEntity[] entities = GameObject.FindObjectsOfType<OverworldEntity>();
+        foreach (OverworldEntity entity in entities)
+            EntityManager.LinkEntity(entity.gameObject);
     }
 }
 

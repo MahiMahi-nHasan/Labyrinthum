@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  prefab: {fileID: 6913796708687121901}
   battlePrefab: {fileID: 2569346413672870113, guid: 9faa40cef3d754d7c994523ac07d0ce8, type: 3}
   party:
   - {fileID: 3622258259334446423}
