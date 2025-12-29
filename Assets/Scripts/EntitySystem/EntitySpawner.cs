@@ -24,17 +24,6 @@ public class EntitySpawner : MonoBehaviour
         }
         #endregion
 
-        /*
-        foreach (SpawnData data in spawnList)
-        {
-            EntityManager.CreateEntity(
-                data.prefab,
-                data.position,
-                Quaternion.Euler(data.eulerAngles)
-            );
-        }
-        */
-
         OverworldEntity[] entities = GameObject.FindObjectsOfType<OverworldEntity>();
         foreach (OverworldEntity entity in entities)
             EntityManager.LinkEntity(entity.gameObject);
