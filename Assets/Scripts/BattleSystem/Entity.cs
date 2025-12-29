@@ -47,9 +47,30 @@ public abstract class Entity : MonoBehaviour
     public bool isPlayer;
 
     public int id;
-    public int strength;
-    public int defense;
-    public int speed;
+    public int baseStrength;
+    public int Strength
+    {
+        get
+        {
+            return baseStrength;
+        }
+    }
+    public int baseDefense;
+    public int Defense
+    {
+        get
+        {
+            return baseDefense;
+        }
+    }
+    public int baseSpeed;
+    public int Speed
+    {
+        get
+        {
+            return baseSpeed;
+        }
+    }
     public int health
     {
         get
@@ -96,6 +117,9 @@ public abstract class Entity : MonoBehaviour
     protected void Update()
     {
         //Debug.Log(entityName + state.dead);
+
+        if (state.dead)
+            OnDeath();
     }
 
     public void SetHealthManaHeuristic()
@@ -113,13 +137,13 @@ public abstract class Entity : MonoBehaviour
     public int BaseDamage()
     {
         Debug.Log("Entity " + entityName + " returned base damage");
-        return (int)(strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
+        return (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
     }
 
     public void TakeDamage(int baseDamage)
     {
         // Change this later
-        int damage = baseDamage - defense;
+        int damage = baseDamage - Defense;
         if (isDefending)
             // Change this later
             damage -= defendModifier;
@@ -152,4 +176,9 @@ public abstract class Entity : MonoBehaviour
     public bool CanUseSpecial => mana >= manaRequiredForSpecial;
 
     public void SelectMove(Move move) => state.plannedMove = move;
+
+    public void OnDeath()
+    {
+        gameObject.SetActive(false);
+    }
 }

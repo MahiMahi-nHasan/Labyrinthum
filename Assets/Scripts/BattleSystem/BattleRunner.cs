@@ -18,13 +18,14 @@ public class BattleRunner : MonoBehaviour
     public string gameSceneName = "OverworldScene";
     public string loseSceneName = "GameOverScene";
 
-    private enum GameState
+    public enum GameState
     {
         PLAYING,
         WIN,
-        LOSE
+        LOSE,
+        OVERWORLD
     }
-    private GameState gameState;
+    public GameState gameState = GameState.OVERWORLD;
 
     void Awake()
     {
@@ -72,6 +73,8 @@ public class BattleRunner : MonoBehaviour
 
     private void StartBattleInternal(List<int> playersInBattle, List<int> enemiesInBattle)
     {
+        gameState = GameState.PLAYING;
+
         Debug.Log(string.Format(
             "Starting battle:\nPlayer count: {0}\nEnemy count: {1}",
             playersInBattle.Count,
@@ -217,6 +220,8 @@ public class BattleRunner : MonoBehaviour
             EntityManager.SpawnAllEntities();
 
             Debug.Log("Spawned entities");
+
+            gameState = GameState.OVERWORLD;
         }));
     }
 }

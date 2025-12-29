@@ -151,7 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799dd5c12dbd94c67851cacddcebf083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnList: []
+  target: {fileID: 938474497}
+  spawnChance: 0.001
+  entityCap: 20
+  minPartySize: 1
+  maxPartySize: 4
+  spawnPrefab: {fileID: 6913796708687121901, guid: cef67f0c07de64e55ac08352e2d16805, type: 3}
 --- !u!4 &236988038
 Transform:
   m_ObjectHideFlags: 0
@@ -342,6 +347,59 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &938474497 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7104815242739876202, guid: d8453f8c0929046068638284ec9200d4, type: 3}
+  m_PrefabInstance: {fileID: 372103002}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1325931610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1325931612}
+  - component: {fileID: 1325931611}
+  m_Layer: 0
+  m_Name: BattleRunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1325931611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325931610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb29d6958b294747bbd36c790c27ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleSceneName: BattleScene
+  gameSceneName: SampleScene
+  loseSceneName: GameOverScene
+  gameState: 3
+--- !u!4 &1325931612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325931610}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 71.655556, y: -39.91598, z: 67.94351}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1655934438
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,3 +676,4 @@ SceneRoots:
   - {fileID: 2054127823}
   - {fileID: 236988038}
   - {fileID: 372103002}
+  - {fileID: 1325931612}

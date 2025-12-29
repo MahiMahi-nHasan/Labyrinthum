@@ -24,7 +24,7 @@ public class Battle
         {
             int iMaxSpeed = 0;
             for (int i = 1; i < entities.Count; i++)
-                if (entities[i].speed > entities[iMaxSpeed].speed)
+                if (entities[i].Speed > entities[iMaxSpeed].Speed)
                     iMaxSpeed = i;
 
             orderedEntities.Enqueue(entities[iMaxSpeed]);
