@@ -17,6 +17,19 @@ public class OverworldEntity : MonoBehaviour
     }
     public GameObject battlePrefab;
     public List<OverworldEntity> party;
+    public Equipment Equipped
+    {
+        get
+        {
+            return EntityManager.entities[id].equipped;
+        }
+        set
+        {
+            EntityData data = EntityManager.entities[id];
+            data.equipped = value;
+            EntityManager.entities[id] = data;
+        }
+    }
 
     void OnDestroy()
     {
@@ -34,6 +47,15 @@ public class OverworldEntity : MonoBehaviour
         data.rotation = transform.rotation;
 
         EntityManager.entities[id] = data;
+    }
+
+    public void Equip(Equipment equipment)
+    {
+        EntityData data = EntityManager.entities[id];
+        data.equipped = equipment;
+        EntityManager.entities[id] = data;
+
+        InventoryManager.inventory.Remove(equipment);
     }
 
     public void AddToParty(OverworldEntity other)

@@ -47,12 +47,17 @@ public abstract class Entity : MonoBehaviour
     public bool isPlayer;
 
     public int id;
+
     public int baseStrength;
     public int Strength
     {
         get
         {
-            return baseStrength;
+            int strength = baseStrength;
+            Equipment equipped = EntityManager.entities[id].equipped;
+            if (equipped != null)
+                strength += equipped.strengthModifier;
+            return strength;
         }
     }
     public int baseDefense;
@@ -60,7 +65,11 @@ public abstract class Entity : MonoBehaviour
     {
         get
         {
-            return baseDefense;
+            int defense = baseDefense;
+            Equipment equipped = EntityManager.entities[id].equipped;
+            if (equipped != null)
+                defense += equipped.defenseModifier;
+            return defense;
         }
     }
     public int baseSpeed;
@@ -68,33 +77,37 @@ public abstract class Entity : MonoBehaviour
     {
         get
         {
-            return baseSpeed;
+            int speed = baseSpeed;
+            Equipment equipped = EntityManager.entities[id].equipped;
+            if (equipped != null)
+                speed += equipped.speedModifier;
+            return speed;
         }
     }
-    public int health
+    public int Health
     {
         get
         {
-            return EntityManager.entities[id].health;
+            return EntityManager.entities[id].Health;
         }
         set
         {
             EntityData data = EntityManager.entities[id];
-            data.health = value;
+            data.Health = value;
             EntityManager.entities[id] = data;
         }
     }
     public int maxHealth;
-    public int mana
+    public int Mana
     {
         get
         {
-            return EntityManager.entities[id].health;
+            return EntityManager.entities[id].Health;
         }
         set
         {
             EntityData data = EntityManager.entities[id];
-            data.mana = value;
+            data.Mana = value;
             EntityManager.entities[id] = data;
         }
     }
@@ -111,7 +124,7 @@ public abstract class Entity : MonoBehaviour
     void Awake()
     {
         state.element = element;
-        health = maxHealth;
+        Health = maxHealth;
     }
 
     protected void Update()
@@ -125,9 +138,9 @@ public abstract class Entity : MonoBehaviour
     public void SetHealthManaHeuristic()
     {
         int hmHeuristic = 0;
-        if (health > maxHealth * lowHealthPercentThreshold)
+        if (Health > maxHealth * lowHealthPercentThreshold)
             hmHeuristic |= 0b10;
-        if (mana > manaRequiredForSpecial)
+        if (Mana > manaRequiredForSpecial)
             hmHeuristic |= 0b01;
         state.hmHeuristic = (State)hmHeuristic;
     }
@@ -153,8 +166,8 @@ public abstract class Entity : MonoBehaviour
 
         Debug.Log("Entity " + entityName + " will take " + damage + " damage");
 
-        health -= damage;
-        state.dead = health <= 0;
+        Health -= damage;
+        state.dead = Health <= 0;
     }
 
     public void Defend()
@@ -166,14 +179,14 @@ public abstract class Entity : MonoBehaviour
     public void Recharge()
     {
         Debug.Log("Entity " + entityName + " is recharging");
-        mana = (int)(rechargeManaPercent * maxMana);
+        Mana = (int)(rechargeManaPercent * maxMana);
 
-        mana = Mathf.Clamp(mana, 0, maxMana);
+        Mana = Mathf.Clamp(Mana, 0, maxMana);
     }
 
     // Override this method with special behavior in subclasses
     public abstract int Special();
-    public bool CanUseSpecial => mana >= manaRequiredForSpecial;
+    public bool CanUseSpecial => Mana >= manaRequiredForSpecial;
 
     public void SelectMove(Move move) => state.plannedMove = move;
 

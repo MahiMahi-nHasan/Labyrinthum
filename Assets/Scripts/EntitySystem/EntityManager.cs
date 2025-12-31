@@ -90,6 +90,7 @@ public struct EntityData
     public GameObject instance;
     public Vector3 position;
     public Quaternion rotation;
-    public int health { get; set; }
-    public int mana { get; set; }
+    public int Health { get; set; }
+    public int Mana { get; set; }
+    public Equipment equipped;
 }
