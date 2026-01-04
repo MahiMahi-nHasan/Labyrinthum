@@ -43,7 +43,7 @@ public abstract class BattleEntity : MonoBehaviour
     }
     public Element element;
 
-    public string entityName;
+    public Entity baseEntity;
     public bool isPlayer;
 
     public int id;
@@ -116,7 +116,7 @@ public abstract class BattleEntity : MonoBehaviour
 
     public int BaseDamage()
     {
-        Debug.Log("Entity " + entityName + " returned base damage");
+        Debug.Log("Entity " + baseEntity.entityName + " returned base damage");
         return (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
     }
 
@@ -131,7 +131,7 @@ public abstract class BattleEntity : MonoBehaviour
         // Ensure damage is not negative
         damage = Math.Max(0, damage);
 
-        Debug.Log("Entity " + entityName + " will take " + damage + " damage");
+        Debug.Log("Entity " + baseEntity.entityName + " will take " + damage + " damage");
 
         Health -= damage;
         state.dead = Health <= 0;
@@ -139,13 +139,13 @@ public abstract class BattleEntity : MonoBehaviour
 
     public void Defend()
     {
-        Debug.Log("Entity " + entityName + " is defending");
+        Debug.Log("Entity " + baseEntity.entityName + " is defending");
         isDefending = true;
     }
 
     public void Recharge()
     {
-        Debug.Log("Entity " + entityName + " is recharging");
+        Debug.Log("Entity " + baseEntity.entityName + " is recharging");
         Mana = (int)(rechargeManaPercent * maxMana);
 
         Mana = Mathf.Clamp(Mana, 0, maxMana);

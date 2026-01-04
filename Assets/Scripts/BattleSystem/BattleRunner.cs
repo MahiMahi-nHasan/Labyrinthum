@@ -195,19 +195,19 @@ public class BattleRunner : MonoBehaviour
     {
         Debug.Log(entitiesInBattle.Count);
         foreach (BattleEntity e in entitiesInBattle)
-            Debug.Log(e.entityName + "#" + e.id);
+            Debug.Log(e.baseEntity.entityName + "#" + e.id);
 
         Debug.Log(players.Count);
         foreach (BattleEntity e in players)
-            Debug.Log(e.entityName + "#" + e.id);
+            Debug.Log(e.baseEntity.entityName + "#" + e.id);
 
         Debug.Log(enemies.Count);
         foreach (BattleEntity e in enemies)
-            Debug.Log(e.entityName + "#" + e.id);
+            Debug.Log(e.baseEntity.entityName + "#" + e.id);
         
         foreach (BattleEntity e in enemies)
         {
-            Debug.Log("Removing enemy " + e.entityName + " with id#" + e.id);
+            Debug.Log("Removing enemy " + e.baseEntity.entityName + " with id#" + e.id);
             EntityManager.RemoveEntity(e.id);
         }
 

@@ -84,7 +84,7 @@ public class BattleInterface : MonoBehaviour
 
             if (selectedEntity.state.dead) continue;
 
-            Debug.Log("Selecting move for " + selectedEntity.entityName);
+            Debug.Log("Selecting move for " + selectedEntity.baseEntity.entityName);
             moveSelected = false;
 
             while (!moveSelected)
@@ -101,7 +101,7 @@ public class BattleInterface : MonoBehaviour
 
             selectedEntity = npcs[i];
 
-            Debug.Log("Setting move for " + selectedEntity.entityName);
+            Debug.Log("Setting move for " + selectedEntity.baseEntity.entityName);
 
             BattleEntity.Move move = ((BattleNPC)selectedEntity).GetDecidedMove();
             SelectMove(move);

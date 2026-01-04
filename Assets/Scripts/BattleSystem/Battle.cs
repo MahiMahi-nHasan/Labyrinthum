@@ -37,7 +37,7 @@ public class Battle
 
             if (e.state.dead)
             {
-                Debug.Log(e.entityName + " is dead");
+                Debug.Log(e.baseEntity.entityName + " is dead");
                 continue;
             }
 
