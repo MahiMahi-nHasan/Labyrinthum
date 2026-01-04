@@ -4,32 +4,8 @@ using UnityEngine;
 public class OverworldEntity : MonoBehaviour
 {
     public int id;
-    public GameObject prefab;
-    public GameObject Prefab
-    {
-        get
-        {
-            if (prefab == null)
-                return gameObject;
-            else
-                return prefab;
-        }
-    }
-    public GameObject battlePrefab;
+    public Entity baseEntity;
     public List<OverworldEntity> party;
-    public Equipment Equipped
-    {
-        get
-        {
-            return EntityManager.entities[id].equipped;
-        }
-        set
-        {
-            EntityData data = EntityManager.entities[id];
-            data.equipped = value;
-            EntityManager.entities[id] = data;
-        }
-    }
 
     void OnDestroy()
     {

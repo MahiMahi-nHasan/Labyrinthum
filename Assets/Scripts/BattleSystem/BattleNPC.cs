@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class BattleNPC : Entity
+public abstract class BattleNPC : BattleEntity
 {
     public Button targetButton;
 
@@ -13,7 +13,7 @@ public abstract class BattleNPC : Entity
         {0, 0, 0, 0}
     };
 
-    public static void UpdateMoveSelectionMatrix(Entity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
+    public static void UpdateMoveSelectionMatrix(BattleEntity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
 
     new void Update()
     {

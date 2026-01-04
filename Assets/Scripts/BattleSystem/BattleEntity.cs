@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Entity : MonoBehaviour
+public abstract class BattleEntity : MonoBehaviour
 {
     public static float[,] weaknessMatrix = {
         {1, 1, 1, 1, 1},
@@ -38,7 +38,7 @@ public abstract class Entity : MonoBehaviour
         public State hmHeuristic;
         public Move plannedMove;
         public Element element;
-        public Entity target;
+        public BattleEntity target;
         public bool dead;
     }
     public Element element;
@@ -48,42 +48,9 @@ public abstract class Entity : MonoBehaviour
 
     public int id;
 
-    public int baseStrength;
-    public int Strength
-    {
-        get
-        {
-            int strength = baseStrength;
-            Equipment equipped = EntityManager.entities[id].equipped;
-            if (equipped != null)
-                strength += equipped.strengthModifier;
-            return strength;
-        }
-    }
-    public int baseDefense;
-    public int Defense
-    {
-        get
-        {
-            int defense = baseDefense;
-            Equipment equipped = EntityManager.entities[id].equipped;
-            if (equipped != null)
-                defense += equipped.defenseModifier;
-            return defense;
-        }
-    }
-    public int baseSpeed;
-    public int Speed
-    {
-        get
-        {
-            int speed = baseSpeed;
-            Equipment equipped = EntityManager.entities[id].equipped;
-            if (equipped != null)
-                speed += equipped.speedModifier;
-            return speed;
-        }
-    }
+    public int Strength => EntityManager.entities[id].Strength;
+    public int Defense => EntityManager.entities[id].Defense;
+    public int Speed => EntityManager.entities[id].Speed;
     public int Health
     {
         get

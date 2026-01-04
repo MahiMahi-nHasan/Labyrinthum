@@ -10,9 +10,9 @@ public class BattleRunner : MonoBehaviour
 
     private Battle battle;
 
-    private List<Entity> players = new();
-    private List<Entity> enemies = new();
-    private List<Entity> entitiesInBattle = new();
+    private List<BattleEntity> players = new();
+    private List<BattleEntity> enemies = new();
+    private List<BattleEntity> entitiesInBattle = new();
 
     public string battleSceneName = "BattleScene";
     public string gameSceneName = "OverworldScene";
@@ -85,7 +85,7 @@ public class BattleRunner : MonoBehaviour
         for (int i = 0; i < playersInBattle.Count; i++)
         {
             Debug.Log("Adding entity #" + playersInBattle[i] + " to players");
-            GameObject battlePrefab = EntityManager.entities[playersInBattle[i]].battlePrefab;
+            GameObject battlePrefab = EntityManager.entities[playersInBattle[i]].baseEntity.battlePrefab;
 
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("PlayerArea").GetComponent<RectTransform>();
@@ -94,16 +94,16 @@ public class BattleRunner : MonoBehaviour
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, spawnArea);
             ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
-            instance.GetComponent<Entity>().id = playersInBattle[i];
+            instance.GetComponent<BattleEntity>().id = playersInBattle[i];
             // Add entity component of instance to players list
-            players.Add(instance.GetComponent<Entity>());
+            players.Add(instance.GetComponent<BattleEntity>());
         }
 
         enemies = new();
         for (int i = 0; i < enemiesInBattle.Count; i++)
         {
             Debug.Log("Adding entity id#" + enemiesInBattle[i] + " to enemies");
-            GameObject battlePrefab = EntityManager.entities[enemiesInBattle[i]].battlePrefab;
+            GameObject battlePrefab = EntityManager.entities[enemiesInBattle[i]].baseEntity.battlePrefab;
 
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("EnemyArea").GetComponent<RectTransform>();
@@ -112,15 +112,15 @@ public class BattleRunner : MonoBehaviour
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, new Vector3(0, posY), Quaternion.identity, spawnArea);
             ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
-            instance.GetComponent<Entity>().id = enemiesInBattle[i];
+            instance.GetComponent<BattleEntity>().id = enemiesInBattle[i];
 
             // Add entity component of instance to players list
-            enemies.Add(instance.GetComponent<Entity>());
+            enemies.Add(instance.GetComponent<BattleEntity>());
         }
 
         entitiesInBattle = new();
-        foreach (Entity e in players) entitiesInBattle.Add(e);
-        foreach (Entity e in enemies) entitiesInBattle.Add(e);
+        foreach (BattleEntity e in players) entitiesInBattle.Add(e);
+        foreach (BattleEntity e in enemies) entitiesInBattle.Add(e);
 
         BattleInterface.active.players = players;
         BattleInterface.active.npcs = enemies;
@@ -157,7 +157,7 @@ public class BattleRunner : MonoBehaviour
     void UpdateGameState()
     {
         bool allDead = true;
-        foreach (Entity e in players)
+        foreach (BattleEntity e in players)
         {
             if (!e.state.dead)
                 allDead = false;
@@ -169,7 +169,7 @@ public class BattleRunner : MonoBehaviour
         }
 
         allDead = true;
-        foreach (Entity e in enemies)
+        foreach (BattleEntity e in enemies)
         {
             if (!e.state.dead)
                 allDead = false;
@@ -194,18 +194,18 @@ public class BattleRunner : MonoBehaviour
     public void LoadGameScene()
     {
         Debug.Log(entitiesInBattle.Count);
-        foreach (Entity e in entitiesInBattle)
+        foreach (BattleEntity e in entitiesInBattle)
             Debug.Log(e.entityName + "#" + e.id);
 
         Debug.Log(players.Count);
-        foreach (Entity e in players)
+        foreach (BattleEntity e in players)
             Debug.Log(e.entityName + "#" + e.id);
 
         Debug.Log(enemies.Count);
-        foreach (Entity e in enemies)
+        foreach (BattleEntity e in enemies)
             Debug.Log(e.entityName + "#" + e.id);
         
-        foreach (Entity e in enemies)
+        foreach (BattleEntity e in enemies)
         {
             Debug.Log("Removing enemy " + e.entityName + " with id#" + e.id);
             EntityManager.RemoveEntity(e.id);

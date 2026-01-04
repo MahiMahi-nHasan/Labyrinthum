@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 222557965390004115}
   - component: {fileID: 7372805014340419853}
   - component: {fileID: 7348866413777120901}
+  - component: {fileID: 8549759169014054575}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -354,3 +355,19 @@ MonoBehaviour:
   battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
   party:
   - {fileID: 7348866413777120901}
+--- !u!114 &8549759169014054575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7104815242739876202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d8fc281074247b9aab47c662ef1857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  baseStrength: 5
+  baseDefense: 5
+  baseSpeed: 5

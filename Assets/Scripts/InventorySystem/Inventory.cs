@@ -21,12 +21,12 @@ public class Inventory : Menu
 
         if (opened)
             RegenerateSlots();
-        else
-            DestroyAllSlots();
     }
 
     public void RegenerateSlots()
     {
+        DestroyAllSlots();
+
         // Get a reference to the global inventory
         List<Equipment> inventory = InventoryManager.inventory;
         // Clear slots list

@@ -15,7 +15,7 @@ public class EntitySpawner : MonoBehaviour
     public int minPartySize = 1;
     public int maxPartySize = 4;
 
-    public GameObject spawnPrefab;
+    public Entity entity;
 
     void Awake()
     {
@@ -49,7 +49,7 @@ public class EntitySpawner : MonoBehaviour
         if (comp < spawnChance && BattleRunner.active.gameState == BattleRunner.GameState.OVERWORLD)
         {
             TrySpawnParty(
-                spawnPrefab,
+                entity,
                 GetRandomPointWithinRadiusFromOrigin(
                     EntityManager.entities[t_id].instance.transform.position,
                     20f
@@ -58,22 +58,22 @@ public class EntitySpawner : MonoBehaviour
         }
     }
 
-    public void TrySpawnParty(GameObject prefab, Vector3 position)
+    public void TrySpawnParty(Entity entity, Vector3 position)
     {
         int partySize = Random.Range(minPartySize, maxPartySize);
         OverworldEntity[] entities = FindObjectsOfType<OverworldEntity>();
 
         if (entities.Length + partySize < entityCap)
-            SpawnParty(prefab, partySize, position);
+            SpawnParty(entity, partySize, position);
     }
 
-    public void SpawnParty(GameObject prefab, int size, Vector3 position)
+    public void SpawnParty(Entity entity, int size, Vector3 position)
     {
         OverworldEntity[] entities = new OverworldEntity[size];
 
         for (int i = 0; i < size; i++)
         {
-            int id = EntityManager.CreateEntity(prefab, GetRandomPointWithinRadiusFromOrigin(position, 5f));
+            int id = EntityManager.CreateEntity(entity, GetRandomPointWithinRadiusFromOrigin(position, 5f));
             GameObject instance = EntityManager.entities[id].instance;
             entities[i] = instance.GetComponent<OverworldEntity>();
         }
