@@ -18,6 +18,7 @@ public class Battle
         foreach (BattleEntity e in entities)
             e.isDefending = false;
 
+        List<BattleEntity> bkp = new(entities);
         // Sort entities in order of speed
         Queue<BattleEntity> orderedEntities = new();
         while (entities.Count > 0)
@@ -30,6 +31,7 @@ public class Battle
             orderedEntities.Enqueue(entities[iMaxSpeed]);
             entities.RemoveAt(iMaxSpeed);
         }
+        entities = bkp;
 
         while (orderedEntities.Count > 0)
         {

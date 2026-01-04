@@ -185,8 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   baseEntity: {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
-  party:
-  - {fileID: 3622258259334446423}
+  party: []
 --- !u!65 &7825670975308872205
 BoxCollider:
   m_ObjectHideFlags: 0
