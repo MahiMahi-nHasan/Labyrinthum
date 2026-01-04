@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -19,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public float yLookMin = -50f;
     public float yLookMax = 80f;
 
+    public float pickupDistance = 3f;
+    public LayerMask pickupLayer;
+
     void Awake()
     {
         input = new();
@@ -26,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        input.Player.Pickup.performed += OnPickup;
     }
 
     void OnEnable()
@@ -88,5 +94,15 @@ public class PlayerController : MonoBehaviour
 
         camAnchor.rotation = Quaternion.Euler(0, lookAngles.x, 0);
         cam.localRotation = Quaternion.Euler(lookAngles.y, 0, 0);
+    }
+
+    bool TestForPickups(out RaycastHit hit) => Physics.Raycast(camAnchor.position, cam.transform.forward, out hit, pickupDistance, pickupLayer);
+
+    void OnPickup(InputAction.CallbackContext context)
+    {
+        if (TestForPickups(out RaycastHit hit))
+        {
+            hit.collider.gameObject.GetComponent<EquipmentContainer>().Pickup();
+        }
     }
 }

@@ -6,10 +6,10 @@ public class BattleInterface : MonoBehaviour
 {
     public static BattleInterface active;
 
-    Entity selectedEntity;
+    BattleEntity selectedEntity;
 
-    public List<Entity> players = new();
-    public List<Entity> npcs = new();
+    public List<BattleEntity> players = new();
+    public List<BattleEntity> npcs = new();
     
     bool moveSelected = false;
     bool targetSelected = false;
@@ -29,7 +29,7 @@ public class BattleInterface : MonoBehaviour
         actionMenu.SetActive(showActionMenu);
     }
 
-    public void SelectMove(Entity.Move move)
+    public void SelectMove(BattleEntity.Move move)
     {
         moveSelected = true;
         selectedEntity.SelectMove(move);
@@ -37,22 +37,22 @@ public class BattleInterface : MonoBehaviour
 
     public void SelectAttack() => StartCoroutine(Attack_Coroutine());
     public void SelectSpecial() => StartCoroutine(Special_Coroutine());
-    public void SelectDefend() => SelectMove(Entity.Move.DEFEND);
-    public void SelectRecharge() => SelectMove(Entity.Move.RECHARGE);
+    public void SelectDefend() => SelectMove(BattleEntity.Move.DEFEND);
+    public void SelectRecharge() => SelectMove(BattleEntity.Move.RECHARGE);
 
     public IEnumerator Attack_Coroutine()
     {
         yield return StartCoroutine(SetTarget());
-        SelectMove(Entity.Move.ATTACK);
+        SelectMove(BattleEntity.Move.ATTACK);
     }
 
     public IEnumerator Special_Coroutine()
     {
         yield return StartCoroutine(SetTarget());
-        SelectMove(Entity.Move.SPECIAL);
+        SelectMove(BattleEntity.Move.SPECIAL);
     }
 
-    public void SelectTarget(Entity e)
+    public void SelectTarget(BattleEntity e)
     {
         targetSelected = true;
         selectedEntity.state.target = e;
@@ -84,7 +84,7 @@ public class BattleInterface : MonoBehaviour
 
             if (selectedEntity.state.dead) continue;
 
-            Debug.Log("Selecting move for " + selectedEntity.entityName);
+            Debug.Log("Selecting move for " + selectedEntity.baseEntity.entityName);
             moveSelected = false;
 
             while (!moveSelected)
@@ -101,12 +101,12 @@ public class BattleInterface : MonoBehaviour
 
             selectedEntity = npcs[i];
 
-            Debug.Log("Setting move for " + selectedEntity.entityName);
+            Debug.Log("Setting move for " + selectedEntity.baseEntity.entityName);
 
-            Entity.Move move = ((BattleNPC)selectedEntity).GetDecidedMove();
+            BattleEntity.Move move = ((BattleNPC)selectedEntity).GetDecidedMove();
             SelectMove(move);
 
-            if (move == Entity.Move.ATTACK || move == Entity.Move.SPECIAL)
+            if (move == BattleEntity.Move.ATTACK || move == BattleEntity.Move.SPECIAL)
             {
                 SelectTarget(players[Random.Range(0, players.Count)]);
             }

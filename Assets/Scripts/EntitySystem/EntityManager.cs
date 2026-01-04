@@ -7,7 +7,7 @@ public static class EntityManager
     public static Dictionary<int, EntityData> entities = new();
     public static int id = -1;
 
-    public static int CreateEntity(GameObject prefab, Vector3 localPosition = new(), Quaternion rotation = new(), bool spawnEntity = true)
+    public static int CreateEntity(Entity baseEntity, Vector3 localPosition = new(), Quaternion rotation = new(), bool spawnEntity = true)
     {
         id++;
 
@@ -15,8 +15,7 @@ public static class EntityManager
 
         EntityData data = new()
         {
-            prefab = prefab,
-            battlePrefab = prefab.GetComponent<OverworldEntity>().battlePrefab,
+            baseEntity = baseEntity,
             position = localPosition,
             rotation = rotation
         };
@@ -37,8 +36,7 @@ public static class EntityManager
 
         EntityData data = new()
         {
-            prefab = instance.GetComponent<OverworldEntity>().Prefab,
-            battlePrefab = instance.GetComponent<OverworldEntity>().battlePrefab,
+            baseEntity = instance.GetComponent<OverworldEntity>().baseEntity,
             instance = instance,
             position = instance.transform.position,
             rotation = instance.transform.rotation
@@ -67,7 +65,7 @@ public static class EntityManager
 
         Debug.Log("Spawning entity with id " + id);
 
-        GameObject instance = MonoBehaviour.Instantiate(data.prefab, data.position, data.rotation);
+        GameObject instance = MonoBehaviour.Instantiate(data.baseEntity.prefab, data.position, data.rotation);
         instance.GetComponent<OverworldEntity>().id = id;
 
         data.instance = instance;
@@ -85,11 +83,41 @@ public static class EntityManager
 
 public struct EntityData
 {
-    public GameObject prefab;
-    public GameObject battlePrefab;
+    public Entity baseEntity;
     public GameObject instance;
     public Vector3 position;
     public Quaternion rotation;
-    public int health { get; set; }
-    public int mana { get; set; }
+    public int Health { get; set; }
+    public int Mana { get; set; }
+    public Equipment equipped;
+    public int Strength
+    {
+        get
+        {
+            int strength = baseEntity.baseStrength;
+            if (equipped != null)
+                strength += equipped.strengthModifier;
+            return strength;
+        }
+    }
+    public int Defense
+    {
+        get
+        {
+            int defense = baseEntity.baseDefense;
+            if (equipped != null)
+                defense += equipped.defenseModifier;
+            return defense;
+        }
+    }
+    public int Speed
+    {
+        get
+        {
+            int speed = baseEntity.baseSpeed;
+            if (equipped != null)
+                speed += equipped.speedModifier;
+            return speed;
+        }
+    }
 }

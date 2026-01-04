@@ -333,6 +333,10 @@ MonoBehaviour:
   camClipDistance: 0.5
   yLookMin: -50
   yLookMax: 80
+  pickupDistance: 3
+  pickupLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &7348866413777120901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +350,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  prefab: {fileID: 7104815242739876202}
-  battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
+  baseEntity: {fileID: 11400000, guid: fe6a13943564b4343afc77fd8220bec8, type: 2}
   party:
   - {fileID: 7348866413777120901}

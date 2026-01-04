@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Battle
 {
-    List<Entity> entities;
+    List<BattleEntity> entities;
 
     // Call this constructor in a MonoBehaviour to make a new list of entities
-    public Battle(List<Entity> entities)
+    public Battle(List<BattleEntity> entities)
     {
         this.entities = entities;
     }
@@ -15,16 +15,16 @@ public class Battle
     public void SimulateRound()
     {
         // Reset all entities to default state
-        foreach (Entity e in entities)
+        foreach (BattleEntity e in entities)
             e.isDefending = false;
 
         // Sort entities in order of speed
-        Queue<Entity> orderedEntities = new();
+        Queue<BattleEntity> orderedEntities = new();
         while (entities.Count > 0)
         {
             int iMaxSpeed = 0;
             for (int i = 1; i < entities.Count; i++)
-                if (entities[i].speed > entities[iMaxSpeed].speed)
+                if (entities[i].Speed > entities[iMaxSpeed].Speed)
                     iMaxSpeed = i;
 
             orderedEntities.Enqueue(entities[iMaxSpeed]);
@@ -33,11 +33,11 @@ public class Battle
 
         while (orderedEntities.Count > 0)
         {
-            Entity e = orderedEntities.Dequeue();
+            BattleEntity e = orderedEntities.Dequeue();
 
             if (e.state.dead)
             {
-                Debug.Log(e.entityName + " is dead");
+                Debug.Log(e.baseEntity.entityName + " is dead");
                 continue;
             }
 
@@ -45,20 +45,20 @@ public class Battle
         }
     }
 
-    void SimulateTurn(Entity e)
+    void SimulateTurn(BattleEntity e)
     {
         switch (e.state.plannedMove)
         {
-            case Entity.Move.ATTACK:
+            case BattleEntity.Move.ATTACK:
                 e.state.target.TakeDamage(e.BaseDamage());
                 break;
-            case Entity.Move.DEFEND:
+            case BattleEntity.Move.DEFEND:
                 e.Defend();
                 break;
-            case Entity.Move.RECHARGE:
+            case BattleEntity.Move.RECHARGE:
                 e.Recharge();
                 break;
-            case Entity.Move.SPECIAL:
+            case BattleEntity.Move.SPECIAL:
                 e.state.target.TakeDamage(e.Special());
                 break;
         }

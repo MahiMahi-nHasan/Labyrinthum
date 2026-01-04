@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : Entity
+public class Player : BattleEntity
 {
     public override int Special()
     {

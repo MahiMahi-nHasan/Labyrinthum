@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Entity : MonoBehaviour
+public abstract class BattleEntity : MonoBehaviour
 {
     public static float[,] weaknessMatrix = {
         {1, 1, 1, 1, 1},
@@ -38,42 +38,43 @@ public abstract class Entity : MonoBehaviour
         public State hmHeuristic;
         public Move plannedMove;
         public Element element;
-        public Entity target;
+        public BattleEntity target;
         public bool dead;
     }
     public Element element;
 
-    public string entityName;
+    public Entity baseEntity;
     public bool isPlayer;
 
     public int id;
-    public int strength;
-    public int defense;
-    public int speed;
-    public int health
+
+    public int Strength => EntityManager.entities[id].Strength;
+    public int Defense => EntityManager.entities[id].Defense;
+    public int Speed => EntityManager.entities[id].Speed;
+    public int Health
     {
         get
         {
-            return EntityManager.entities[id].health;
+            return EntityManager.entities[id].Health;
         }
         set
         {
             EntityData data = EntityManager.entities[id];
-            data.health = value;
+            data.Health = value;
             EntityManager.entities[id] = data;
         }
     }
     public int maxHealth;
-    public int mana
+    public int Mana
     {
         get
         {
-            return EntityManager.entities[id].health;
+            return EntityManager.entities[id].Health;
         }
         set
         {
             EntityData data = EntityManager.entities[id];
-            data.mana = value;
+            data.Mana = value;
             EntityManager.entities[id] = data;
         }
     }
@@ -90,20 +91,23 @@ public abstract class Entity : MonoBehaviour
     void Awake()
     {
         state.element = element;
-        health = maxHealth;
+        Health = maxHealth;
     }
 
     protected void Update()
     {
         //Debug.Log(entityName + state.dead);
+
+        if (state.dead)
+            OnDeath();
     }
 
     public void SetHealthManaHeuristic()
     {
         int hmHeuristic = 0;
-        if (health > maxHealth * lowHealthPercentThreshold)
+        if (Health > maxHealth * lowHealthPercentThreshold)
             hmHeuristic |= 0b10;
-        if (mana > manaRequiredForSpecial)
+        if (Mana > manaRequiredForSpecial)
             hmHeuristic |= 0b01;
         state.hmHeuristic = (State)hmHeuristic;
     }
@@ -112,14 +116,14 @@ public abstract class Entity : MonoBehaviour
 
     public int BaseDamage()
     {
-        Debug.Log("Entity " + entityName + " returned base damage");
-        return (int)(strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
+        Debug.Log("Entity " + baseEntity.entityName + " returned base damage");
+        return (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
     }
 
     public void TakeDamage(int baseDamage)
     {
         // Change this later
-        int damage = baseDamage - defense;
+        int damage = baseDamage - Defense;
         if (isDefending)
             // Change this later
             damage -= defendModifier;
@@ -127,29 +131,34 @@ public abstract class Entity : MonoBehaviour
         // Ensure damage is not negative
         damage = Math.Max(0, damage);
 
-        Debug.Log("Entity " + entityName + " will take " + damage + " damage");
+        Debug.Log("Entity " + baseEntity.entityName + " will take " + damage + " damage");
 
-        health -= damage;
-        state.dead = health <= 0;
+        Health -= damage;
+        state.dead = Health <= 0;
     }
 
     public void Defend()
     {
-        Debug.Log("Entity " + entityName + " is defending");
+        Debug.Log("Entity " + baseEntity.entityName + " is defending");
         isDefending = true;
     }
 
     public void Recharge()
     {
-        Debug.Log("Entity " + entityName + " is recharging");
-        mana = (int)(rechargeManaPercent * maxMana);
+        Debug.Log("Entity " + baseEntity.entityName + " is recharging");
+        Mana = (int)(rechargeManaPercent * maxMana);
 
-        mana = Mathf.Clamp(mana, 0, maxMana);
+        Mana = Mathf.Clamp(Mana, 0, maxMana);
     }
 
     // Override this method with special behavior in subclasses
     public abstract int Special();
-    public bool CanUseSpecial => mana >= manaRequiredForSpecial;
+    public bool CanUseSpecial => Mana >= manaRequiredForSpecial;
 
     public void SelectMove(Move move) => state.plannedMove = move;
+
+    public void OnDeath()
+    {
+        gameObject.SetActive(false);
+    }
 }
