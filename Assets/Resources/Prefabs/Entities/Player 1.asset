@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Player
   prefab: {fileID: 7104815242739876202, guid: d8453f8c0929046068638284ec9200d4, type: 3}
-  battlePrefab: {fileID: 6913796708687121901, guid: cef67f0c07de64e55ac08352e2d16805, type: 3}
+  battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
   baseStrength: 5
   baseDefense: 5
   baseSpeed: 5

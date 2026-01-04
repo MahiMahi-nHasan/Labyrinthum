@@ -178,15 +178,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   element: 0
-  entityName: Player
+  baseEntity: {fileID: 11400000, guid: fe6a13943564b4343afc77fd8220bec8, type: 2}
   isPlayer: 1
-  strength: 5
-  defense: 5
-  speed: 5
-  health: 5
+  id: 0
   maxHealth: 5
-  mana: 5
   maxMana: 5
+  state:
+    hmHeuristic: 0
+    plannedMove: 0
+    element: 0
+    target: {fileID: 0}
+    dead: 0
   lowHealthPercentThreshold: 0.35
   manaRequiredForSpecial: 5
   rechargeManaPercent: 0.1

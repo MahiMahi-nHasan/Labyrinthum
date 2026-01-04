@@ -235,12 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   element: 0
-  entityName: Enemy
+  baseEntity: {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
   isPlayer: 0
   id: 0
-  strength: 0
-  defense: 0
-  speed: 0
   maxHealth: 10
   maxMana: 0
   state:

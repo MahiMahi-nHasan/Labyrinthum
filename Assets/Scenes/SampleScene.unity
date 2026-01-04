@@ -156,7 +156,7 @@ MonoBehaviour:
   entityCap: 20
   minPartySize: 1
   maxPartySize: 4
-  spawnPrefab: {fileID: 6913796708687121901, guid: cef67f0c07de64e55ac08352e2d16805, type: 3}
+  entity: {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
 --- !u!4 &236988038
 Transform:
   m_ObjectHideFlags: 0

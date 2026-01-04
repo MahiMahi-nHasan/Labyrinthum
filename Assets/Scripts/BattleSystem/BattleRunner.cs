@@ -93,7 +93,7 @@ public class BattleRunner : MonoBehaviour
 
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, spawnArea);
-            ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
+            instance.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
             instance.GetComponent<BattleEntity>().id = playersInBattle[i];
             // Add entity component of instance to players list
             players.Add(instance.GetComponent<BattleEntity>());
