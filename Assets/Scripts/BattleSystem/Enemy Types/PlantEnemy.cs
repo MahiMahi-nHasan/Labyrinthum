@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlantEnemy : MonoBehaviour
+public class PlantEnemy : BattleEntity
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private readonly int healAmount = 10;
 
-    // Update is called once per frame
-    void Update()
+    public override int Special()
     {
-        
+        state.target = this;
+
+        // Get all enemies and heal a certain amount
+        foreach (BattleEntity entity in BattleInterface.active.npcs)
+            entity.Heal(healAmount);
+
+        // Healer does 0 damage, only heals teammates
+        return 0;
     }
 }
