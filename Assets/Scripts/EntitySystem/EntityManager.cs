@@ -17,7 +17,8 @@ public static class EntityManager
         {
             baseEntity = baseEntity,
             position = localPosition,
-            rotation = rotation
+            rotation = rotation,
+            party = new()
         };
 
         entities.Add(id, data);
@@ -39,7 +40,8 @@ public static class EntityManager
             baseEntity = instance.GetComponent<OverworldEntity>().baseEntity,
             instance = instance,
             position = instance.transform.position,
-            rotation = instance.transform.rotation
+            rotation = instance.transform.rotation,
+            party = new()
         };
 
         entities.Add(id, data);
@@ -71,6 +73,9 @@ public static class EntityManager
         data.instance = instance;
         // Update dictionary data to store instance
         entities[id] = data;
+
+        foreach (int pid in data.party)
+            instance.GetComponent<OverworldEntity>().party.Add(pid);
     }
 
     public static void SpawnAllEntities()

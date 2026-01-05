@@ -96,12 +96,14 @@ public class PlayerController : MonoBehaviour
         cam.localRotation = Quaternion.Euler(lookAngles.y, 0, 0);
     }
 
+    // Detects whether the player is looking at a pickup
     bool TestForPickups(out RaycastHit hit) => Physics.Raycast(camAnchor.position, cam.transform.forward, out hit, pickupDistance, pickupLayer);
 
     void OnPickup(InputAction.CallbackContext context)
     {
         if (TestForPickups(out RaycastHit hit))
         {
+            // Picks up the item
             hit.collider.gameObject.GetComponent<EquipmentContainer>().Pickup();
         }
     }

@@ -80,7 +80,7 @@ public class EntitySpawner : MonoBehaviour
 
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
-                entities[i].AddToParty(entities[j]);
+                entities[i].AddToParty(entities[j].id);
     }
 
     public Vector3 GetRandomPointWithinRadiusFromOrigin(Vector3 origin, float radius)

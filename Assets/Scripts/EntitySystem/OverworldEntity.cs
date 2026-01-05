@@ -5,7 +5,7 @@ public class OverworldEntity : MonoBehaviour
 {
     public int id;
     public Entity baseEntity;
-    public List<OverworldEntity> party;
+    public List<int> party;
 
     void OnDestroy()
     {
@@ -34,9 +34,9 @@ public class OverworldEntity : MonoBehaviour
         InventoryManager.inventory.Remove(equipment);
     }
 
-    public void AddToParty(OverworldEntity other)
+    public void AddToParty(int other)
     {
         party.Add(other);
-        EntityManager.entities[id].party.Add(other.id);
+        EntityManager.entities[id].party.Add(other);
     }
 }

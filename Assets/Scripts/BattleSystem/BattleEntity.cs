@@ -3,12 +3,14 @@ using UnityEngine;
 
 public abstract class BattleEntity : MonoBehaviour
 {
+    // Multiplies base damage
+    // row = self element
+    // col = target element
     public static float[,] weaknessMatrix = {
-        {1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1}
+        {1, 0.5f, 1, 1.5f},
+        {1.5f, 1, 0.5f, 1},
+        {1, 1.5f, 1, 0.5f},
+        {0.5f, 1, 1.5f, 1}
     };
 
     public enum State
@@ -27,8 +29,10 @@ public abstract class BattleEntity : MonoBehaviour
     }
     public enum Element
     {
-        Fire = 0,
-        Water = 1
+        PHYS = 0,
+        FIRE = 1,
+        ICE = 2,
+        WIND = 3
     }
 
     // Contains all necessary data to train transition matrices
@@ -97,6 +101,8 @@ public abstract class BattleEntity : MonoBehaviour
     protected void Update()
     {
         //Debug.Log(entityName + state.dead);
+
+        SetHealthManaHeuristic();
 
         if (state.dead)
             OnDeath();
