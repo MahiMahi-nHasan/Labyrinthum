@@ -3,7 +3,7 @@ using Pathfinding;
 using UnityEngine;
 
 [RequireComponent(typeof(Seeker))]
-public class FloorClerk : MonoBehaviour
+public class BasicNPC : MonoBehaviour
 {
     public enum State
     {
