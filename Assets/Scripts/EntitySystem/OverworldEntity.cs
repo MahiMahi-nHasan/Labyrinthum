@@ -37,5 +37,6 @@ public class OverworldEntity : MonoBehaviour
     public void AddToParty(OverworldEntity other)
     {
         party.Add(other);
+        EntityManager.entities[id].party.Add(other.id);
     }
 }

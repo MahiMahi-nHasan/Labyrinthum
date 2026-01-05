@@ -64,8 +64,6 @@ public static class EntityManager
         if (data.instance != null) return;
 
         Debug.Log("Spawning entity with id " + id);
-        Debug.Log(data.position);
-        Debug.Log(data.rotation);
 
         GameObject instance = MonoBehaviour.Instantiate(data.baseEntity.prefab, data.position, data.rotation);
         instance.GetComponent<OverworldEntity>().id = id;
@@ -92,6 +90,7 @@ public struct EntityData
     public int Health { get; set; }
     public int Mana { get; set; }
     public Equipment equipped;
+    public List<int> party;
     public int Strength
     {
         get
