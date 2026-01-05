@@ -14,4 +14,5 @@ public static class Specials
     // Ice
 
     // Wind
+    public static int Hurricane(int baseDamage) => (int)(baseDamage * 1.2);
 }

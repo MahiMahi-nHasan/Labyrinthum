@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdEnemy : MonoBehaviour
+public class BirdEnemy : BattleEntity
 {
-    // Start is called before the first frame update
-    void Start()
+    public override int Special()
     {
+        foreach (BattleEntity entity in BattleInterface.active.players)
+            entity.TakeDamage((int)(BaseDamage() * 0.33));
         
+        // Deal double damage to the target
+        return Specials.Hurricane(BaseDamage());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeEnemy : MonoBehaviour
+public class SlimeEnemy : BattleEntity
 {
-    // Start is called before the first frame update
-    void Start()
+    public override int Special()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return Specials.PummelingDamage(BaseDamage() * 2);
     }
 }
