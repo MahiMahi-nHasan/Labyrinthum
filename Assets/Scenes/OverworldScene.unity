@@ -399,7 +399,8 @@ MonoBehaviour:
   entityCap: 20
   minPartySize: 1
   maxPartySize: 4
-  entity: {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
+  possibleSpawns:
+  - {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
 --- !u!4 &1676567016
 Transform:
   m_ObjectHideFlags: 0
