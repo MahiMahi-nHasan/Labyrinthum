@@ -143,6 +143,12 @@ public abstract class BattleEntity : MonoBehaviour
         state.dead = Health <= 0;
     }
 
+    public void Heal(int amount)
+    {
+        Health += amount;
+        Health = Math.Clamp(Health, 0, maxHealth);
+    }
+
     public void Defend()
     {
         Debug.Log("Entity " + baseEntity.entityName + " is defending");

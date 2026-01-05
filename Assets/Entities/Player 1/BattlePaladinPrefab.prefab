@@ -85,9 +85,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4802923803134132278}
   - component: {fileID: 8415183022598548610}
-  - component: {fileID: 8714852892140707460}
+  - component: {fileID: -6012559508698085175}
   m_Layer: 5
-  m_Name: BattlePlayerPrefab
+  m_Name: BattlePaladinPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8714852892140707460
+--- !u!114 &-6012559508698085175
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,15 +174,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1698970313448347996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89f87317563d549439a730b8d72cbe52, type: 3}
+  m_Script: {fileID: 11500000, guid: b157e59785be948f8b54050d8aa75d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   element: 0
   baseEntity: {fileID: 11400000, guid: fe6a13943564b4343afc77fd8220bec8, type: 2}
   isPlayer: 1
   id: 0
-  maxHealth: 5
-  maxMana: 5
+  maxHealth: 100
+  maxMana: 20
   state:
     hmHeuristic: 0
     plannedMove: 0
@@ -190,7 +190,7 @@ MonoBehaviour:
     target: {fileID: 0}
     dead: 0
   lowHealthPercentThreshold: 0.35
-  manaRequiredForSpecial: 5
+  manaRequiredForSpecial: 10
   rechargeManaPercent: 0.1
   defendModifier: 5
   isDefending: 0
