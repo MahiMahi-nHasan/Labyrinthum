@@ -48,6 +48,8 @@ public class BasicNPC : MonoBehaviour
 
     private void Start()
     {
+        seeker.pathCallback += OnPathComplete;
+
         initPos = transform.position;
         StartCoroutine(StartPath());
     }

@@ -147,6 +147,8 @@ GameObject:
   - component: {fileID: 8264326543535603868}
   - component: {fileID: 3622258259334446423}
   - component: {fileID: 7825670975308872205}
+  - component: {fileID: 8356226184073556476}
+  - component: {fileID: 6709475736029809980}
   m_Layer: 0
   m_Name: DebugEnemy
   m_TagString: Untagged
@@ -185,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   baseEntity: {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
-  party: []
+  party: 
 --- !u!65 &7825670975308872205
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -207,3 +209,54 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &8356226184073556476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913796708687121901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &6709475736029809980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913796708687121901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e7e3170cbf09b4fb3f81706b6f6edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  speed: 5
+  patrolRadius: 10
+  seeingDistance: 15
+  height: 1.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  nextWaypointDistance: 3
+  pathfindingInterval: 1
+  continuousGenerationInterval: 0.5
