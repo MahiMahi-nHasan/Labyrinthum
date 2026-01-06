@@ -6,9 +6,6 @@ public class EntitySpawner : MonoBehaviour
     // Singleton system
     public static EntitySpawner instance;
 
-    public GameObject target;
-    private int t_id;
-
     public double spawnChance = .001;
     public int entityCap = 100;
 
@@ -46,8 +43,8 @@ public class EntitySpawner : MonoBehaviour
         {
             TrySpawnParty(
                 GetRandomPointWithinRadiusFromOrigin(
-                    EntityManager.entities[t_id].instance.transform.position,
-                    20f
+                    GameObject.FindGameObjectWithTag("EnemySpawn").transform.position,
+                    10f
                 )
             );
         }

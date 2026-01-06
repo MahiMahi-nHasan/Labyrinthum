@@ -12,5 +12,4 @@ public class BirdEnemy : BattleEntity
         // Deal double damage to the target
         return Specials.Hurricane(BaseDamage());
     }
-    
 }

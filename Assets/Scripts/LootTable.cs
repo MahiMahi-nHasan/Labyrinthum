@@ -28,15 +28,7 @@ public static class LootTable
     // Update is called once per frame
     public static int GetItem()
     {
-<<<<<<< HEAD
-        
-    }
-    void ChestGen()
-    {
-        
-=======
         return s.Pop();
->>>>>>> 8f8369b (updated loottable)
     }
     
 }
