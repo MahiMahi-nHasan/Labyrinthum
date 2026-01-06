@@ -348,15 +348,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
-<<<<<<< HEAD
---- !u!1 &938474497 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7104815242739876202, guid: d8453f8c0929046068638284ec9200d4, type: 3}
-  m_PrefabInstance: {fileID: 372103002}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1325931610
-GameObject:
-=======
 --- !u!114 &705507997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +362,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!1001 &1714637869
 PrefabInstance:
->>>>>>> b75be0f (loot table generation halfdone)
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
