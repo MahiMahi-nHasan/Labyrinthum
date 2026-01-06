@@ -123,10 +123,10 @@ public abstract class BattleEntity : MonoBehaviour
     public void TakeDamage(int baseDamage)
     {
         // Change this later
-        int damage = baseDamage - Defense;
+        int damage = baseDamage *(2- Defense/10)*5;
         if (isDefending)
             // Change this later
-            damage -= baseEntity.defendModifier;
+            damage/=2;
 
         // Ensure damage is not negative
         damage = Math.Max(0, damage);
