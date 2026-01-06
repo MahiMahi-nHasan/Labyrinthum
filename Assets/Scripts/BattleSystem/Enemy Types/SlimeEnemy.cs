@@ -6,6 +6,6 @@ public class SlimeEnemy : BattleEntity
 {
     public override int Special()
     {
-        return Specials.PummelingDamage(BaseDamage() * 2);
+        return Specials.PummelingDamage(BaseDamage());
     }
 }

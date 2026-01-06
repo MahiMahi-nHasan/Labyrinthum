@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 7348866413777120901}
   m_Layer: 0
   m_Name: PlayerController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -351,5 +351,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   baseEntity: {fileID: 11400000, guid: fe6a13943564b4343afc77fd8220bec8, type: 2}
-  party:
-  - {fileID: 7348866413777120901}
+  party: 00000000

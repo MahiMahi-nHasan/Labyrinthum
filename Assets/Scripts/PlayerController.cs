@@ -97,14 +97,14 @@ public class PlayerController : MonoBehaviour
     }
 
     // Detects whether the player is looking at a pickup
-    bool TestForPickups(out RaycastHit hit) => Physics.Raycast(camAnchor.position, cam.transform.forward, out hit, pickupDistance, pickupLayer);
+    bool TestForInteractable(out RaycastHit hit) => Physics.Raycast(camAnchor.position, cam.transform.forward, out hit, pickupDistance, pickupLayer);
 
     void OnPickup(InputAction.CallbackContext context)
     {
-        if (TestForPickups(out RaycastHit hit))
+        if (TestForInteractable(out RaycastHit hit))
         {
-            // Picks up the item
-            hit.collider.gameObject.GetComponent<EquipmentContainer>().Pickup();
+            // Interacts with the interactable
+            hit.collider.gameObject.GetComponent<Interactable>().Interact();
         }
     }
 }

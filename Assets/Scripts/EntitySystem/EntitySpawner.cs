@@ -6,16 +6,13 @@ public class EntitySpawner : MonoBehaviour
     // Singleton system
     public static EntitySpawner instance;
 
-    public GameObject target;
-    private int t_id;
-
     public double spawnChance = .001;
-    public int entityCap = 20;
+    public int entityCap = 100;
 
     public int minPartySize = 1;
     public int maxPartySize = 4;
 
-    public Entity entity;
+    public Entity[] possibleSpawns;
 
     void Awake()
     {
@@ -35,11 +32,7 @@ public class EntitySpawner : MonoBehaviour
 
         OverworldEntity[] entities = FindObjectsOfType<OverworldEntity>();
         foreach (OverworldEntity entity in entities)
-        {
-            int id = EntityManager.LinkEntity(entity.gameObject);
-            if (target.GetComponent<OverworldEntity>() == entity)
-                t_id = id;
-        }
+            EntityManager.LinkEntity(entity.gameObject);
     }
 
     void FixedUpdate()
@@ -49,31 +42,33 @@ public class EntitySpawner : MonoBehaviour
         if (comp < spawnChance && BattleRunner.active.gameState == BattleRunner.GameState.OVERWORLD)
         {
             TrySpawnParty(
-                entity,
                 GetRandomPointWithinRadiusFromOrigin(
-                    EntityManager.entities[t_id].instance.transform.position,
-                    20f
+                    GameObject.FindGameObjectWithTag("EnemySpawn").transform.position,
+                    10f
                 )
             );
         }
     }
 
-    public void TrySpawnParty(Entity entity, Vector3 position)
+    public void TrySpawnParty(Vector3 position)
     {
         int partySize = Random.Range(minPartySize, maxPartySize);
         OverworldEntity[] entities = FindObjectsOfType<OverworldEntity>();
 
         if (entities.Length + partySize < entityCap)
-            SpawnParty(entity, partySize, position);
+            SpawnParty(partySize, position);
     }
 
-    public void SpawnParty(Entity entity, int size, Vector3 position)
+    public void SpawnParty(int size, Vector3 position)
     {
         OverworldEntity[] entities = new OverworldEntity[size];
 
         for (int i = 0; i < size; i++)
         {
-            int id = EntityManager.CreateEntity(entity, GetRandomPointWithinRadiusFromOrigin(position, 5f));
+            int id = EntityManager.CreateEntity(
+                possibleSpawns[Random.Range(0, possibleSpawns.Length)],
+                GetRandomPointWithinRadiusFromOrigin(position, 3f)
+            );
             GameObject instance = EntityManager.entities[id].instance;
             entities[i] = instance.GetComponent<OverworldEntity>();
         }

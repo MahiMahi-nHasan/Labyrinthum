@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class EquipmentContainer : MonoBehaviour
+public class EquipmentContainer : Interactable
 {
     public Equipment equipment;
 
-    public void Pickup()
+    public override void Interact()
     {
         InventoryManager.inventory.Add(equipment);
         Destroy(gameObject);
