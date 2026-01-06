@@ -317,6 +317,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f18cac8f943c4e54b0bc9973811f1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &619536099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 619536101}
+  - component: {fileID: 619536100}
+  m_Layer: 0
+  m_Name: A*
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &619536100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619536099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAACYn+vSFeXWSwIAAA0FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFVE1zmzAQ/SsenZsOkEwa99YSx+khiSduJhcua1iMxkJi9BF/jf97VwIMcQ49Id57u3r7AUfGpWkwt0rPNS+eVIHs54T5M/s2GchH3MFaySU/YK9554WtvAiC5hUsV4THPsyoGq3m+S+5Fl4cEegkL5WuZ8UaU2WsIbgEYZAorayPlgQdJ2zXBey758E/Jyc65Sgt6v+pnMwF1A0W3u0gjqNeTqcglFRJp/GucyUEN50NZvdNKDOFxjgqggQFByorGPD6Cvm6svSSjINfytKg7Uxp2N9zTd1ps7Lfqm1ZDWbTOvsA4fBsvU359IW9igNdalU/9re29diK55tX2Odg7KijY/j+s20ntyA2sBL4XqF8VnOtnCyItNr5UGcwuR+lOleWVphvBl3r9QJ0zdfpxMN0TqH2XSp4vfLI95sWWAoVuj31MahpLn/IcNgJ02Ui1Jt4M/gX1uPl6YgHro0lqrtQencr5bSXslnomS/G2VRpiQHuPDcoQdj9gtLYywFecKNrL5gH8J9Jd3nH9dt/ERLgQR9FF9RCbc/DMpXaPqGpXpwVXOJg2hPP1KdUSdnu17gnfdjS6RLyUdja8eLzarFkdXcNuIqTJLqFW4iv4jtYxdFNMo2m1z+SaMrC7nFJdYJYtEa79tDU5JBc0p71f4/JXEMTdr3QsJ3zQ61GLeeyVMtcI8qXNsPZOGq6hL7JYlZwatASreUyzJsdMyZUvsEiOyfKQqWzndWQDVky1vAPZT2SsTT8MzLm4fMqLzR+cNz6y/tkJ3b6B1BLAwQUAAAICAAAmJ/rwBl9Q20AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0klGShXFiapKhkZGBWaJZoqGuoUVikqGBiZGlgaWxuZGBpVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAmJ/r0hXl1ksCAAANBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAmJ/rwBl9Q20AAAB4AAAACQAkAAAAAAAAAAAAAACYAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAFADAAAAAA==
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 0
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 10
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+--- !u!4 &619536101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619536099}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.986894, y: 8.895404, z: 1.7236338}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &772844471
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +643,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 619536101}
   - {fileID: 294512264}
   - {fileID: 772844473}
   - {fileID: 1909550488}
