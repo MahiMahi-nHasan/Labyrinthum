@@ -8,7 +8,13 @@ public class Entity : ScriptableObject
     public GameObject prefab;
     public GameObject battlePrefab;
 
+    public int maxHealth;
+    public int maxMana;
     public int baseStrength;
     public int baseDefense;
     public int baseSpeed;
+
+    public int manaRequiredForSpecial = 5;
+    public float rechargeManaPercent = 0.1f;
+    public int defendModifier = 5;
 }

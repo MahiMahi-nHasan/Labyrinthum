@@ -486,7 +486,8 @@ MonoBehaviour:
   minPartySize: 1
   maxPartySize: 4
   possibleSpawns:
-  - {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
+  - {fileID: 11400000, guid: bc002bfeb7dea477fa6a48b70ece346e, type: 2}
+  - {fileID: 11400000, guid: 3f947ccb25ae34b37b3f0441b2ac6d5b, type: 2}
 --- !u!4 &1676567016
 Transform:
   m_ObjectHideFlags: 0

@@ -20,8 +20,6 @@ public static class LootTable
             //Debug.Log("Pushed {s}!"+loot[rand]);
             loot.Remove(loot[rand]);
             size = loot.Count;
-
-
         }
 
     }

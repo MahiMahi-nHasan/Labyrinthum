@@ -68,7 +68,6 @@ public abstract class BattleEntity : MonoBehaviour
             EntityManager.entities[id] = data;
         }
     }
-    public int maxHealth;
     public int Mana
     {
         get
@@ -82,20 +81,15 @@ public abstract class BattleEntity : MonoBehaviour
             EntityManager.entities[id] = data;
         }
     }
-    public int maxMana;
 
     public EntityState state;
 
     public float lowHealthPercentThreshold = 0.35f;
-    public int manaRequiredForSpecial = 5;
-    public float rechargeManaPercent = 0.1f;
-    public int defendModifier = 5;
     public bool isDefending;
 
     void Awake()
     {
         state.element = element;
-        Health = maxHealth;
     }
 
     protected void Update()
@@ -111,9 +105,9 @@ public abstract class BattleEntity : MonoBehaviour
     public void SetHealthManaHeuristic()
     {
         int hmHeuristic = 0;
-        if (Health > maxHealth * lowHealthPercentThreshold)
+        if (Health > baseEntity.maxHealth * lowHealthPercentThreshold)
             hmHeuristic |= 0b10;
-        if (Mana > manaRequiredForSpecial)
+        if (Mana > baseEntity.manaRequiredForSpecial)
             hmHeuristic |= 0b01;
         state.hmHeuristic = (State)hmHeuristic;
     }
@@ -132,7 +126,7 @@ public abstract class BattleEntity : MonoBehaviour
         int damage = baseDamage - Defense;
         if (isDefending)
             // Change this later
-            damage -= defendModifier;
+            damage -= baseEntity.defendModifier;
 
         // Ensure damage is not negative
         damage = Math.Max(0, damage);
@@ -146,7 +140,7 @@ public abstract class BattleEntity : MonoBehaviour
     public void Heal(int amount)
     {
         Health += amount;
-        Health = Math.Clamp(Health, 0, maxHealth);
+        Health = Math.Clamp(Health, 0, baseEntity.maxHealth);
     }
 
     public void Defend()
@@ -158,14 +152,14 @@ public abstract class BattleEntity : MonoBehaviour
     public void Recharge()
     {
         Debug.Log("Entity " + baseEntity.entityName + " is recharging");
-        Mana = (int)(rechargeManaPercent * maxMana);
+        Mana = (int)(baseEntity.rechargeManaPercent * baseEntity.maxMana);
 
-        Mana = Mathf.Clamp(Mana, 0, maxMana);
+        Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
     }
 
     // Override this method with special behavior in subclasses
     public abstract int Special();
-    public bool CanUseSpecial => Mana >= manaRequiredForSpecial;
+    public bool CanUseSpecial => Mana >= baseEntity.manaRequiredForSpecial;
 
     public void SelectMove(Move move) => state.plannedMove = move;
 
