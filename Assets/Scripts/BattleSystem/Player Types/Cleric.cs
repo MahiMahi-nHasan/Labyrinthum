@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Cleric : BattleEntity
 {
-    private readonly int healAmount = 10;
+    private readonly int healAmount = 500;
 
     public override int Special()
     {
