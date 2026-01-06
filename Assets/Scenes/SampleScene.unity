@@ -151,12 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799dd5c12dbd94c67851cacddcebf083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 938474497}
   spawnChance: 0.001
   entityCap: 20
   minPartySize: 1
   maxPartySize: 4
-  entity: {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
+  possibleSpawns:
+  - {fileID: 11400000, guid: 63d9b08cd170e4c13a7ae2b239fa5ed8, type: 2}
 --- !u!4 &236988038
 Transform:
   m_ObjectHideFlags: 0
@@ -360,49 +360,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cdc77706257346dbaa0be9b3a032900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1714637869
-PrefabInstance:
+--- !u!1 &1255809645
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1325931612}
-  - component: {fileID: 1325931611}
+  - component: {fileID: 1255809647}
+  - component: {fileID: 1255809646}
   m_Layer: 0
-  m_Name: BattleRunner
+  m_Name: Runner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1325931611
+--- !u!114 &1255809646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325931610}
+  m_GameObject: {fileID: 1255809645}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adb29d6958b294747bbd36c790c27ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   battleSceneName: BattleScene
-  gameSceneName: SampleScene
+  gameSceneName: OverworldScene
   loseSceneName: GameOverScene
   gameState: 3
---- !u!4 &1325931612
+--- !u!4 &1255809647
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325931610}
+  m_GameObject: {fileID: 1255809645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.655556, y: -39.91598, z: 67.94351}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -683,5 +683,5 @@ SceneRoots:
   - {fileID: 1655934440}
   - {fileID: 2054127823}
   - {fileID: 236988038}
+  - {fileID: 1255809647}
   - {fileID: 372103002}
-  - {fileID: 1325931612}
