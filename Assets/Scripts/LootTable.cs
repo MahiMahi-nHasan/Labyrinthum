@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LootTable : MonoBehaviour
+public static class LootTable 
 {
     // Start is called before the first frame update
-    List<int> loot = new() {1,2,3,4,5,6,7,8}; 
-    // In order: Healing Potion, Mana Potion, Potent Potion, Demon Armor, Sage Armor, Nightmare Mace, Magic Bomb, Angel Blessing
+    static List<int> loot = new() {1,2,3,4,5,6,7,8}; 
+    // In order: Demon Armor, Sage Armor, Nightmare Mace, 
     public static Stack<int> s = new Stack<int>();
-    [SerializeField] private int totalChests;
-    private GameObject[] chests;
     
-    void Start()
+    public static void Initialize()
     {
         int size = loot.Count;
 
@@ -19,7 +17,7 @@ public class LootTable : MonoBehaviour
         {
             int rand = Random.Range(0,size);
             s.Push(loot[rand]);
-            Debug.Log("Pushed {s}!"+loot[rand]);
+            //Debug.Log("Pushed {s}!"+loot[rand]);
             loot.Remove(loot[rand]);
             size = loot.Count;
 
@@ -28,13 +26,17 @@ public class LootTable : MonoBehaviour
         
     }
     // Update is called once per frame
-    void Update()
+    public static int GetItem()
     {
+<<<<<<< HEAD
         
     }
     void ChestGen()
     {
         
+=======
+        return s.Pop();
+>>>>>>> 8f8369b (updated loottable)
     }
     
 }
