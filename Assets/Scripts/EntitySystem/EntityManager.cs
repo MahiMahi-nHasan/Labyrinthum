@@ -18,6 +18,8 @@ public static class EntityManager
             baseEntity = baseEntity,
             position = localPosition,
             rotation = rotation,
+            Health = baseEntity.maxHealth,
+            Mana = baseEntity.maxMana,
             party = new()
         };
 
@@ -41,6 +43,8 @@ public static class EntityManager
             instance = instance,
             position = instance.transform.position,
             rotation = instance.transform.rotation,
+            Health = instance.GetComponent<OverworldEntity>().baseEntity.maxHealth,
+            Mana = instance.GetComponent<OverworldEntity>().baseEntity.maxMana,
             party = new()
         };
 

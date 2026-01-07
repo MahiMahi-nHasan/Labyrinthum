@@ -115,22 +115,21 @@ public abstract class BattleEntity : MonoBehaviour
 
     public int BaseDamage()
     {
-        Debug.Log("Entity " + baseEntity.entityName + " returned base damage");
-        return (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
+        int baseDamage = (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
+        Debug.Log("Entity " + baseEntity.entityName + " returned base damage " + baseDamage);
+        return baseDamage;
     }
 
     public void TakeDamage(int baseDamage)
     {
-        // Change this later
-        int damage = baseDamage *(2- Defense/10)*5;
+        int damage = baseDamage * (2 - Defense / 100) * 5;
         if (isDefending)
-            // Change this later
             damage/=2;
 
         // Ensure damage is not negative
         damage = Math.Max(0, damage);
 
-        Debug.Log("Entity " + baseEntity.entityName + " will take " + damage + " damage");
+        Debug.Log("Entity " + baseEntity.entityName + " with health " + Health + " will take " + damage + " damage");
 
         Health -= damage;
         state.dead = Health <= 0;

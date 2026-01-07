@@ -135,7 +135,7 @@ public class BattleRunner : MonoBehaviour
         yield return StartCoroutine(BattleInterface.active.SetMoves(() =>
         {
             Debug.Log("Simulating round");
-            battle.SimulateRound();
+            StartCoroutine(battle.SimulateRound());
         }));
 
         UpdateGameState();

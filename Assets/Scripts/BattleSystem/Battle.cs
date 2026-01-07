@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class Battle
     }
 
     // Assume that all entities in entities list are alive
-    public void SimulateRound()
+    public IEnumerator SimulateRound()
     {
         // Reset all entities to default state
         foreach (BattleEntity e in entities)
@@ -43,11 +44,11 @@ public class Battle
                 continue;
             }
 
-            SimulateTurn(e);
+            yield return SimulateTurn(e, 0.5f);
         }
     }
 
-    void SimulateTurn(BattleEntity e)
+    IEnumerator SimulateTurn(BattleEntity e, float waitTime)
     {
         switch (e.state.plannedMove)
         {
@@ -64,5 +65,7 @@ public class Battle
                 e.state.target.TakeDamage(e.Special());
                 break;
         }
+
+        yield return new WaitForSeconds(waitTime);
     }
 }
