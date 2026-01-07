@@ -45,7 +45,6 @@ public abstract class BattleEntity : MonoBehaviour
         public BattleEntity target;
         public bool dead;
     }
-    public Element element;
 
     public Entity baseEntity;
     public bool isPlayer;
@@ -89,7 +88,7 @@ public abstract class BattleEntity : MonoBehaviour
 
     void Awake()
     {
-        state.element = element;
+        state.element = baseEntity.element;
     }
 
     protected void Update()

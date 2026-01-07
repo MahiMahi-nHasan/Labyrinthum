@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 9188003921733163903}
   - component: {fileID: -8294809004226709194}
   m_Layer: 5
-  m_Name: BattleBirdPrefab
+  m_Name: BattleSlimePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d9bfa0c7f674b7abc97ad621ff704a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseEntity: {fileID: 11400000, guid: 3f947ccb25ae34b37b3f0441b2ac6d5b, type: 2}
+  baseEntity: {fileID: 11400000, guid: 944ae6503583d4cf6a205ed8851160f7, type: 2}
   isPlayer: 0
   id: 0
   state:

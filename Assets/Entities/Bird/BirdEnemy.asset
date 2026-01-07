@@ -20,6 +20,7 @@ MonoBehaviour:
   baseStrength: 60
   baseDefense: 10
   baseSpeed: 20
+  element: 3
   manaRequiredForSpecial: 5
   rechargeManaPercent: 0.1
   defendModifier: 5

@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: -3461196806209290622}
         m_TargetAssemblyTypeName: BattleNPC, Assembly-CSharp
         m_MethodName: SelectThisAsTarget
         m_Mode: 1
@@ -203,7 +203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aee50d4085ef448fa59ed7e7735eac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: 0
   baseEntity: {fileID: 11400000, guid: bc002bfeb7dea477fa6a48b70ece346e, type: 2}
   isPlayer: 0
   id: 0
@@ -215,3 +214,4 @@ MonoBehaviour:
     dead: 0
   lowHealthPercentThreshold: 0.35
   isDefending: 0
+  targetButton: {fileID: 3964828988016099294}

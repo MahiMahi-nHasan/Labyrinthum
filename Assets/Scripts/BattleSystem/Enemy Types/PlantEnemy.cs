@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlantEnemy : BattleEntity
+public class PlantEnemy : BattleNPC
 {
     private readonly int healAmount = 10;
 

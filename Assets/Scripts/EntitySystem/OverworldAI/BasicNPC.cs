@@ -89,7 +89,7 @@ public class BasicNPC : MonoBehaviour
         {
             Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
             transform.position += dir * speed * Time.deltaTime;
-            transform.rotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
 
             float distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
 

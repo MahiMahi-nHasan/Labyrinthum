@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeEnemy : BattleEntity
+public class SlimeEnemy : BattleNPC
 {
     public override int Special()
     {

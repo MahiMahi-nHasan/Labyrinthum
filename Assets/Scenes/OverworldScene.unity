@@ -484,7 +484,7 @@ MonoBehaviour:
   spawnChance: 0.01
   entityCap: 20
   minPartySize: 1
-  maxPartySize: 4
+  maxPartySize: 1
   possibleSpawns:
   - {fileID: 11400000, guid: bc002bfeb7dea477fa6a48b70ece346e, type: 2}
   - {fileID: 11400000, guid: 3f947ccb25ae34b37b3f0441b2ac6d5b, type: 2}

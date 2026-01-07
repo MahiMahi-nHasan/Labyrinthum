@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdEnemy : BattleEntity
+public class BirdEnemy : BattleNPC
 {
     public override int Special()
     {

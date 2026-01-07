@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69d8fc281074247b9aab47c662ef1857, type: 3}
-  m_Name: PlantEnemy
+  m_Name: SlimeEntity
   m_EditorClassIdentifier: 
-  entityName: Prick
-  prefab: {fileID: 6913796708687121901, guid: 484f79b0dbe8241d8a206086741f30ef, type: 3}
-  battlePrefab: {fileID: 2569346413672870113, guid: 3f73cf0519604490ead2cfdb5f3e330c, type: 3}
-  maxHealth: 1200
+  entityName: Slime
+  prefab: {fileID: 6913796708687121901, guid: 36270172c72174646ba60bbbbe39265c, type: 3}
+  battlePrefab: {fileID: 2569346413672870113, guid: 1343fc7cb887145388934484e5ef7c2e, type: 3}
+  maxHealth: 0
   maxMana: 0
   baseStrength: 0
-  baseDefense: 40
-  baseSpeed: 5
-  element: 2
+  baseDefense: 0
+  baseSpeed: 0
+  element: 0
   manaRequiredForSpecial: 5
   rechargeManaPercent: 0.1
   defendModifier: 5

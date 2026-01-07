@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpiritEnemy : BattleEntity
+public class SpiritEnemy : BattleNPC
 {
     public override int Special()
     {
