@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c7ca89d08a448a89eca58ea129211a, type: 3}
+  m_Name: impagger
+  m_EditorClassIdentifier: 
+  equipmentName: Imp Dagger
+  description: A small yet lethal weapon used by all kinds of demonic tricksters.
+  sprite: {fileID: 21300000, guid: 1083df8384ab4437fa636bbbc1425875, type: 3}
+  strengthModifier: 5
+  defenseModifier: 0
+  speedModifier: 10
