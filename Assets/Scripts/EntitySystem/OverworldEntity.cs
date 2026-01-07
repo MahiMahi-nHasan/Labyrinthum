@@ -5,13 +5,21 @@ public class OverworldEntity : MonoBehaviour
 {
     public int id;
     public Entity baseEntity;
-    public List<int> party;
+    public List<OverworldEntity> partyObjects;
+    [HideInInspector] public List<int> party;
 
     void OnDestroy()
     {
         EntityData data = EntityManager.entities[id];
         data.instance = null;
         EntityManager.entities[id] = data;
+    }
+
+    void Start()
+    {
+        for (int i = 0; i < partyObjects.Count; i++)
+            for (int j = 0; j < partyObjects.Count; j++)
+                partyObjects[i].AddToParty(partyObjects[j].id);
     }
 
     void Update()
@@ -36,6 +44,8 @@ public class OverworldEntity : MonoBehaviour
 
     public void AddToParty(int other)
     {
+        if (party.Contains(other)) return;
+        
         party.Add(other);
         EntityManager.entities[id].party.Add(other);
     }

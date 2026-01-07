@@ -4,9 +4,8 @@ using UnityEngine;
 
 public static class LootTable
 {
-    // Start is called before the first frame update
-    static List<int> loot = new() { 1, 2, 3, 4, 5, 6, 7, 8 };
-    // In order: Demon Armor, Sage Armor, Nightmare Mace, 
+    // IDs correspond to items in Chest.cs
+    static List<int> loot = new() { 1, 2, 3, 4, 5, 6, 7, 8 }; 
     public static Stack<int> s = new Stack<int>();
 
     public static void Initialize()

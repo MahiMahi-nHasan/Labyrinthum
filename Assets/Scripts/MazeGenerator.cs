@@ -81,11 +81,13 @@ public class MazeGenerator : MonoBehaviour
         Vector2Int start = new Vector2Int(0, 0);
         Vector2Int end = new Vector2Int(Mathf.Max(0, width - 1), Mathf.Max(0, height - 1));
 
-        CreateMarkerAt(start, Color.green);
-        CreateMarkerAt(end, Color.red);
+        //CreateMarkerAt(start, Color.green);
+        //CreateMarkerAt(end, Color.red);
 
         if (spawnTreasureChests)
             PlaceTreasureChests();
+
+        AstarPath.active.graphs[0].Scan();
     }
 
     void CreateMarkerAt(Vector2Int cell, Color color)

@@ -8,11 +8,12 @@ TagManager:
   - PlayerArea
   - EnemyArea
   - EnemySpawn
+  - Chest
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ignore During Pathfinding
   - Water
   - UI
   - Pickup

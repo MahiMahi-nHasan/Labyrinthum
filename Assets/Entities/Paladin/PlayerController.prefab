@@ -351,4 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   baseEntity: {fileID: 11400000, guid: fe6a13943564b4343afc77fd8220bec8, type: 2}
-  party: 00000000
+  partyObjects:
+  - {fileID: 7348866413777120901}
+  - {fileID: 0}
+  party: 
