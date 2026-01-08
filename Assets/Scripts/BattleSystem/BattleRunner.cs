@@ -89,7 +89,7 @@ public class BattleRunner : MonoBehaviour
 
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("PlayerArea").GetComponent<RectTransform>();
-            float posY = i / (float)playersInBattle.Count * spawnArea.sizeDelta.y;
+            float posY = i / (float)playersInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2 + 87.5f;
 
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, spawnArea);
@@ -107,7 +107,7 @@ public class BattleRunner : MonoBehaviour
 
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("EnemyArea").GetComponent<RectTransform>();
-            float posY = i / (float)enemiesInBattle.Count * spawnArea.sizeDelta.y;
+            float posY = i / (float)enemiesInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2 + 87.5f;
 
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, spawnArea);
@@ -132,6 +132,15 @@ public class BattleRunner : MonoBehaviour
 
     public IEnumerator Run()
     {
+        // Display ordered turns
+        Queue<BattleEntity> orderedTurns = battle.GetOrderedEntities();
+        int count = orderedTurns.Count;
+        RectTransform turnBarCenter = GameObject.FindGameObjectWithTag("TurnBarCenter").GetComponent<RectTransform>();
+        for (int i = 0; i < orderedTurns.Count; i++)
+        {
+            
+        }
+        
         yield return StartCoroutine(BattleInterface.active.SetMoves(() =>
         {
             Debug.Log("Simulating round");
