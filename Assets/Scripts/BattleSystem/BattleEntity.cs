@@ -49,6 +49,8 @@ public abstract class BattleEntity : MonoBehaviour
     public Entity baseEntity;
     public bool isPlayer;
 
+    public BarsManager barsManager;
+
     public int id;
 
     public int Strength => EntityManager.entities[id].Strength;
@@ -67,6 +69,7 @@ public abstract class BattleEntity : MonoBehaviour
             EntityManager.entities[id] = data;
         }
     }
+    private int healthLastFrame;
     public int Mana
     {
         get
@@ -80,6 +83,7 @@ public abstract class BattleEntity : MonoBehaviour
             EntityManager.entities[id] = data;
         }
     }
+    private int manaLastFrame;
 
     public EntityState state;
 
@@ -89,6 +93,9 @@ public abstract class BattleEntity : MonoBehaviour
     void Awake()
     {
         state.element = baseEntity.element;
+        barsManager.Initialize(baseEntity.maxHealth, baseEntity.maxMana);
+        barsManager.UpdateHealth(Health);
+        barsManager.UpdateMana(Mana);
     }
 
     protected void Update()
@@ -99,6 +106,14 @@ public abstract class BattleEntity : MonoBehaviour
 
         if (state.dead)
             OnDeath();
+
+        if (Health != healthLastFrame)
+            barsManager.UpdateHealth(Health);
+        if (Mana != manaLastFrame)
+            barsManager.UpdateMana(Mana);
+
+        healthLastFrame = Health;
+        manaLastFrame = Mana;
     }
 
     public void SetHealthManaHeuristic()
