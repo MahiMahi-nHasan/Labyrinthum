@@ -16,11 +16,11 @@ MonoBehaviour:
   prefab: {fileID: 7902035464942803558, guid: 87849e78ec9194044917b2e6e9ec4d1c, type: 3}
   battlePrefab: {fileID: 0}
   maxHealth: 1000
-  maxMana: 0
+  maxMana: 40
   baseStrength: 10
   baseDefense: 40
   baseSpeed: 40
   element: 0
-  manaRequiredForSpecial: 5
-  rechargeManaPercent: 0.1
+  manaRequiredForSpecial: 8
+  rechargeManaPercent: 0.2
   defendModifier: 5
