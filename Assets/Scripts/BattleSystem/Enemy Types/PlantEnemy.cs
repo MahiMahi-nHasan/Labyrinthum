@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlantEnemy : BattleNPC
 {
-    private readonly int healAmount = 10;
+    private readonly int healAmount = 300;
 
     public override int Special()
     {

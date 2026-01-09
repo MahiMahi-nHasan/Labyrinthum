@@ -137,7 +137,7 @@ public abstract class BattleEntity : MonoBehaviour
 
     public void TakeDamage(int baseDamage)
     {
-        int damage = baseDamage * (2 - Defense / 100) * 5;
+        int damage = baseDamage * (1 - Defense / 100) * 5;
         if (isDefending)
             damage/=2;
 
