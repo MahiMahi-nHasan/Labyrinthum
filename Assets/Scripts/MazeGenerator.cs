@@ -14,26 +14,14 @@ public class MazeGenerator : MonoBehaviour
     public GameObject startMarkerPrefab;
     public GameObject endMarkerPrefab;
 
-    [Header("Treasure")]
     public GameObject treasureChestPrefab;
     public bool spawnTreasureChests = true;
-    [Range(0f, 1f)]
-    [Tooltip("Chance that a chest spawns at any dead end (0-1). Default 0.25 = 25% chance")]
-    public float spawnTreasureChance = 0.25f;
+    [Range(0f, 1f)]    public float spawnTreasureChance = 0.25f;
     public float treasureYOffset = 0.05f;
 
     void Start()
     {
         GenerateMaze();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ClearMaze();
-            GenerateMaze();
-        }
     }
 
     void GenerateMaze()
