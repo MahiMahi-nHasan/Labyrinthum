@@ -9,6 +9,8 @@ TagManager:
   - EnemyArea
   - EnemySpawn
   - Chest
+  - TurnBarCenter
+  - TurnIcon
   layers:
   - Default
   - TransparentFX

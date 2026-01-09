@@ -707,6 +707,8 @@ MonoBehaviour:
   battleSceneName: BattleScene
   gameSceneName: OverworldScene
   loseSceneName: GameOverScene
+  turnBarIconPrefab: {fileID: 8224486986043280243, guid: 695c2e09809c249e4abdc876da95cf50, type: 3}
+  iconSpacing: 60
   gameState: 3
 --- !u!4 &772844473
 Transform:

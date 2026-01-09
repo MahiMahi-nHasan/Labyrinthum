@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Spirit
   m_EditorClassIdentifier: 
   entityName: Spirit
+  sprite: {fileID: 21300000, guid: 86cc3a19690d3c84b83456a8793673a6, type: 3}
   prefab: {fileID: 0}
   battlePrefab: {fileID: 0}
   maxHealth: 500

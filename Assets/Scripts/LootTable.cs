@@ -5,19 +5,19 @@ using UnityEngine;
 public static class LootTable
 {
     // IDs correspond to items in Chest.cs
-    static List<int> loot = new() { 0, 1, 2, 3, 4, 5, 6, 7 }; 
+    static readonly List<int> loot = new() { 0, 1, 2, 3, 4, 5, 6, 7 }; 
     public static Stack<int> s = new Stack<int>();
 
     public static void RefillStack()
     {
         List<int> m_loot = new(loot);
 
-        while (m_loot.Count > 0)
+        for (int i = 0; i < loot.Count; i++)
         {
             int rand = Random.Range(0, m_loot.Count);
             s.Push(loot[rand]);
-            //Debug.Log("Pushed {s}!"+loot[rand]);
-            loot.Remove(loot[rand]);
+            Debug.Log("Pushed " + loot[rand]);
+            m_loot.Remove(loot[rand]);
         }
 
     }
