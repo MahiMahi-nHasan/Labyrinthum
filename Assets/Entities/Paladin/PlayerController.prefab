@@ -353,5 +353,4 @@ MonoBehaviour:
   baseEntity: {fileID: 11400000, guid: fe6a13943564b4343afc77fd8220bec8, type: 2}
   partyObjects:
   - {fileID: 7348866413777120901}
-  - {fileID: 0}
   party: 

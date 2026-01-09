@@ -170,6 +170,11 @@ public abstract class BattleEntity : MonoBehaviour
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
     }
 
+    public int BaseSpecial()
+    {
+        Mana -= baseEntity.manaRequiredForSpecial;
+        return Special();
+    }
     // Override this method with special behavior in subclasses
     public abstract int Special();
     public bool CanUseSpecial => Mana >= baseEntity.manaRequiredForSpecial;
