@@ -12,13 +12,9 @@ public class Battle
         this.entities = entities;
     }
 
-    // Assume that all entities in entities list are alive
-    public IEnumerator SimulateRound()
+    // Get an ordered queue of the entities in the battle based on speed
+    public Queue<BattleEntity> GetOrderedEntities()
     {
-        // Reset all entities to default state
-        foreach (BattleEntity e in entities)
-            e.isDefending = false;
-
         List<BattleEntity> bkp = new(entities);
         // Sort entities in order of speed
         Queue<BattleEntity> orderedEntities = new();
@@ -33,6 +29,18 @@ public class Battle
             entities.RemoveAt(iMaxSpeed);
         }
         entities = bkp;
+
+        return orderedEntities;
+    }
+
+    // Assume that all entities in entities list are alive
+    public IEnumerator SimulateRound()
+    {
+        // Reset all entities to default state
+        foreach (BattleEntity e in entities)
+            e.isDefending = false;
+
+        Queue<BattleEntity> orderedEntities = GetOrderedEntities();
 
         while (orderedEntities.Count > 0)
         {

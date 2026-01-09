@@ -74,7 +74,7 @@ public abstract class BattleEntity : MonoBehaviour
     {
         get
         {
-            return EntityManager.entities[id].Health;
+            return EntityManager.entities[id].Mana;
         }
         set
         {

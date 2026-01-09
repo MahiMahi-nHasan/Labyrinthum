@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69d8fc281074247b9aab47c662ef1857, type: 3}
-  m_Name: Paladin
+  m_Name: Demon King
   m_EditorClassIdentifier: 
-  entityName: Player
-  prefab: {fileID: 7104815242739876202, guid: d8453f8c0929046068638284ec9200d4, type: 3}
-  battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
-  maxHealth: 1500
-  maxMana: 20
-  baseStrength: 50
+  entityName: 'Demon King '
+  prefab: {fileID: 0}
+  battlePrefab: {fileID: 0}
+  maxHealth: 3500
+  maxMana: 100
+  baseStrength: 60
   baseDefense: 50
-  baseSpeed: 20
-  element: 0
-  manaRequiredForSpecial: 5
+  baseSpeed: 15
+  element: 1
+  manaRequiredForSpecial: 20
   rechargeManaPercent: 0.1
   defendModifier: 5

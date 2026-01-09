@@ -89,11 +89,11 @@ public class BattleRunner : MonoBehaviour
 
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("PlayerArea").GetComponent<RectTransform>();
-            float posY = i / (float)playersInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2;
+            float posY = i / (float)playersInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2 + 87.5f;
 
             // Instantiate battle prefab there
             GameObject instance = Instantiate(battlePrefab, spawnArea);
-            instance.GetComponent<RectTransform>().localPosition = new Vector2(0, posY);
+            instance.GetComponent<RectTransform>().localPosition = new(0, posY);
             instance.GetComponent<BattleEntity>().id = playersInBattle[i];
             // Add entity component of instance to players list
             players.Add(instance.GetComponent<BattleEntity>());
@@ -107,11 +107,11 @@ public class BattleRunner : MonoBehaviour
 
             // Determine placement on screen
             RectTransform spawnArea = GameObject.FindGameObjectWithTag("EnemyArea").GetComponent<RectTransform>();
-            float posY = i / (float)enemiesInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2;
+            float posY = i / (float)enemiesInBattle.Count * spawnArea.sizeDelta.y - spawnArea.sizeDelta.y / 2 + 87.5f;
 
             // Instantiate battle prefab there
-            GameObject instance = Instantiate(battlePrefab, new Vector3(0, posY), Quaternion.identity, spawnArea);
-            ((RectTransform)instance.transform).localPosition = new Vector2(0, posY);
+            GameObject instance = Instantiate(battlePrefab, spawnArea);
+            ((RectTransform)instance.transform).localPosition = new(0, posY);
             instance.GetComponent<BattleEntity>().id = enemiesInBattle[i];
 
             // Add entity component of instance to players list
@@ -132,6 +132,15 @@ public class BattleRunner : MonoBehaviour
 
     public IEnumerator Run()
     {
+        // Display ordered turns
+        Queue<BattleEntity> orderedTurns = battle.GetOrderedEntities();
+        int count = orderedTurns.Count;
+        RectTransform turnBarCenter = GameObject.FindGameObjectWithTag("TurnBarCenter").GetComponent<RectTransform>();
+        for (int i = 0; i < orderedTurns.Count; i++)
+        {
+            
+        }
+        
         yield return StartCoroutine(BattleInterface.active.SetMoves(() =>
         {
             Debug.Log("Simulating round");
