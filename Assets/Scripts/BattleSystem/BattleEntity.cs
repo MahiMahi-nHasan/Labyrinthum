@@ -172,6 +172,9 @@ public abstract class BattleEntity : MonoBehaviour
 
     public int BaseSpecial()
     {
+        if (!CanUseSpecial)
+            return 0;
+        
         Mana -= baseEntity.manaRequiredForSpecial;
         return Special();
     }
