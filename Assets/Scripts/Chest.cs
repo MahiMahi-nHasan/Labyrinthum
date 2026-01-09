@@ -3,13 +3,17 @@ using UnityEngine;
 public class Chest : Interactable
 {
     public Equipment[] lootIndex;
+    private bool opened = false;
 
     public override void Interact()
     {
-        int id = LootTable.GetItem();
+        if (!opened)
+        {
+            int id = LootTable.GetItem();
 
-        InventoryManager.inventory.Add(lootIndex[id]);
+            InventoryManager.inventory.Add(lootIndex[id]);
+        }
 
-        Destroy(gameObject);
+        opened = true;
     }
 }
