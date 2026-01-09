@@ -165,7 +165,7 @@ public abstract class BattleEntity : MonoBehaviour
     public void Recharge()
     {
         Debug.Log("Entity " + baseEntity.entityName + " is recharging");
-        Mana = (int)(baseEntity.rechargeManaPercent * baseEntity.maxMana);
+        Mana += (int)(baseEntity.rechargeManaPercent * baseEntity.maxMana);
 
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
     }
