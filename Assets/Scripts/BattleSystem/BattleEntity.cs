@@ -152,6 +152,8 @@ public abstract class BattleEntity : MonoBehaviour
 
     public void Heal(int amount)
     {
+        if (state.dead)
+            return;
         Health += amount;
         Health = Math.Clamp(Health, 0, baseEntity.maxHealth);
     }
