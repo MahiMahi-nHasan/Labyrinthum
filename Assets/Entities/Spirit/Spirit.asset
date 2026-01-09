@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69d8fc281074247b9aab47c662ef1857, type: 3}
-  m_Name: Paladin
+  m_Name: Spirit
   m_EditorClassIdentifier: 
-  entityName: Player
-  prefab: {fileID: 7104815242739876202, guid: d8453f8c0929046068638284ec9200d4, type: 3}
-  battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
-  maxHealth: 1500
-  maxMana: 20
-  baseStrength: 50
-  baseDefense: 50
-  baseSpeed: 20
+  entityName: Spirit
+  prefab: {fileID: 0}
+  battlePrefab: {fileID: 0}
+  maxHealth: 500
+  maxMana: 30
+  baseStrength: 30
+  baseDefense: 10
+  baseSpeed: 100
   element: 0
-  manaRequiredForSpecial: 5
-  rechargeManaPercent: 0.1
+  manaRequiredForSpecial: 15
+  rechargeManaPercent: 0.5
   defendModifier: 5
