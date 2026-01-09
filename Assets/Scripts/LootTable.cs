@@ -5,7 +5,7 @@ using UnityEngine;
 public static class LootTable
 {
     // IDs correspond to items in Chest.cs
-    static List<int> loot = new() { 1, 2, 3, 4, 5, 6, 7, 8 }; 
+    static List<int> loot = new() { 0, 1, 2, 3, 4, 5, 6, 7 }; 
     public static Stack<int> s = new Stack<int>();
 
     public static void RefillStack()
