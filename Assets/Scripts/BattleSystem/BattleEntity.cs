@@ -199,9 +199,10 @@ public abstract class BattleEntity : MonoBehaviour
             allies,
             enemies
         );
-
     }
+
     public bool CanUseSpecial => chosenSpecial != null && Mana >= chosenSpecial.manaCost;
+    
     public void SelectMove(Move move) => state.plannedMove = move;
 
     public void OnDeath()
