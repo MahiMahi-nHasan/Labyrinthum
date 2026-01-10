@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class BattleInterface : MonoBehaviour
 {
@@ -17,9 +19,17 @@ public class BattleInterface : MonoBehaviour
     public GameObject actionMenu;
     public bool showActionMenu = true;
 
+    //specials menu
+    public GameObject specialsMenu;
+    public Transform specialsButtonContainer;
+    public GameObject specialButtonPrefab;
+    public GameObject cancelButton;
+
     void Awake()
     {
         active = this;
+        specialsMenu.SetActive(false);
+        cancelButton.SetActive(false);
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
@@ -39,6 +49,62 @@ public class BattleInterface : MonoBehaviour
     public void SelectSpecial() => StartCoroutine(Special_Coroutine());
     public void SelectDefend() => SelectMove(BattleEntity.Move.DEFEND);
     public void SelectRecharge() => SelectMove(BattleEntity.Move.RECHARGE);
+
+    public void OpenSpecialMenu()
+    {
+        // Hide base menu
+        showActionMenu = false;
+        Debug.Log("Selected entity is: " + selectedEntity);
+        Debug.Log("Container is: " + specialsButtonContainer);
+        Debug.Log("Prefab is: " + specialButtonPrefab);
+        Debug.Log("Specials array: " + selectedEntity.specials);
+        Debug.Log("Specials length: " + selectedEntity.specials?.Length);
+        foreach (var special in selectedEntity.specials)
+        {
+            Debug.Log($"{special.Name}");
+
+        }
+        // Show cancel button
+        cancelButton.SetActive(true);
+
+        // Show the menu
+        specialsMenu.SetActive(true);
+
+        // Clear old buttons
+        foreach (Transform child in specialsButtonContainer)
+            Destroy(child.gameObject);
+
+        // Build new buttons based on selectedEntity.specials
+        for (int i = 0; i < selectedEntity.specials.Length; i++)
+        {
+            Special s = selectedEntity.specials[i];
+            if (s == null) continue;
+
+            GameObject btnObj = Instantiate(specialButtonPrefab, specialsButtonContainer);
+            Button btn = btnObj.GetComponentInChildren<Button>();
+            TMP_Text label = btnObj.GetComponentInChildren<TMP_Text>();
+            if (label == null)
+            {
+                Debug.LogError("Special button prefab is missing TMP_Text!");
+                continue;
+            }
+            label.text = s.Name;
+
+            btn.onClick.AddListener(() =>
+            {
+                selectedEntity.chosenSpecial = s;
+                StartCoroutine(Special_Coroutine());
+                CloseSpecialMenu();
+            });
+        }
+    }
+    public void CloseSpecialMenu()
+    {
+        specialsMenu.SetActive(false);
+        cancelButton.SetActive(false);
+        showActionMenu = true;
+        actionMenu.SetActive(true);
+    }
 
     public IEnumerator Attack_Coroutine()
     {
