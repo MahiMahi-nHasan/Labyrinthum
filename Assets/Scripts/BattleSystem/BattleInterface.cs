@@ -106,9 +106,35 @@ public class BattleInterface : MonoBehaviour
             BattleEntity.Move move = ((BattleNPC)selectedEntity).GetDecidedMove();
             SelectMove(move);
 
-            if (move == BattleEntity.Move.ATTACK || move == BattleEntity.Move.SPECIAL)
+            if (move == BattleEntity.Move.ATTACK)
             {
                 SelectTarget(players[Random.Range(0, players.Count)]);
+            } else if (move == BattleEntity.Move.SPECIAL)
+            {
+                Special s = selectedEntity.specials[Random.Range(0, selectedEntity.specials.Length)];
+                selectedEntity.chosenSpecial = s;
+                switch(s.targetingType) 
+                {
+
+                    case Special.TargetingType.AllEnemies:
+                    case Special.TargetingType.SingleEnemy:
+                        SelectTarget(players[Random.Range(0, players.Count)]);
+                        break;
+
+                    case Special.TargetingType.SingleAlly:
+                        SelectTarget(npcs[Random.Range(0, npcs.Count)]);
+                        break;
+
+                    case Special.TargetingType.Self:
+                        SelectTarget(selectedEntity);
+                        break;
+                    case Special.TargetingType.AllAllies:
+                        // No target needed
+                        selectedEntity.state.target = null;
+                        break;
+
+                }
+
             }
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BattleEntity : MonoBehaviour
@@ -52,6 +53,8 @@ public abstract class BattleEntity : MonoBehaviour
     public BarsManager barsManager;
 
     public int id;
+    public Special[] specials = new Special[4];
+    public Special chosenSpecial;
 
     public int Strength => EntityManager.entities[id].Strength;
     public int Defense => EntityManager.entities[id].Defense;
@@ -121,7 +124,7 @@ public abstract class BattleEntity : MonoBehaviour
         int hmHeuristic = 0;
         if (Health > baseEntity.maxHealth * lowHealthPercentThreshold)
             hmHeuristic |= 0b10;
-        if (Mana > baseEntity.manaRequiredForSpecial)
+        if (Mana > chosenSpecial.manaCost)
             hmHeuristic |= 0b01;
         state.hmHeuristic = (State)hmHeuristic;
     }
@@ -172,18 +175,30 @@ public abstract class BattleEntity : MonoBehaviour
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
     }
 
-    public int BaseSpecial()
+    public virtual int Special()
     {
+        if (chosenSpecial == null)
+        {
+            Debug.LogWarning($"{name} has no special assigned.");
+            return 0;
+        }
+
         if (!CanUseSpecial)
             return 0;
-        
-        Mana -= baseEntity.manaRequiredForSpecial;
-        return Special();
-    }
-    // Override this method with special behavior in subclasses
-    public abstract int Special();
-    public bool CanUseSpecial => Mana >= baseEntity.manaRequiredForSpecial;
 
+        Mana -= chosenSpecial.manaCost;
+        List<BattleEntity> allies = isPlayer ? BattleInterface.active.players : BattleInterface.active.npcs;
+        List<BattleEntity> enemies = isPlayer ? BattleInterface.active.npcs : BattleInterface.active.players;
+
+        return chosenSpecial.UseMove(
+            this,
+            state.target,
+            allies,
+            enemies
+        );
+
+    }
+    public bool CanUseSpecial => chosenSpecial != null && Mana >= chosenSpecial.manaCost;
     public void SelectMove(Move move) => state.plannedMove = move;
 
     public void OnDeath()

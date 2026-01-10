@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -3461196806209290622}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BattleNPC, Assembly-CSharp
         m_MethodName: SelectThisAsTarget
         m_Mode: 1
@@ -163,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9188003921733163903}
-  - component: {fileID: -3461196806209290622}
+  - component: {fileID: 7722055055903501470}
   m_Layer: 5
   m_Name: BattlePlantPrefab
   m_TagString: Untagged
@@ -192,7 +192,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &-3461196806209290622
+--- !u!114 &7722055055903501470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,13 +201,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2569346413672870113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aee50d4085ef448fa59ed7e7735eac5, type: 3}
+  m_Script: {fileID: 11500000, guid: a6039a064a68e41289c8be27cadb7da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseEntity: {fileID: 11400000, guid: bc002bfeb7dea477fa6a48b70ece346e, type: 2}
   isPlayer: 0
   barsManager: {fileID: 8290837383039732908}
   id: 0
+  specials:
+  - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
+  - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
+  - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
+  - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
+  chosenSpecial: {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
   state:
     hmHeuristic: 0
     plannedMove: 0
