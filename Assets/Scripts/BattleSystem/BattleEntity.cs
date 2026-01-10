@@ -189,6 +189,7 @@ public abstract class BattleEntity : MonoBehaviour
         Mana -= chosenSpecial.manaCost;
         List<BattleEntity> allies = isPlayer ? BattleInterface.active.players : BattleInterface.active.npcs;
         List<BattleEntity> enemies = isPlayer ? BattleInterface.active.npcs : BattleInterface.active.players;
+        Debug.Log($"{name} used special {chosenSpecial.name}");
 
         return chosenSpecial.UseMove(
             this,
