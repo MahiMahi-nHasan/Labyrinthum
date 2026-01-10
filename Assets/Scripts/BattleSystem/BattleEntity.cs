@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BattleEntity : MonoBehaviour
@@ -8,12 +7,11 @@ public abstract class BattleEntity : MonoBehaviour
     // row = self element
     // col = target element
     public static float[,] weaknessMatrix = {
-    // P    F    I    W
-    {1f,  1f,  1f,  1f},   // Phys
-    {1f,  1f,  1.5f, 0.5f},// Fire
-    {1f,  0.5f,1f,   1.5f},// Ice   
-    {1f,  1.5f,0.5f, 1f}   // Wind
-};
+        {1, 0.5f, 1, 1.5f},
+        {1.5f, 1, 0.5f, 1},
+        {1, 1.5f, 1, 0.5f},
+        {0.5f, 1, 1.5f, 1}
+    };
 
     public enum State
     {
@@ -54,8 +52,6 @@ public abstract class BattleEntity : MonoBehaviour
     public BarsManager barsManager;
 
     public int id;
-    public Special[] specials = new Special[4];
-    public Special chosenSpecial;
 
     public int Strength => EntityManager.entities[id].Strength;
     public int Defense => EntityManager.entities[id].Defense;
@@ -125,7 +121,7 @@ public abstract class BattleEntity : MonoBehaviour
         int hmHeuristic = 0;
         if (Health > baseEntity.maxHealth * lowHealthPercentThreshold)
             hmHeuristic |= 0b10;
-        if (Mana > chosenSpecial.manaCost)
+        if (Mana > baseEntity.manaRequiredForSpecial)
             hmHeuristic |= 0b01;
         state.hmHeuristic = (State)hmHeuristic;
     }
@@ -136,7 +132,6 @@ public abstract class BattleEntity : MonoBehaviour
     {
         int baseDamage = (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
         Debug.Log("Entity " + baseEntity.entityName + " returned base damage " + baseDamage);
-        Debug.Log($"multiplier is {weaknessMatrix[(int)state.element, (int)state.target.state.element]}");
         return baseDamage;
     }
 
@@ -177,31 +172,18 @@ public abstract class BattleEntity : MonoBehaviour
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
     }
 
-    public virtual int Special()
+    public int BaseSpecial()
     {
-        if (chosenSpecial == null)
-        {
-            Debug.LogWarning($"{name} has no special assigned.");
-            return 0;
-        }
-
         if (!CanUseSpecial)
             return 0;
-
-        Mana -= chosenSpecial.manaCost;
-        List<BattleEntity> allies = isPlayer ? BattleInterface.active.players : BattleInterface.active.npcs;
-        List<BattleEntity> enemies = isPlayer ? BattleInterface.active.npcs : BattleInterface.active.players;
-        Debug.Log($"{name} used special {chosenSpecial.name}");
-
-        return chosenSpecial.UseMove(
-            this,
-            state.target,
-            allies,
-            enemies
-        );
-
+        
+        Mana -= baseEntity.manaRequiredForSpecial;
+        return Special();
     }
-    public bool CanUseSpecial => chosenSpecial != null && Mana >= chosenSpecial.manaCost;
+    // Override this method with special behavior in subclasses
+    public abstract int Special();
+    public bool CanUseSpecial => Mana >= baseEntity.manaRequiredForSpecial;
+
     public void SelectMove(Move move) => state.plannedMove = move;
 
     public void OnDeath()
