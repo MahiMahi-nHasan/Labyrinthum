@@ -83,6 +83,7 @@ public class Special : ScriptableObject
     int DamageSingle(BattleEntity user, BattleEntity target)
     {
         float multiplier = BattleEntity.weaknessMatrix[(int)elem, (int)target.state.element];
+        Debug.Log($"multiplier is {multiplier}");
         return Mathf.RoundToInt((user.Strength + power) * multiplier);
     }
     int DamageAOE(BattleEntity user, List<BattleEntity> targets) 

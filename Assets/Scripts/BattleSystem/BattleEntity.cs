@@ -8,11 +8,12 @@ public abstract class BattleEntity : MonoBehaviour
     // row = self element
     // col = target element
     public static float[,] weaknessMatrix = {
-        {1, 0.5f, 1, 1.5f},
-        {1.5f, 1, 0.5f, 1},
-        {1, 1.5f, 1, 0.5f},
-        {0.5f, 1, 1.5f, 1}
-    };
+    // P    F    I    W
+    {1f,  1f,  1f,  1f},   // Phys
+    {1f,  1f,  1.5f, 0.5f},// Fire
+    {1f,  0.5f,1f,   1.5f},// Ice   
+    {1f,  1.5f,0.5f, 1f}   // Wind
+};
 
     public enum State
     {
@@ -135,6 +136,7 @@ public abstract class BattleEntity : MonoBehaviour
     {
         int baseDamage = (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
         Debug.Log("Entity " + baseEntity.entityName + " returned base damage " + baseDamage);
+        Debug.Log($"multiplier is {weaknessMatrix[(int)state.element, (int)state.target.state.element]}");
         return baseDamage;
     }
 
