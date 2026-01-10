@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class BattleEntity : MonoBehaviour
 {
@@ -94,6 +95,11 @@ public abstract class BattleEntity : MonoBehaviour
     public float lowHealthPercentThreshold = 0.35f;
     public bool isDefending;
 
+    public GameObject targetingCursor;
+    public bool targeted;
+
+    public Button targetButton;
+
     void Awake()
     {
         state.element = baseEntity.element;
@@ -144,7 +150,7 @@ public abstract class BattleEntity : MonoBehaviour
     {
         int damage = baseDamage * (1 - Defense / 100) * 5;
         if (isDefending)
-            damage/=2;
+            damage /= 2;
 
         // Ensure damage is not negative
         damage = Math.Max(0, damage);
@@ -202,11 +208,16 @@ public abstract class BattleEntity : MonoBehaviour
     }
 
     public bool CanUseSpecial => chosenSpecial != null && Mana >= chosenSpecial.manaCost;
-    
+
     public void SelectMove(Move move) => state.plannedMove = move;
 
     public void OnDeath()
     {
         gameObject.SetActive(false);
+    }
+    
+    public void SelectThisAsTarget()
+    {
+        BattleInterface.active.SelectTarget(this);
     }
 }

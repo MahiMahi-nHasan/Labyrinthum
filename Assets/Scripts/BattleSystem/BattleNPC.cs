@@ -1,11 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BattleNPC : BattleEntity
 {
-    public Button targetButton;
-
     public static int[,] moveSelectionMatrix = {
         {0, 0, 0, 0},
         {0, 0, 0, 0},
@@ -63,10 +59,5 @@ public class BattleNPC : BattleEntity
         }
 
         return probs;
-    }
-
-    public void SelectThisAsTarget()
-    {
-        BattleInterface.active.SelectTarget(this);
     }
 }
