@@ -48,7 +48,30 @@ public class BattleInterface : MonoBehaviour
 
     public IEnumerator Special_Coroutine()
     {
-        yield return StartCoroutine(SetTarget());
+        Special s = selectedEntity.chosenSpecial;
+
+        if (s == null)
+        {
+            Debug.LogError("No special selected!");
+            yield break;
+        }
+
+        switch (s.targetingType)
+        {
+            case Special.TargetingType.SingleEnemy:
+            case Special.TargetingType.AllEnemies:
+            case Special.TargetingType.SingleAlly:
+                yield return StartCoroutine(SetTarget());
+                break;
+            case Special.TargetingType.AllAllies:
+                selectedEntity.state.target = null;
+                break;
+
+            case Special.TargetingType.Self:
+                selectedEntity.state.target = selectedEntity;
+                break;
+        }
+
         SelectMove(BattleEntity.Move.SPECIAL);
     }
 
@@ -56,6 +79,7 @@ public class BattleInterface : MonoBehaviour
     {
         targetSelected = true;
         selectedEntity.state.target = e;
+        Debug.Log("SelectTarget fired on: " + e.name);
     }
 
     public IEnumerator SetTarget()
