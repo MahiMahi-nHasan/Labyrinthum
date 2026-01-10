@@ -11,12 +11,6 @@ public class BattleNPC : BattleEntity
 
     public static void UpdateMoveSelectionMatrix(BattleEntity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
 
-    new void Update()
-    {
-        base.Update();
-        targetButton.enabled = BattleInterface.active.targeting;
-    }
-
     public Move GetDecidedMove()
     {
         Debug.Log("Enemy is selecting move");

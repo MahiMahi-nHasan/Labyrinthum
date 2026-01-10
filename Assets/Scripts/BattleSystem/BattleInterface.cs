@@ -179,6 +179,7 @@ public class BattleInterface : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             selectedEntity = players[i];
+            selectedEntity.targeted = true;
 
             if (selectedEntity.state.dead) continue;
 
@@ -189,6 +190,7 @@ public class BattleInterface : MonoBehaviour
                 yield return new WaitForEndOfFrame();
 
             BattleNPC.UpdateMoveSelectionMatrix(selectedEntity);
+            selectedEntity.targeted = false;
         }
 
         showActionMenu = false;

@@ -108,14 +108,16 @@ public abstract class BattleEntity : MonoBehaviour
         barsManager.UpdateMana(Mana);
     }
 
-    protected void Update()
+    void Update()
     {
-        //Debug.Log(entityName + state.dead);
-
         SetHealthManaHeuristic();
 
         if (state.dead)
             OnDeath();
+
+        targetingCursor.SetActive(targeted);
+        
+        targetButton.enabled = BattleInterface.active.targeting;
 
         if (Health != healthLastFrame)
             barsManager.UpdateHealth(Health);
