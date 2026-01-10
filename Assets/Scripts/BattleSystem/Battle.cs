@@ -70,7 +70,7 @@ public class Battle
                 e.Recharge();
                 break;
             case BattleEntity.Move.SPECIAL:
-                e.state.target.TakeDamage(e.Special());
+                e.state.target.TakeDamage(e.BaseSpecial());
                 break;
         }
 

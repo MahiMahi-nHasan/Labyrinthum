@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleRunner : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class BattleRunner : MonoBehaviour
     public string battleSceneName = "BattleScene";
     public string gameSceneName = "OverworldScene";
     public string loseSceneName = "GameOverScene";
+
+    public GameObject turnBarIconPrefab;
+    public float iconSpacing;
 
     public enum GameState
     {
@@ -133,12 +137,34 @@ public class BattleRunner : MonoBehaviour
     public IEnumerator Run()
     {
         // Display ordered turns
+
+        /// Destroy existing markers
+        GameObject[] existing = GameObject.FindGameObjectsWithTag("TurnIcon");
+        foreach (GameObject go in existing)
+            Destroy(go);
+        
+        /// Filter for living entities
         Queue<BattleEntity> orderedTurns = battle.GetOrderedEntities();
-        int count = orderedTurns.Count;
-        RectTransform turnBarCenter = GameObject.FindGameObjectWithTag("TurnBarCenter").GetComponent<RectTransform>();
-        for (int i = 0; i < orderedTurns.Count; i++)
+        Queue<BattleEntity> orderedTurnsAlive = new();
+        while (orderedTurns.Count > 0)
         {
-            
+            BattleEntity next = orderedTurns.Dequeue();
+            if (!next.state.dead)
+                orderedTurnsAlive.Enqueue(next);
+        }
+        int count = orderedTurnsAlive.Count;
+        RectTransform turnBarCenter = GameObject.FindGameObjectWithTag("TurnBarCenter").GetComponent<RectTransform>();
+
+        /// Place markers
+        for (int i = 0; i < count; i++)
+        {
+            Entity next = orderedTurnsAlive.Dequeue().baseEntity;
+            GameObject go = Instantiate(turnBarIconPrefab, turnBarCenter);
+            ((RectTransform)go.transform).localPosition = new Vector2(
+                i * iconSpacing - (count - 1) * iconSpacing / 2,
+                0
+            );
+            go.GetComponent<Image>().sprite = next.sprite;
         }
         
         yield return StartCoroutine(BattleInterface.active.SetMoves(() =>

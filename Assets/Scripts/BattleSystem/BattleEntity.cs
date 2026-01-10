@@ -152,6 +152,8 @@ public abstract class BattleEntity : MonoBehaviour
 
     public void Heal(int amount)
     {
+        if (state.dead)
+            return;
         Health += amount;
         Health = Math.Clamp(Health, 0, baseEntity.maxHealth);
     }
@@ -165,11 +167,19 @@ public abstract class BattleEntity : MonoBehaviour
     public void Recharge()
     {
         Debug.Log("Entity " + baseEntity.entityName + " is recharging");
-        Mana = (int)(baseEntity.rechargeManaPercent * baseEntity.maxMana);
+        Mana += (int)(baseEntity.rechargeManaPercent * baseEntity.maxMana);
 
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
     }
 
+    public int BaseSpecial()
+    {
+        if (!CanUseSpecial)
+            return 0;
+        
+        Mana -= baseEntity.manaRequiredForSpecial;
+        return Special();
+    }
     // Override this method with special behavior in subclasses
     public abstract int Special();
     public bool CanUseSpecial => Mana >= baseEntity.manaRequiredForSpecial;

@@ -187,10 +187,6 @@ PrefabInstance:
       value: PlayerController
       objectReference: {fileID: 0}
     - target: {fileID: 7348866413777120901, guid: d8453f8c0929046068638284ec9200d4, type: 3}
-      propertyPath: partyObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348866413777120901, guid: d8453f8c0929046068638284ec9200d4, type: 3}
       propertyPath: partyObjects.Array.data[1]
       value: 
       objectReference: {fileID: 0}
@@ -214,6 +210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 3861449402091851998, guid: f04c1bb07d8314c40a858a5a1953c549, type: 3}
+      propertyPath: entity
+      value: 
+      objectReference: {fileID: 430152025}
     - target: {fileID: 5934501453929631873, guid: f04c1bb07d8314c40a858a5a1953c549, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -707,6 +707,8 @@ MonoBehaviour:
   battleSceneName: BattleScene
   gameSceneName: OverworldScene
   loseSceneName: GameOverScene
+  turnBarIconPrefab: {fileID: 8224486986043280243, guid: 695c2e09809c249e4abdc876da95cf50, type: 3}
+  iconSpacing: 60
   gameState: 3
 --- !u!4 &772844473
 Transform:

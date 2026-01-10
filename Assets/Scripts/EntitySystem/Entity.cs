@@ -5,6 +5,8 @@ public class Entity : ScriptableObject
 {
     public string entityName;
 
+    public Sprite sprite;
+
     public GameObject prefab;
     public GameObject battlePrefab;
 

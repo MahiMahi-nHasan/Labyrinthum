@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlantEnemy
   m_EditorClassIdentifier: 
   entityName: Prick
+  sprite: {fileID: 664691475, guid: 307fd7b4522958d43bb0f7ad899a7eb9, type: 3}
   prefab: {fileID: 6913796708687121901, guid: 484f79b0dbe8241d8a206086741f30ef, type: 3}
   battlePrefab: {fileID: 2569346413672870113, guid: 3f73cf0519604490ead2cfdb5f3e330c, type: 3}
   maxHealth: 1200
