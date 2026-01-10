@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class BattleNPC : BattleEntity
+public class BattleNPC : BattleEntity
 {
     public Button targetButton;
 
