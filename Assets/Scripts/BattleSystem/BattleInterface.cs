@@ -82,13 +82,20 @@ public class BattleInterface : MonoBehaviour
 
             GameObject btnObj = Instantiate(specialButtonPrefab, specialsButtonContainer);
             Button btn = btnObj.GetComponentInChildren<Button>();
-            TMP_Text label = btnObj.GetComponentInChildren<TMP_Text>();
-            if (label == null)
-            {
-                Debug.LogError("Special button prefab is missing TMP_Text!");
-                continue;
-            }
-            label.text = s.Name;
+            SpecialButtonUI ui = btnObj.GetComponent<SpecialButtonUI>();
+
+            ui.label.text = s.Name;
+            ui.manaCostText.text = s.manaCost.ToString();
+            ui.SetElement(s.elem);
+            bool canAfford = selectedEntity.Mana >= s.manaCost;
+
+            btn.interactable = canAfford;
+
+            Image bg = btnObj.GetComponent<Image>();
+            if (bg != null)
+                bg.color = canAfford ? Color.white : new Color(0.4f, 0.4f, 0.4f);
+            ui.SetAffordable(canAfford);
+
 
             btn.onClick.AddListener(() =>
             {
