@@ -159,6 +159,7 @@ public class BattleInterface : MonoBehaviour
     {
         targeting = true;
         targetSelected = false;
+        showActionMenu = false;
 
         Debug.Log("Waiting for target to be selected");
 
