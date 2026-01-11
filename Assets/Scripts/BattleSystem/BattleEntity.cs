@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class BattleEntity : MonoBehaviour
 {
@@ -9,12 +7,11 @@ public abstract class BattleEntity : MonoBehaviour
     // row = self element
     // col = target element
     public static float[,] weaknessMatrix = {
-    // P    F    I    W
-    {1f,  1f,  1f,  1f},   // Phys
-    {1f,  1f,  1.5f, 0.5f},// Fire
-    {1f,  0.5f,1f,   1.5f},// Ice   
-    {1f,  1.5f,0.5f, 1f}   // Wind
-};
+        {1, 0.5f, 1, 1.5f},
+        {1.5f, 1, 0.5f, 1},
+        {1, 1.5f, 1, 0.5f},
+        {0.5f, 1, 1.5f, 1}
+    };
 
     public enum State
     {
@@ -55,8 +52,6 @@ public abstract class BattleEntity : MonoBehaviour
     public BarsManager barsManager;
 
     public int id;
-    public Special[] specials = new Special[4];
-    public Special chosenSpecial;
 
     public int Strength => EntityManager.entities[id].Strength;
     public int Defense => EntityManager.entities[id].Defense;
@@ -95,37 +90,22 @@ public abstract class BattleEntity : MonoBehaviour
     public float lowHealthPercentThreshold = 0.35f;
     public bool isDefending;
 
-    public GameObject targetingCursor;
-    public bool targeting;
-
-    public GameObject targetedCursor;
-    public bool targeted;
-
-    public Button targetButton;
-
     void Awake()
     {
         state.element = baseEntity.element;
-    }
-
-    void Start()
-    {
         barsManager.Initialize(baseEntity.maxHealth, baseEntity.maxMana);
         barsManager.UpdateHealth(Health);
         barsManager.UpdateMana(Mana);
     }
 
-    void Update()
+    protected void Update()
     {
+        //Debug.Log(entityName + state.dead);
+
         SetHealthManaHeuristic();
 
         if (state.dead)
             OnDeath();
-
-        targetingCursor.SetActive(targeting);
-        targetedCursor.SetActive(targeted);
-        
-        targetButton.enabled = BattleInterface.active.targeting;
 
         if (Health != healthLastFrame)
             barsManager.UpdateHealth(Health);
@@ -136,26 +116,12 @@ public abstract class BattleEntity : MonoBehaviour
         manaLastFrame = Mana;
     }
 
-    void OnMouseEnter()
-    {
-        if (
-            (!isPlayer && BattleInterface.active.targetingMode == BattleInterface.TargetingMode.ENEMIES) ||
-            (isPlayer && BattleInterface.active.targetingMode == BattleInterface.TargetingMode.PLAYERS)
-        )
-            targeted = true;
-    }
-
-    void OnMouseExit()
-    {
-        targeted = false;
-    }
-
     public void SetHealthManaHeuristic()
     {
         int hmHeuristic = 0;
         if (Health > baseEntity.maxHealth * lowHealthPercentThreshold)
             hmHeuristic |= 0b10;
-        if (Mana > chosenSpecial.manaCost)
+        if (Mana > baseEntity.manaRequiredForSpecial)
             hmHeuristic |= 0b01;
         state.hmHeuristic = (State)hmHeuristic;
     }
@@ -166,18 +132,14 @@ public abstract class BattleEntity : MonoBehaviour
     {
         int baseDamage = (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
         Debug.Log("Entity " + baseEntity.entityName + " returned base damage " + baseDamage);
-        Debug.Log($"multiplier is {weaknessMatrix[(int)state.element, (int)state.target.state.element]}");
-
-        PopupHandler.SpawnActionPopup(this, "Attacking!", Color.red);
-
         return baseDamage;
     }
 
-    public void TakeDamage(int baseDamage, Element attackElem)
+    public void TakeDamage(int baseDamage)
     {
         int damage = baseDamage * (1 - Defense / 100) * 5;
         if (isDefending)
-            damage /= 2;
+            damage/=2;
 
         // Ensure damage is not negative
         damage = Math.Max(0, damage);
@@ -186,22 +148,6 @@ public abstract class BattleEntity : MonoBehaviour
 
         Health -= damage;
         state.dead = Health <= 0;
-        float multiplier = weaknessMatrix[(int)attackElem, (int)state.element];
-        string tag = "";
-        Color color = Color.white;
-
-        if (multiplier > 1f)
-        {
-            tag = "WEAK!";
-            color = Color.red;
-        }
-        else if (multiplier < 1f)
-        {
-            tag = "Resist...";
-            color = Color.cyan;
-        }
-
-        PopupHandler.SpawnDamagePopup(this, damage, tag, color);
     }
 
     public void Heal(int amount)
@@ -210,16 +156,12 @@ public abstract class BattleEntity : MonoBehaviour
             return;
         Health += amount;
         Health = Math.Clamp(Health, 0, baseEntity.maxHealth);
-
-        PopupHandler.SpawnDamagePopup(this, amount, "Healed!", Color.green);
     }
 
     public void Defend()
     {
         Debug.Log("Entity " + baseEntity.entityName + " is defending");
         isDefending = true;
-
-        PopupHandler.SpawnActionPopup(this, "Defending!", Color.gray);
     }
 
     public void Recharge()
@@ -228,47 +170,24 @@ public abstract class BattleEntity : MonoBehaviour
         Mana += (int)(baseEntity.rechargeManaPercent * baseEntity.maxMana);
 
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
-
-        PopupHandler.SpawnActionPopup(this, "Recharging!", Color.blue);
     }
 
-    public virtual int Special()
+    public int BaseSpecial()
     {
-        if (chosenSpecial == null)
-        {
-            Debug.LogWarning($"{name} has no special assigned.");
-            return 0;
-        }
-
         if (!CanUseSpecial)
             return 0;
-
-        Mana -= chosenSpecial.manaCost;
-        List<BattleEntity> allies = isPlayer ? BattleInterface.active.players : BattleInterface.active.npcs;
-        List<BattleEntity> enemies = isPlayer ? BattleInterface.active.npcs : BattleInterface.active.players;
-        Debug.Log($"{name} used special {chosenSpecial.name}");
-
-        PopupHandler.SpawnActionPopup(this, $"{chosenSpecial.name}!", Color.red);
-
-        return chosenSpecial.UseMove(
-            this,
-            state.target,
-            allies,
-            enemies
-        );
+        
+        Mana -= baseEntity.manaRequiredForSpecial;
+        return Special();
     }
-
-    public bool CanUseSpecial => chosenSpecial != null && Mana >= chosenSpecial.manaCost;
+    // Override this method with special behavior in subclasses
+    public abstract int Special();
+    public bool CanUseSpecial => Mana >= baseEntity.manaRequiredForSpecial;
 
     public void SelectMove(Move move) => state.plannedMove = move;
 
     public void OnDeath()
     {
         gameObject.SetActive(false);
-    }
-    
-    public void SelectThisAsTarget()
-    {
-        BattleInterface.active.SelectTarget(this);
     }
 }

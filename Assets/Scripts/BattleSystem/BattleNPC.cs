@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BattleNPC : BattleEntity
+public abstract class BattleNPC : BattleEntity
 {
+    public Button targetButton;
+
     public static int[,] moveSelectionMatrix = {
         {0, 0, 0, 0},
         {0, 0, 0, 0},
@@ -10,6 +14,12 @@ public class BattleNPC : BattleEntity
     };
 
     public static void UpdateMoveSelectionMatrix(BattleEntity e) => moveSelectionMatrix[(int)e.state.hmHeuristic, (int)e.state.plannedMove]++;
+
+    new void Update()
+    {
+        base.Update();
+        targetButton.enabled = BattleInterface.active.targeting;
+    }
 
     public Move GetDecidedMove()
     {
@@ -53,5 +63,10 @@ public class BattleNPC : BattleEntity
         }
 
         return probs;
+    }
+
+    public void SelectThisAsTarget()
+    {
+        BattleInterface.active.SelectTarget(this);
     }
 }

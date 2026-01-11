@@ -61,7 +61,7 @@ public class Battle
         switch (e.state.plannedMove)
         {
             case BattleEntity.Move.ATTACK:
-                e.state.target.TakeDamage(e.BaseDamage(), e.state.element);
+                e.state.target.TakeDamage(e.BaseDamage());
                 break;
             case BattleEntity.Move.DEFEND:
                 e.Defend();
@@ -70,7 +70,7 @@ public class Battle
                 e.Recharge();
                 break;
             case BattleEntity.Move.SPECIAL:
-                e.Special();
+                e.state.target.TakeDamage(e.BaseSpecial());
                 break;
         }
 
