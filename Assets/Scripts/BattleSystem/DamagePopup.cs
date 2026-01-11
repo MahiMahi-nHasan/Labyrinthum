@@ -11,7 +11,7 @@ public class DamagePopup : MonoBehaviour
     public float lifetime = 1.6f;
     public float floatSpeed = 1.5f;
     public float fadeSpeed = 3f;
-    public Vector3 randomOffset = new Vector3(0.3f, 0.3f, 0f);
+    public Vector2 randomOffset = new Vector2(0.3f, 0.3f);
 
     private float timer;
     private Color startColor;

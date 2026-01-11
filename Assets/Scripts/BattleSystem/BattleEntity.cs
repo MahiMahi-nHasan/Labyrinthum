@@ -167,6 +167,9 @@ public abstract class BattleEntity : MonoBehaviour
         int baseDamage = (int)(Strength * weaknessMatrix[(int)state.element, (int)state.target.state.element]);
         Debug.Log("Entity " + baseEntity.entityName + " returned base damage " + baseDamage);
         Debug.Log($"multiplier is {weaknessMatrix[(int)state.element, (int)state.target.state.element]}");
+
+        PopupHandler.SpawnActionPopup(this, "Attacking!", Color.red);
+
         return baseDamage;
     }
 
@@ -197,6 +200,7 @@ public abstract class BattleEntity : MonoBehaviour
             tag = "Resist...";
             color = Color.cyan;
         }
+
         PopupHandler.SpawnDamagePopup(this, damage, tag, color);
     }
 
@@ -206,6 +210,7 @@ public abstract class BattleEntity : MonoBehaviour
             return;
         Health += amount;
         Health = Math.Clamp(Health, 0, baseEntity.maxHealth);
+
         PopupHandler.SpawnDamagePopup(this, amount, "Healed!", Color.green);
     }
 
@@ -213,6 +218,8 @@ public abstract class BattleEntity : MonoBehaviour
     {
         Debug.Log("Entity " + baseEntity.entityName + " is defending");
         isDefending = true;
+
+        PopupHandler.SpawnActionPopup(this, "Defending!", Color.gray);
     }
 
     public void Recharge()
@@ -221,6 +228,8 @@ public abstract class BattleEntity : MonoBehaviour
         Mana += (int)(baseEntity.rechargeManaPercent * baseEntity.maxMana);
 
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
+
+        PopupHandler.SpawnActionPopup(this, "Recharging!", Color.blue);
     }
 
     public virtual int Special()
@@ -238,6 +247,8 @@ public abstract class BattleEntity : MonoBehaviour
         List<BattleEntity> allies = isPlayer ? BattleInterface.active.players : BattleInterface.active.npcs;
         List<BattleEntity> enemies = isPlayer ? BattleInterface.active.npcs : BattleInterface.active.players;
         Debug.Log($"{name} used special {chosenSpecial.name}");
+
+        PopupHandler.SpawnActionPopup(this, $"{chosenSpecial.name}!", Color.red);
 
         return chosenSpecial.UseMove(
             this,
