@@ -14,13 +14,6 @@ public class BattleInterface : MonoBehaviour
     bool moveSelected = false;
     bool targetSelected = false;
     public bool targeting = false;
-    public enum TargetingMode
-    {
-        NONE,
-        ENEMIES,
-        PLAYERS
-    }
-    public TargetingMode targetingMode;
     public GameObject actionMenu;
     public bool showActionMenu = true;
 
@@ -47,71 +40,6 @@ public class BattleInterface : MonoBehaviour
     public void SelectDefend() => SelectMove(BattleEntity.Move.DEFEND);
     public void SelectRecharge() => SelectMove(BattleEntity.Move.RECHARGE);
 
-    public void OpenSpecialMenu()
-    {
-        // Hide base menu
-        showActionMenu = false;
-        /*
-        Debug.Log("Selected entity is: " + selectedEntity);
-        Debug.Log("Container is: " + specialsButtonContainer);
-        Debug.Log("Prefab is: " + specialButtonPrefab);
-        Debug.Log("Specials array: " + selectedEntity.specials);
-        Debug.Log("Specials length: " + selectedEntity.specials?.Length);
-        foreach (var special in selectedEntity.specials)
-        {
-            Debug.Log($"{special.Name}");
-
-        }
-        */
-        // Show cancel button
-        cancelButton.SetActive(true);
-
-        // Show the menu
-        specialsMenu.SetActive(true);
-
-        // Clear old buttons
-        foreach (Transform child in specialsButtonContainer)
-            Destroy(child.gameObject);
-
-        // Build new buttons based on selectedEntity.specials
-        for (int i = 0; i < selectedEntity.specials.Length; i++)
-        {
-            Special s = selectedEntity.specials[i];
-            if (s == null) continue;
-
-            GameObject btnObj = Instantiate(specialButtonPrefab, specialsButtonContainer);
-            Button btn = btnObj.GetComponentInChildren<Button>();
-            SpecialButtonUI ui = btnObj.GetComponent<SpecialButtonUI>();
-
-            ui.label.text = s.Name;
-            ui.manaCostText.text = s.manaCost.ToString();
-            ui.SetElement(s.elem);
-            bool canAfford = selectedEntity.Mana >= s.manaCost;
-
-            btn.interactable = canAfford;
-
-            Image bg = btnObj.GetComponent<Image>();
-            if (bg != null)
-                bg.color = canAfford ? Color.white : new Color(0.4f, 0.4f, 0.4f);
-            ui.SetAffordable(canAfford);
-
-
-            btn.onClick.AddListener(() =>
-            {
-                selectedEntity.chosenSpecial = s;
-                StartCoroutine(Special_Coroutine());
-                CloseSpecialMenu();
-            });
-        }
-    }
-    public void CloseSpecialMenu()
-    {
-        specialsMenu.SetActive(false);
-        cancelButton.SetActive(false);
-        showActionMenu = true;
-        actionMenu.SetActive(true);
-    }
-
     public IEnumerator Attack_Coroutine()
     {
         yield return StartCoroutine(SetTarget());
@@ -120,37 +48,7 @@ public class BattleInterface : MonoBehaviour
 
     public IEnumerator Special_Coroutine()
     {
-        Special s = selectedEntity.chosenSpecial;
-
-        if (s == null)
-        {
-            Debug.LogError("No special selected!");
-            yield break;
-        }
-
-        switch (s.targetingType)
-        {
-            case Special.TargetingType.SingleEnemy:
-                targetingMode = selectedEntity.isPlayer ? TargetingMode.ENEMIES : TargetingMode.PLAYERS;
-                yield return StartCoroutine(SetTarget());
-                break;
-            case Special.TargetingType.AllEnemies:
-                targetingMode = selectedEntity.isPlayer ? TargetingMode.ENEMIES : TargetingMode.PLAYERS;
-                yield return StartCoroutine(SetTarget());
-                break;
-            case Special.TargetingType.SingleAlly:
-                targetingMode = selectedEntity.isPlayer ? TargetingMode.PLAYERS : TargetingMode.ENEMIES;
-                yield return StartCoroutine(SetTarget());
-                break;
-            case Special.TargetingType.AllAllies:
-                targetingMode = selectedEntity.isPlayer ? TargetingMode.PLAYERS : TargetingMode.ENEMIES;
-                selectedEntity.state.target = null;
-                break;
-            case Special.TargetingType.Self:
-                selectedEntity.state.target = selectedEntity;
-                break;
-        }
-
+        yield return StartCoroutine(SetTarget());
         SelectMove(BattleEntity.Move.SPECIAL);
     }
 
@@ -164,7 +62,6 @@ public class BattleInterface : MonoBehaviour
     {
         targeting = true;
         targetSelected = false;
-        showActionMenu = false;
 
         Debug.Log("Waiting for target to be selected");
 
@@ -184,7 +81,6 @@ public class BattleInterface : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             selectedEntity = players[i];
-            selectedEntity.targeting = true;
 
             if (selectedEntity.state.dead) continue;
 
@@ -195,7 +91,6 @@ public class BattleInterface : MonoBehaviour
                 yield return new WaitForEndOfFrame();
 
             BattleNPC.UpdateMoveSelectionMatrix(selectedEntity);
-            selectedEntity.targeting = false;
         }
 
         showActionMenu = false;
