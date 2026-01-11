@@ -211,9 +211,9 @@ MonoBehaviour:
   id: 0
   specials:
   - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
-  - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
-  - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
-  - {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
+  - {fileID: 11400000, guid: b59e7556d85c12f4d8285ee6aa6112dc, type: 2}
+  - {fileID: 11400000, guid: b59e7556d85c12f4d8285ee6aa6112dc, type: 2}
+  - {fileID: 11400000, guid: b59e7556d85c12f4d8285ee6aa6112dc, type: 2}
   chosenSpecial: {fileID: 11400000, guid: 2d2ce449a84550f42acc6c592c54334e, type: 2}
   state:
     hmHeuristic: 0

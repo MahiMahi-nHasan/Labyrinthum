@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Nature's Gift
   m_EditorClassIdentifier: 
   Name: Nature's Gift
-  manaCost: 10
+  manaCost: 15
   elem: 0
-  power: 300
+  power: 150
   hits: 1
   type: 2
   targetingType: 3

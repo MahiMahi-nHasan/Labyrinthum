@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Pummel
   manaCost: 5
   elem: 0
-  power: 12
+  power: 20
   hits: 1
   type: 0
   targetingType: 0
