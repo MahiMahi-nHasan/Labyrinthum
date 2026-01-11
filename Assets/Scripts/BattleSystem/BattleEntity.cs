@@ -96,6 +96,9 @@ public abstract class BattleEntity : MonoBehaviour
     public bool isDefending;
 
     public GameObject targetingCursor;
+    public bool targeting;
+
+    public GameObject targetedCursor;
     public bool targeted;
 
     public Button targetButton;
@@ -115,7 +118,8 @@ public abstract class BattleEntity : MonoBehaviour
         if (state.dead)
             OnDeath();
 
-        targetingCursor.SetActive(targeted);
+        targetingCursor.SetActive(targeting);
+        targetedCursor.SetActive(targeted);
         
         targetButton.enabled = BattleInterface.active.targeting;
 
@@ -126,6 +130,20 @@ public abstract class BattleEntity : MonoBehaviour
 
         healthLastFrame = Health;
         manaLastFrame = Mana;
+    }
+
+    void OnMouseEnter()
+    {
+        if (
+            (!isPlayer && BattleInterface.active.targetingMode == BattleInterface.TargetingMode.ENEMIES) ||
+            (isPlayer && BattleInterface.active.targetingMode == BattleInterface.TargetingMode.PLAYERS)
+        )
+            targeted = true;
+    }
+
+    void OnMouseExit()
+    {
+        targeted = false;
     }
 
     public void SetHealthManaHeuristic()

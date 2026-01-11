@@ -16,6 +16,13 @@ public class BattleInterface : MonoBehaviour
     bool moveSelected = false;
     bool targetSelected = false;
     public bool targeting = false;
+    public enum TargetingMode
+    {
+        NONE,
+        ENEMIES,
+        PLAYERS
+    }
+    public TargetingMode targetingMode;
     public GameObject actionMenu;
     public bool showActionMenu = true;
 
@@ -132,14 +139,21 @@ public class BattleInterface : MonoBehaviour
         switch (s.targetingType)
         {
             case Special.TargetingType.SingleEnemy:
+                targetingMode = selectedEntity.isPlayer ? TargetingMode.ENEMIES : TargetingMode.PLAYERS;
+                yield return StartCoroutine(SetTarget());
+                break;
             case Special.TargetingType.AllEnemies:
+                targetingMode = selectedEntity.isPlayer ? TargetingMode.ENEMIES : TargetingMode.PLAYERS;
+                yield return StartCoroutine(SetTarget());
+                break;
             case Special.TargetingType.SingleAlly:
+                targetingMode = selectedEntity.isPlayer ? TargetingMode.PLAYERS : TargetingMode.ENEMIES;
                 yield return StartCoroutine(SetTarget());
                 break;
             case Special.TargetingType.AllAllies:
+                targetingMode = selectedEntity.isPlayer ? TargetingMode.PLAYERS : TargetingMode.ENEMIES;
                 selectedEntity.state.target = null;
                 break;
-
             case Special.TargetingType.Self:
                 selectedEntity.state.target = selectedEntity;
                 break;
@@ -179,7 +193,7 @@ public class BattleInterface : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             selectedEntity = players[i];
-            selectedEntity.targeted = true;
+            selectedEntity.targeting = true;
 
             if (selectedEntity.state.dead) continue;
 
@@ -190,7 +204,7 @@ public class BattleInterface : MonoBehaviour
                 yield return new WaitForEndOfFrame();
 
             BattleNPC.UpdateMoveSelectionMatrix(selectedEntity);
-            selectedEntity.targeted = false;
+            selectedEntity.targeting = false;
         }
 
         showActionMenu = false;
