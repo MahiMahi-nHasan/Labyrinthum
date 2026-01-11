@@ -140,7 +140,7 @@ public abstract class BattleEntity : MonoBehaviour
         return baseDamage;
     }
 
-    public void TakeDamage(int baseDamage)
+    public void TakeDamage(int baseDamage, Element attackElem)
     {
         int damage = baseDamage * (1 - Defense / 100) * 5;
         if (isDefending)
@@ -153,6 +153,21 @@ public abstract class BattleEntity : MonoBehaviour
 
         Health -= damage;
         state.dead = Health <= 0;
+        float multiplier = weaknessMatrix[(int)attackElem, (int)state.element];
+        string tag = "";
+        Color color = Color.white;
+
+        if (multiplier > 1f)
+        {
+            tag = "WEAK!";
+            color = Color.red;
+        }
+        else if (multiplier < 1f)
+        {
+            tag = "Resist...";
+            color = Color.cyan;
+        }
+        PopupHandler.SpawnDamagePopup(this, damage, tag, color);
     }
 
     public void Heal(int amount)

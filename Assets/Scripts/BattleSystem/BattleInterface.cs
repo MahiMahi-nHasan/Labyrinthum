@@ -54,6 +54,7 @@ public class BattleInterface : MonoBehaviour
     {
         // Hide base menu
         showActionMenu = false;
+        /*
         Debug.Log("Selected entity is: " + selectedEntity);
         Debug.Log("Container is: " + specialsButtonContainer);
         Debug.Log("Prefab is: " + specialButtonPrefab);
@@ -64,6 +65,7 @@ public class BattleInterface : MonoBehaviour
             Debug.Log($"{special.Name}");
 
         }
+        */
         // Show cancel button
         cancelButton.SetActive(true);
 

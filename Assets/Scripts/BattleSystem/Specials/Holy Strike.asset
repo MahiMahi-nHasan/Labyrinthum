@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Holy Strike
   manaCost: 7
   elem: 0
-  power: 10
+  power: 14
   hits: 1
   type: 4
   targetingType: 2

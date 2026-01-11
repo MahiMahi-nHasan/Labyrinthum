@@ -46,7 +46,7 @@ public class Special : ScriptableObject
         {
             case SpecialType.Damage:
                 int dmg = DamageSingle(user, target); 
-                target.TakeDamage(dmg);
+                target.TakeDamage(dmg, elem);
                 return dmg;
             case SpecialType.Heal:
                 target.Heal(power);
@@ -63,7 +63,7 @@ public class Special : ScriptableObject
                 for (int i = 0; i < hits; i++)
                 {
                     dmg = DamageSingle(user, target);
-                    target.TakeDamage(dmg);
+                    target.TakeDamage(dmg, elem);
                     total += dmg;
                 }
                 return total;
@@ -95,7 +95,7 @@ public class Special : ScriptableObject
                 continue;
 
             int dmg = DamageSingle(user, target);
-            target.TakeDamage(dmg);
+            target.TakeDamage(dmg, elem);
             total += dmg;
 
         }
@@ -112,11 +112,11 @@ public class Special : ScriptableObject
                 continue;
 
             int dmg = Mathf.RoundToInt(DamageSingle(user, target) * 0.33f);
-            target.TakeDamage(dmg);
+            target.TakeDamage(dmg, elem);
             total += dmg;
         }
         int single = DamageSingle(user, user.state.target);
-        user.state.target.TakeDamage(single);
+        user.state.target.TakeDamage(single, elem);
         total += single;
 
         return total;
