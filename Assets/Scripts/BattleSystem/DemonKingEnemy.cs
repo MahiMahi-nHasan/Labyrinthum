@@ -9,7 +9,7 @@ public class DKEnemy : BattleNPC
     public override int Special()
     {
         foreach (BattleEntity entity in BattleInterface.active.players)
-            entity.TakeDamage((int)(BaseDamage() * 0.4));
+            entity.TakeDamage((int)(BaseDamage() * 0.4), BattleEntity.Element.FIRE);
         
         // Deal double damage to the target
         return Specials.Immolate((int)1.2*BaseDamage());

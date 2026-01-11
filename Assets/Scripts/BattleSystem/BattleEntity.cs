@@ -106,6 +106,10 @@ public abstract class BattleEntity : MonoBehaviour
     void Awake()
     {
         state.element = baseEntity.element;
+    }
+
+    void Start()
+    {
         barsManager.Initialize(baseEntity.maxHealth, baseEntity.maxMana);
         barsManager.UpdateHealth(Health);
         barsManager.UpdateMana(Mana);
