@@ -176,6 +176,7 @@ public abstract class BattleEntity : MonoBehaviour
             return;
         Health += amount;
         Health = Math.Clamp(Health, 0, baseEntity.maxHealth);
+        PopupHandler.SpawnDamagePopup(this, amount, "Healed!", Color.green);
     }
 
     public void Defend()
