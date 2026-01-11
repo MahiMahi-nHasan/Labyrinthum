@@ -18,7 +18,6 @@ public class Entity : ScriptableObject
 
     public BattleEntity.Element element;
 
-    public int manaRequiredForSpecial = 5;
     public float rechargeManaPercent = 0.1f;
     public int defendModifier = 5;
 }
