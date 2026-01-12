@@ -28,6 +28,7 @@ public class MazeGenerator : MonoBehaviour
     public int width;
     public int height;
     public float wallSize;
+    public Material wallMat;
     public float carveDelay;
 
     public bool[,] visited;
@@ -251,6 +252,7 @@ public class MazeGenerator : MonoBehaviour
         wall.transform.position = position;
         wall.transform.localScale = scale;
         wall.transform.parent = this.transform;
+        wall.GetComponent<MeshRenderer>().material = wallMat;
         walls.Add(wall);
     }
 

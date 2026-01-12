@@ -320,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8454053015757219601, guid: f04c1bb07d8314c40a858a5a1953c549, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: 149.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -961,6 +961,7 @@ MonoBehaviour:
   width: 20
   height: 20
   wallSize: 20
+  wallMat: {fileID: 2100000, guid: 33f41e145c9a37a45b71ee5ef500ebe2, type: 2}
   carveDelay: 0
   walls: []
   startMarkerPrefab: {fileID: 0}
