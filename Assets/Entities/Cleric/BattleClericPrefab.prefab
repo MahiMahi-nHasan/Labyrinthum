@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseEntity: {fileID: 11400000, guid: d5ab5a734bc1c4d699c43aca95793e64, type: 2}
-  isPlayer: 0
+  isPlayer: 1
   barsManager: {fileID: 21533246299243163}
   id: 0
   specials:

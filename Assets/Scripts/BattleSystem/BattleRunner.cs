@@ -280,20 +280,20 @@ public class BattleRunner : MonoBehaviour
                     audioSource.PlayOneShot(clips[7]);
                 }
                 else{
-                    switch (e.baseEntity.element)
+                    switch (e.chosenSpecial.elem)
                     {
                         case BattleEntity.Element.PHYS:
-                        audioSource.PlayOneShot(clips[5]);
-                        break; 
+                            audioSource.PlayOneShot(clips[0]);
+                            break; 
                         case BattleEntity.Element.FIRE:
-                        audioSource.PlayOneShot(clips[4]);
-                        break;
+                            audioSource.PlayOneShot(clips[4]);
+                            break;
                         case BattleEntity.Element.ICE:
-                        audioSource.PlayOneShot(clips[5]);
-                        break;
+                            audioSource.PlayOneShot(clips[5]);
+                            break;
                         case BattleEntity.Element.WIND:
-                        audioSource.PlayOneShot(clips[6]);
-                        break;
+                            audioSource.PlayOneShot(clips[6]);
+                            break;
 
                 }
                 }

@@ -14,13 +14,17 @@ public class SpecialButtonUI : MonoBehaviour
     public Sprite fire;
     public Sprite ice;
     public Sprite wind;
+    public Sprite healing;
 
-    public void SetElement(BattleEntity.Element elem)
+    public void SetElement(BattleEntity.Element elem, bool isHealing)
     {
-        elementIcon.sprite = GetSprite(elem);
+        elementIcon.sprite = GetSprite(elem, isHealing);
     }
-    Sprite GetSprite(BattleEntity.Element elem)
+    Sprite GetSprite(BattleEntity.Element elem, bool isHealing)
     {
+        if(isHealing) 
+            return healing;
+        
         return elem switch
         {
             BattleEntity.Element.PHYS => phys,

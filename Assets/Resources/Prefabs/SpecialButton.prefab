@@ -57,6 +57,7 @@ MonoBehaviour:
   fire: {fileID: 21300000, guid: 3789e3ff854234f469b9f04a1a257cba, type: 3}
   ice: {fileID: 21300000, guid: 0261f0fdb384ab0469eb80cdb40d03e0, type: 3}
   wind: {fileID: 21300000, guid: 192d4379c348d2748b22486cb7b42b15, type: 3}
+  healing: {fileID: 21300000, guid: 4bec482837e3f4c4d9a5c292be24306d, type: 3}
 --- !u!1 &2525701998662984331
 GameObject:
   m_ObjectHideFlags: 0

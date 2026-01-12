@@ -95,7 +95,7 @@ public class BattleInterface : MonoBehaviour
 
             ui.label.text = s.Name;
             ui.manaCostText.text = s.manaCost.ToString();
-            ui.SetElement(s.elem);
+            ui.SetElement(s.elem, s.type == Special.SpecialType.Heal || s.type == Special.SpecialType.AoEHeal);
             bool canAfford = selectedEntity.Mana >= s.manaCost;
 
             btn.interactable = canAfford;
