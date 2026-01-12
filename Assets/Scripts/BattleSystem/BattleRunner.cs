@@ -55,10 +55,18 @@ public class BattleRunner : MonoBehaviour
 
     public void StartBattle(List<int> playersInBattle, List<int> enemiesInBattle)
     {
-        Debug.Log(string.Format(
+                Debug.Log(string.Format(
+
+
             "Starting battle:\nPlayer count: {0}\nEnemy count: {1}",
+
+
             playersInBattle.Count,
+
+
             enemiesInBattle.Count
+
+
         ));
 
         StartCoroutine(CallAfterSceneLoad(
@@ -84,6 +92,12 @@ public class BattleRunner : MonoBehaviour
     private void StartBattleInternal(List<int> playersInBattle, List<int> enemiesInBattle)
     {
         gameState = GameState.PLAYING;
+
+        Debug.Log(string.Format(
+            "Starting battle:\nPlayer count: {0}\nEnemy count: {1}",
+            playersInBattle.Count,
+            enemiesInBattle.Count
+        ));
 
         players = new();
         for (int i = 0; i < playersInBattle.Count; i++)
@@ -277,8 +291,8 @@ public class BattleRunner : MonoBehaviour
                     switch (e.baseEntity.element)
                     {
                         case BattleEntity.Element.PHYS:
-                            audioSource.PlayOneShot(clips[5]);
-                            break;
+                        audioSource.PlayOneShot(clips[3]);
+                        break; 
                         case BattleEntity.Element.FIRE:
                             audioSource.PlayOneShot(clips[4]);
                             break;
