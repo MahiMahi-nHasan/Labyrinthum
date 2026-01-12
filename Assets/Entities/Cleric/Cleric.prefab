@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992fa2c5b76ad44aaaa6a3475535cd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  id: -1
   baseEntity: {fileID: 11400000, guid: d5ab5a734bc1c4d699c43aca95793e64, type: 2}
   partyObjects: []
   party: 
