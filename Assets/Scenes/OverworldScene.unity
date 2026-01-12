@@ -995,7 +995,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &1676567015
 MonoBehaviour:
@@ -1015,6 +1015,7 @@ MonoBehaviour:
   maxPartySize: 1
   possibleSpawns:
   - {fileID: 11400000, guid: 0aeadc4d253564736abcc9d38c36ed34, type: 2}
+  specialSpawns: []
 --- !u!4 &1676567016
 Transform:
   m_ObjectHideFlags: 0

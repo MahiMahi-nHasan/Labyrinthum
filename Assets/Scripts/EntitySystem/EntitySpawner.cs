@@ -46,7 +46,7 @@ public class EntitySpawner : MonoBehaviour
             EntityManager.CreateEntity(s.entity, s.location.position);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         double comp = Utils.rand.NextDouble();
 
