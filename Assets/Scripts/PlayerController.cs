@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,6 @@ public class PlayerController : MonoBehaviour
     InputActions input;
 
     CharacterController _cc;
-
     Vector2 movementDir;
     Vector2 lookAngles;
 
@@ -22,9 +22,15 @@ public class PlayerController : MonoBehaviour
 
     public float pickupDistance = 3f;
     public LayerMask pickupLayer;
+    public AudioClip[] footstepSounds;
+    public float minTimeBetweenFootsteps = 0.3f; 
+    public float maxTimeBetweenFootsteps = 0.6f;
+    private float timeSinceLastFootstep;
+    private AudioSource audioSource;
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         input = new();
         _cc = GetComponent<CharacterController>();
 
@@ -50,7 +56,20 @@ public class PlayerController : MonoBehaviour
 
         Move();
         Look();
+        if (Input.GetKey(KeyCode.W) ||Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.D))
+        {
+            if (Time.time - timeSinceLastFootstep >= 0.7)
+            {
+                // Play a random footstep sound from the array
+                int rand = Random.Range(0,4);
+                AudioClip footstepSound = footstepSounds[rand];
+                audioSource.PlayOneShot(footstepSound);
+
+                timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
+            }
+        }
     }
+    
 
     void UpdateInput()
     {
