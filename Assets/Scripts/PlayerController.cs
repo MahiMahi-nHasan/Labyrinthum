@@ -56,9 +56,9 @@ public class PlayerController : MonoBehaviour
 
         Move();
         Look();
-        if (Input.GetKey(KeyCode.W) ||Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.D))
+        if (input.Player.Move.ReadValue<Vector2>().magnitude != 0)
         {
-            if (Time.time - timeSinceLastFootstep >= 0.7)
+            if (Time.time - timeSinceLastFootstep >= 0.3)
             {
                 // Play a random footstep sound from the array
                 int rand = Random.Range(0,4);
