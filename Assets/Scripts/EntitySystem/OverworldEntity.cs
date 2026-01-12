@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,8 +19,12 @@ public class OverworldEntity : MonoBehaviour
     void Start()
     {
         for (int i = 0; i < partyObjects.Count; i++)
+        {
             for (int j = 0; j < partyObjects.Count; j++)
+            {
                 partyObjects[i].AddToParty(partyObjects[j].id);
+            }
+        }
     }
 
     void Update()

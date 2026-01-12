@@ -37,6 +37,8 @@ public static class EntityManager
 
         Debug.Log("Linking entity with id " + id);
 
+        instance.GetComponent<OverworldEntity>().id = id;
+
         EntityData data = new()
         {
             baseEntity = instance.GetComponent<OverworldEntity>().baseEntity,
