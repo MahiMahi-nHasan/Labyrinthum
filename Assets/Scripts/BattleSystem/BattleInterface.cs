@@ -166,8 +166,11 @@ public class BattleInterface : MonoBehaviour
 
     public void SelectTarget(BattleEntity e)
     {
-        targetSelected = true;
-        selectedEntity.state.target = e;
+        if (!e.state.dead)
+        {
+            targetSelected = true;
+            selectedEntity.state.target = e;
+        }
         Debug.Log("SelectTarget fired on: " + e.name);
     }
 
@@ -241,11 +244,13 @@ public class BattleInterface : MonoBehaviour
 
                     case Special.TargetingType.AllEnemies:
                     case Special.TargetingType.SingleEnemy:
-                        SelectTarget(players[Random.Range(0, players.Count)]);
+                        while(!targetSelected)
+                           SelectTarget(players[Random.Range(0, players.Count)]);
                         break;
 
                     case Special.TargetingType.SingleAlly:
-                        SelectTarget(npcs[Random.Range(0, npcs.Count)]);
+                        while (!targetSelected)
+                            SelectTarget(npcs[Random.Range(0, npcs.Count)]);
                         break;
 
                     case Special.TargetingType.Self:
