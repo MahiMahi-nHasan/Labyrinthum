@@ -77,6 +77,8 @@ public class MazeGenerator : MonoBehaviour
 
         if (spawnTreasureChests)
             PlaceTreasureChests();
+
+        AstarPath.active.graphs[0].Scan();
     }
     void GenerateInstant(int x, int y)
     {
