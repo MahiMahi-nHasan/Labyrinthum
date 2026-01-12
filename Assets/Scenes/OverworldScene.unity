@@ -1013,7 +1013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799dd5c12dbd94c67851cacddcebf083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnChance: 0
+  spawnChance: 0.001
   entityCap: 20
   minPartySize: 1
   maxPartySize: 4
