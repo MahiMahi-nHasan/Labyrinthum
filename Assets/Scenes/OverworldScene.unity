@@ -1009,13 +1009,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799dd5c12dbd94c67851cacddcebf083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnChance: 1
+  spawnChance: 0.001
   entityCap: 20
   minPartySize: 1
   maxPartySize: 1
   possibleSpawns:
-  - {fileID: 11400000, guid: 0aeadc4d253564736abcc9d38c36ed34, type: 2}
-  specialSpawns: []
+  - {fileID: 11400000, guid: 944ae6503583d4cf6a205ed8851160f7, type: 2}
+  - {fileID: 11400000, guid: bc002bfeb7dea477fa6a48b70ece346e, type: 2}
+  - {fileID: 11400000, guid: 1b99531ea5acf48bdb6c2b3e167cf23f, type: 2}
+  - {fileID: 11400000, guid: 3f947ccb25ae34b37b3f0441b2ac6d5b, type: 2}
+  specialSpawns:
+  - location: {fileID: 0}
+    entity: {fileID: 11400000, guid: 0aeadc4d253564736abcc9d38c36ed34, type: 2}
 --- !u!4 &1676567016
 Transform:
   m_ObjectHideFlags: 0
