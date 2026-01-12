@@ -244,12 +244,10 @@ public class BattleInterface : MonoBehaviour
 
                     case Special.TargetingType.AllEnemies:
                     case Special.TargetingType.SingleEnemy:
-                        while(!targetSelected)
                            SelectTarget(players[Random.Range(0, players.Count)]);
                         break;
 
                     case Special.TargetingType.SingleAlly:
-                        while (!targetSelected)
                             SelectTarget(npcs[Random.Range(0, npcs.Count)]);
                         break;
 

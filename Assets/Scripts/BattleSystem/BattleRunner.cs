@@ -254,6 +254,11 @@ public class BattleRunner : MonoBehaviour
     }
     IEnumerator SimulateTurn(BattleEntity e, float waitTime)
     {
+        Debug.Log(
+    $"{e.baseEntity.entityName} executing {e.state.plannedMove} " +
+    $"on target {(e.state.target ? e.state.target.baseEntity.entityName : "NULL")}"
+);
+
         switch (e.state.plannedMove)
         {
             case BattleEntity.Move.ATTACK:
@@ -336,21 +341,14 @@ public class BattleRunner : MonoBehaviour
     }
     public Queue<BattleEntity> GetOrderedEntities()
     {
-        List<BattleEntity> bkp = new(entitiesInBattle);
-        // Sort entities in order of speed
-        Queue<BattleEntity> orderedEntities = new();
-        while (entitiesInBattle.Count > 0)
-        {
-            int iMaxSpeed = 0;
-            for (int i = 1; i < entitiesInBattle.Count; i++)
-                if (entitiesInBattle[i].Speed > entitiesInBattle[iMaxSpeed].Speed)
-                    iMaxSpeed = i;
+        List<BattleEntity> sorted = new List<BattleEntity>(entitiesInBattle);
 
-            orderedEntities.Enqueue(entitiesInBattle[iMaxSpeed]);
-            entitiesInBattle.RemoveAt(iMaxSpeed);
-        }
-        entitiesInBattle = bkp;
+        sorted.Sort((a, b) => b.Speed.CompareTo(a.Speed));
 
-        return orderedEntities;
+        Queue<BattleEntity> ordered = new();
+        foreach (var e in sorted)
+            ordered.Enqueue(e);
+
+        return ordered;
     }
 }
