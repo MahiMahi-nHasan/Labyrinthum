@@ -8,8 +8,6 @@ public class BattleRunner : MonoBehaviour
 {
     public static BattleRunner active;
 
-
-    private Battle battle;
     private List<BattleEntity> players = new();
     private List<BattleEntity> enemies = new();
     private List<BattleEntity> entitiesInBattle = new();
@@ -128,8 +126,6 @@ public class BattleRunner : MonoBehaviour
         BattleInterface.active.players = players;
         BattleInterface.active.npcs = enemies;
 
-        battle = new(entitiesInBattle);
-
         StartCoroutine(Run());
     }
 
@@ -141,9 +137,9 @@ public class BattleRunner : MonoBehaviour
         GameObject[] existing = GameObject.FindGameObjectsWithTag("TurnIcon");
         foreach (GameObject go in existing)
             Destroy(go);
-        
+
         /// Filter for living entities
-        Queue<BattleEntity> orderedTurns = battle.GetOrderedEntities();
+        Queue<BattleEntity> orderedTurns = GetOrderedEntities();
         Queue<BattleEntity> orderedTurnsAlive = new();
         while (orderedTurns.Count > 0)
         {
@@ -165,11 +161,11 @@ public class BattleRunner : MonoBehaviour
             );
             go.GetComponent<Image>().sprite = next.sprite;
         }
-        
+
         yield return StartCoroutine(BattleInterface.active.SetMoves(() =>
         {
             Debug.Log("Simulating round");
-            StartCoroutine(battle.SimulateRound());
+            StartCoroutine(SimulateRound());
         }));
 
         UpdateGameState();
@@ -238,7 +234,7 @@ public class BattleRunner : MonoBehaviour
         Debug.Log(enemies.Count);
         foreach (BattleEntity e in enemies)
             Debug.Log(e.baseEntity.entityName + "#" + e.id);
-        
+
         foreach (BattleEntity e in enemies)
         {
             Debug.Log("Removing enemy " + e.baseEntity.entityName + " with id#" + e.id);
@@ -246,7 +242,7 @@ public class BattleRunner : MonoBehaviour
         }
 
         Debug.Log("Removed dead entities");
-        
+
         StartCoroutine(CallAfterSceneLoad(gameSceneName, () =>
         {
             Debug.Log("Scene loaded");
@@ -258,5 +254,64 @@ public class BattleRunner : MonoBehaviour
             gameState = GameState.OVERWORLD;
         }));
     }
-    
+    IEnumerator SimulateTurn(BattleEntity e, float waitTime)
+    {
+        switch (e.state.plannedMove)
+        {
+            case BattleEntity.Move.ATTACK:
+                e.state.target.TakeDamage(e.BaseDamage(), e.state.element);
+                break;
+            case BattleEntity.Move.DEFEND:
+                e.Defend();
+                break;
+            case BattleEntity.Move.RECHARGE:
+                e.Recharge();
+                break;
+            case BattleEntity.Move.SPECIAL:
+                e.Special();
+                break;
+        }
+
+        yield return new WaitForSeconds(waitTime);
+    }
+    public IEnumerator SimulateRound()
+    {
+        // Reset all entities to default state
+        foreach (BattleEntity e in entitiesInBattle)
+            e.isDefending = false;
+
+        Queue<BattleEntity> orderedEntities = GetOrderedEntities();
+
+        while (orderedEntities.Count > 0)
+        {
+            BattleEntity e = orderedEntities.Dequeue();
+
+            if (e.state.dead)
+            {
+                Debug.Log(e.baseEntity.entityName + " is dead");
+                continue;
+            }
+
+            yield return SimulateTurn(e, 0.5f);
+        }
+    }
+    public Queue<BattleEntity> GetOrderedEntities()
+    {
+        List<BattleEntity> bkp = new(entitiesInBattle);
+        // Sort entities in order of speed
+        Queue<BattleEntity> orderedEntities = new();
+        while (entitiesInBattle.Count > 0)
+        {
+            int iMaxSpeed = 0;
+            for (int i = 1; i < entitiesInBattle.Count; i++)
+                if (entitiesInBattle[i].Speed > entitiesInBattle[iMaxSpeed].Speed)
+                    iMaxSpeed = i;
+
+            orderedEntities.Enqueue(entitiesInBattle[iMaxSpeed]);
+            entitiesInBattle.RemoveAt(iMaxSpeed);
+        }
+        entitiesInBattle = bkp;
+
+        return orderedEntities;
+    }
 }
