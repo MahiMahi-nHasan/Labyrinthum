@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Demon King
   m_EditorClassIdentifier: 
   entityName: 'Demon King '
-  prefab: {fileID: 0}
-  battlePrefab: {fileID: 0}
+  sprite: {fileID: 0}
+  prefab: {fileID: 6913796708687121901, guid: b3f7c2653f8b00e41ae749f2a6dba385, type: 3}
+  battlePrefab: {fileID: 2569346413672870113, guid: 999c308e5b8dd3148a40af93825e36d8, type: 3}
   maxHealth: 3500
   maxMana: 100
   baseStrength: 60
   baseDefense: 50
   baseSpeed: 15
   element: 1
-  manaRequiredForSpecial: 20
   rechargeManaPercent: 0.1
   defendModifier: 5
