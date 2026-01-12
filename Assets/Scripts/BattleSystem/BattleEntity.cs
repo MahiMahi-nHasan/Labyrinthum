@@ -262,7 +262,7 @@ public abstract class BattleEntity : MonoBehaviour
 
     public void SelectMove(Move move) => state.plannedMove = move;
 
-    public void OnDeath()
+    public virtual void OnDeath()
     {
         gameObject.SetActive(false);
     }
