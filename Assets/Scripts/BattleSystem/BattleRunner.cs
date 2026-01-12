@@ -257,7 +257,7 @@ public class BattleRunner : MonoBehaviour
         switch (e.state.plannedMove)
         {
             case BattleEntity.Move.ATTACK:
-                e.state.target.TakeDamage(e.BaseDamage(), e.state.element);
+                e.state.target.TakeDamage(e.BaseDamage(), BattleEntity.Element.PHYS);
                 audioSource.PlayOneShot(clips[0]);
                 break;
             case BattleEntity.Move.DEFEND:
