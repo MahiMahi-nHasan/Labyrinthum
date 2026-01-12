@@ -281,7 +281,7 @@ public class BattleRunner : MonoBehaviour
                 break;
             case BattleEntity.Move.SPECIAL:
                 e.Special();
-                if(e.chosenSpecial.type == Special.SpecialType.Heal)
+                if(e.chosenSpecial.type == Special.SpecialType.Heal|| e.chosenSpecial.type == Special.SpecialType.AoEHeal)
                 {
                     audioSource.PlayOneShot(clips[7]);
                 }
@@ -289,7 +289,7 @@ public class BattleRunner : MonoBehaviour
                     switch (e.baseEntity.element)
                     {
                         case BattleEntity.Element.PHYS:
-                        audioSource.PlayOneShot(clips[3]);
+                        audioSource.PlayOneShot(clips[5]);
                         break; 
                         case BattleEntity.Element.FIRE:
                         audioSource.PlayOneShot(clips[4]);
