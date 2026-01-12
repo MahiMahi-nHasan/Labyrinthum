@@ -155,7 +155,18 @@ public abstract class BattleEntity : MonoBehaviour
         int hmHeuristic = 0;
         if (Health > baseEntity.maxHealth * lowHealthPercentThreshold)
             hmHeuristic |= 0b10;
-        if (Mana > chosenSpecial.manaCost)
+        bool canCastAnySpecial = false;
+        foreach (Special s in specials)
+        {
+            if (s == null)
+                continue;
+            if (Mana >= s.manaCost)
+            {
+                canCastAnySpecial = true;
+                break;
+            }
+        }
+        if (canCastAnySpecial)
             hmHeuristic |= 0b01;
         state.hmHeuristic = (State)hmHeuristic;
     }

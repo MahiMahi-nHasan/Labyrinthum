@@ -228,9 +228,15 @@ public class BattleInterface : MonoBehaviour
                 SelectTarget(players[Random.Range(0, players.Count)]);
             } else if (move == BattleEntity.Move.SPECIAL)
             {
-                Special s = selectedEntity.specials[Random.Range(0, selectedEntity.specials.Length)];
+                Special s = ((BattleNPC)selectedEntity).GetDecidedSpecial();
+                if (s == null)
+                {
+                    // No affordable specials -> fallback
+                    SelectMove(BattleEntity.Move.RECHARGE);
+                    continue;
+                }
                 selectedEntity.chosenSpecial = s;
-                switch(s.targetingType) 
+                switch (s.targetingType) 
                 {
 
                     case Special.TargetingType.AllEnemies:
