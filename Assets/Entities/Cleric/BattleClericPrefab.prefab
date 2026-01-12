@@ -192,6 +192,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e0723a01a1c9b8c4a8bf84fd8390b273, type: 2}
   - {fileID: 11400000, guid: 375b2eae30550f84dacfbb9f85bc931e, type: 2}
   - {fileID: 11400000, guid: c04b765f11a7d1b48a65779fcd0c49d6, type: 2}
+  - {fileID: 11400000, guid: 9a3a321d067bed04f875480c3e272448, type: 2}
   chosenSpecial: {fileID: 11400000, guid: 375b2eae30550f84dacfbb9f85bc931e, type: 2}
   state:
     hmHeuristic: 0
