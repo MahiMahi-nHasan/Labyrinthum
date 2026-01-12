@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d8fc281074247b9aab47c662ef1857, type: 3}
   m_Name: Paladin
   m_EditorClassIdentifier: 
-  entityName: Player
+  entityName: Paladin
   sprite: {fileID: 468569536, guid: 9e9e0fb8113d22f44b94dd97d34d6e5c, type: 3}
   prefab: {fileID: 7104815242739876202, guid: d8453f8c0929046068638284ec9200d4, type: 3}
   battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
