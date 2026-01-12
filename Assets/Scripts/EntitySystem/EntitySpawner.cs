@@ -6,7 +6,7 @@ public class EntitySpawner : MonoBehaviour
     // Singleton system
     public static EntitySpawner instance;
 
-    public double spawnChance = .001;
+    public double spawnChance = 1;
     public int entityCap = 100;
 
     public int minPartySize = 1;
