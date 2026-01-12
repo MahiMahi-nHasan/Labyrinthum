@@ -230,7 +230,7 @@ public abstract class BattleEntity : MonoBehaviour
         Debug.Log("Entity " + baseEntity.entityName + " is defending");
         isDefending = true;
 
-        PopupHandler.SpawnActionPopup($"{baseEntity.name} Defends!", Color.gray);
+        PopupHandler.SpawnActionPopup($"{baseEntity.entityName} Defends!", Color.gray);
     }
 
     public void Recharge()
@@ -240,7 +240,7 @@ public abstract class BattleEntity : MonoBehaviour
 
         Mana = Mathf.Clamp(Mana, 0, baseEntity.maxMana);
 
-        PopupHandler.SpawnActionPopup($"{baseEntity} Recharges!", Color.blue);
+        PopupHandler.SpawnActionPopup($"{baseEntity.entityName} Recharges!", Color.blue);
     }
 
     public virtual int Special()
@@ -259,7 +259,7 @@ public abstract class BattleEntity : MonoBehaviour
         List<BattleEntity> enemies = isPlayer ? BattleInterface.active.npcs : BattleInterface.active.players;
         Debug.Log($"{name} used special {chosenSpecial.name}");
 
-        PopupHandler.SpawnActionPopup($"{baseEntity.name} uses {chosenSpecial.name}!", Color.red);
+        PopupHandler.SpawnActionPopup($"{baseEntity.entityName} uses {chosenSpecial.name}!", Color.red);
 
         return chosenSpecial.UseMove(
             this,
