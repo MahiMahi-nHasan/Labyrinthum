@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class BattleRunner : MonoBehaviour
     private List<BattleEntity> players = new();
     private List<BattleEntity> enemies = new();
     private List<BattleEntity> entitiesInBattle = new();
+    public AudioSource audioSource;
+    public AudioClip[] clips;
 
     public string battleSceneName = "BattleScene";
     public string gameSceneName = "OverworldScene";
@@ -260,16 +263,42 @@ public class BattleRunner : MonoBehaviour
         {
             case BattleEntity.Move.ATTACK:
                 e.state.target.TakeDamage(e.BaseDamage(), e.state.element);
+                audioSource.PlayOneShot(clips[0]);
                 break;
             case BattleEntity.Move.DEFEND:
                 e.Defend();
+                audioSource.PlayOneShot(clips[1]);
                 break;
             case BattleEntity.Move.RECHARGE:
                 e.Recharge();
+                audioSource.PlayOneShot(clips[2]);
                 break;
             case BattleEntity.Move.SPECIAL:
                 e.Special();
+                if(e.chosenSpecial.type == Special.SpecialType.Heal)
+                {
+                    audioSource.PlayOneShot(clips[7]);
+                }
+                else{
+                    switch (e.baseEntity.element)
+                    {
+                        case BattleEntity.Element.PHYS:
+                        audioSource.PlayOneShot(clips[3]);
+                        break; 
+                        case BattleEntity.Element.FIRE:
+                        audioSource.PlayOneShot(clips[4]);
+                        break;
+                        case BattleEntity.Element.ICE:
+                        audioSource.PlayOneShot(clips[5]);
+                        break;
+                        case BattleEntity.Element.WIND:
+                        audioSource.PlayOneShot(clips[6]);
+                        break;
+
+                }
+                }
                 break;
+                
         }
 
         yield return new WaitForSeconds(waitTime);
