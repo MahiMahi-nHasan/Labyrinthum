@@ -19,7 +19,7 @@ MonoBehaviour:
   maxHealth: 2000
   maxMana: 10
   baseStrength: 10
-  baseDefense: 35
+  baseDefense: 25
   baseSpeed: 10
   element: 0
   rechargeManaPercent: 0.1
