@@ -4,13 +4,11 @@ public class EntityEquipLink : MonoBehaviour
 {
     public Inventory master;
 
-    public OverworldEntity entity;
-    private int id;
+    public int id;
     public EquipDisplay display;
 
     void Start()
     {
-        id = entity.id;
         display.id = id;
     }
 
