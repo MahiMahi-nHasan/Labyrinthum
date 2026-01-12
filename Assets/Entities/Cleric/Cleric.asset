@@ -22,6 +22,5 @@ MonoBehaviour:
   baseDefense: 40
   baseSpeed: 40
   element: 0
-  rechargeManaPercent: 0.2
+  rechargeManaPercent: 0.5
   defendModifier: 5
-  corporeal: 1
