@@ -29,6 +29,10 @@ public class BattleNPC : BattleEntity
         }
 
         Debug.Log("Enemy selected " + (Move)i);
+        if((Move)i == BattleEntity.Move.SPECIAL && GetDecidedSpecial() == null)
+        {
+            i = 3;
+        }
 
         return (Move)i;
     }
