@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SlimeEntity
   m_EditorClassIdentifier: 
   entityName: Slime
-  sprite: {fileID: 1112698200, guid: 84d4c76b698b62d428b12f48e23b12f5, type: 3}
+  sprite: {fileID: 21300000, guid: 8fb124cb40efa864e8001c0edaeb9816, type: 3}
   prefab: {fileID: 6913796708687121901, guid: 36270172c72174646ba60bbbbe39265c, type: 3}
   battlePrefab: {fileID: 2569346413672870113, guid: 1343fc7cb887145388934484e5ef7c2e, type: 3}
   maxHealth: 2000

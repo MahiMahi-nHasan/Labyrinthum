@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BirdEnemy
   m_EditorClassIdentifier: 
   entityName: Bird
-  sprite: {fileID: -349514583, guid: 5d914e1c15d1c6c44b2c8d58b7db54da, type: 3}
+  sprite: {fileID: 21300000, guid: 506083ade63447f4d89b68e9d00742ca, type: 3}
   prefab: {fileID: 6913796708687121901, guid: 3d9b49c8d494c49d98ae2cbcf4a4a0a6, type: 3}
   battlePrefab: {fileID: 2569346413672870113, guid: ebe6dce37a1054723b40a743212b4baa, type: 3}
   maxHealth: 800
@@ -22,6 +22,5 @@ MonoBehaviour:
   baseDefense: 5
   baseSpeed: 20
   element: 3
-  manaRequiredForSpecial: 15
   rechargeManaPercent: 0.1
   defendModifier: 5

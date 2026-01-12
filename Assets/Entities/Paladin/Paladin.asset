@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Paladin
   m_EditorClassIdentifier: 
   entityName: Paladin
-  sprite: {fileID: 468569536, guid: 9e9e0fb8113d22f44b94dd97d34d6e5c, type: 3}
+  sprite: {fileID: 21300000, guid: a070efc4048959e448ddce15194eadb0, type: 3}
   prefab: {fileID: 7104815242739876202, guid: d8453f8c0929046068638284ec9200d4, type: 3}
   battlePrefab: {fileID: 1698970313448347996, guid: 110f4622b50e4400e9654600d01ce334, type: 3}
   maxHealth: 1500

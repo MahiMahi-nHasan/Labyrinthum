@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlantEnemy
   m_EditorClassIdentifier: 
   entityName: Prick
-  sprite: {fileID: 664691475, guid: 307fd7b4522958d43bb0f7ad899a7eb9, type: 3}
+  sprite: {fileID: 21300000, guid: 7c484c0e41e123749b64b560a6ffad4e, type: 3}
   prefab: {fileID: 6913796708687121901, guid: 484f79b0dbe8241d8a206086741f30ef, type: 3}
   battlePrefab: {fileID: 2569346413672870113, guid: 3f73cf0519604490ead2cfdb5f3e330c, type: 3}
   maxHealth: 1200
@@ -22,6 +22,5 @@ MonoBehaviour:
   baseDefense: 30
   baseSpeed: 5
   element: 2
-  manaRequiredForSpecial: 10
   rechargeManaPercent: 0.2
   defendModifier: 5
