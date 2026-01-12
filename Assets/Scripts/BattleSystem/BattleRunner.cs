@@ -291,8 +291,8 @@ public class BattleRunner : MonoBehaviour
                     switch (e.baseEntity.element)
                     {
                         case BattleEntity.Element.PHYS:
-                        audioSource.PlayOneShot(clips[3]);
-                        break; 
+                            audioSource.PlayOneShot(clips[3]);
+                            break; 
                         case BattleEntity.Element.FIRE:
                             audioSource.PlayOneShot(clips[4]);
                             break;
