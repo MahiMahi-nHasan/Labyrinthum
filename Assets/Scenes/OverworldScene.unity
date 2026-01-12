@@ -320,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8454053015757219601, guid: f04c1bb07d8314c40a858a5a1953c549, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: 149.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1015,6 +1015,7 @@ MonoBehaviour:
   maxPartySize: 1
   possibleSpawns:
   - {fileID: 11400000, guid: 0aeadc4d253564736abcc9d38c36ed34, type: 2}
+  specialSpawns: []
 --- !u!4 &1676567016
 Transform:
   m_ObjectHideFlags: 0
