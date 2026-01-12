@@ -21,6 +21,6 @@ MonoBehaviour:
   baseStrength: 10
   baseDefense: 40
   baseSpeed: 40
-  element: 0
+  element: 3
   rechargeManaPercent: 0.5
   defendModifier: 5

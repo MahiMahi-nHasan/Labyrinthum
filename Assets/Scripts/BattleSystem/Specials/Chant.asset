@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c1753ea746e4614aabd8b176d8b2b6e, type: 3}
-  m_Name: Judgement Hour
+  m_Name: Chant
   m_EditorClassIdentifier: 
-  Name: Judgement Hour
-  manaCost: 7
+  Name: Chant
+  manaCost: 10
   elem: 0
-  power: 50
+  power: 150
   hits: 1
-  type: 4
-  targetingType: 2
+  type: 1
+  targetingType: 4

@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Spirit
   sprite: {fileID: 21300000, guid: 86cc3a19690d3c84b83456a8793673a6, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 6913796708687121901, guid: 28679137199f1ed46af1919441b40bf4, type: 3}
   battlePrefab: {fileID: 0}
   maxHealth: 500
   maxMana: 30
   baseStrength: 30
   baseDefense: 10
   baseSpeed: 100
-  element: 0
-  manaRequiredForSpecial: 15
+  element: 1
   rechargeManaPercent: 0.5
   defendModifier: 5
