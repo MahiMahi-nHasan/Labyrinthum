@@ -14,6 +14,14 @@ public class EntitySpawner : MonoBehaviour
 
     public Entity[] possibleSpawns;
 
+    [System.Serializable]
+    public struct SpecialSpawn
+    {
+        public Transform location;
+        public Entity entity;
+    }
+    public SpecialSpawn[] specialSpawns;
+
     void Awake()
     {
         #region Singleton code
@@ -33,6 +41,9 @@ public class EntitySpawner : MonoBehaviour
         OverworldEntity[] entities = FindObjectsOfType<OverworldEntity>();
         foreach (OverworldEntity entity in entities)
             EntityManager.LinkEntity(entity.gameObject);
+
+        foreach (SpecialSpawn s in specialSpawns)
+            EntityManager.CreateEntity(s.entity, s.location.position);
     }
 
     void FixedUpdate()
