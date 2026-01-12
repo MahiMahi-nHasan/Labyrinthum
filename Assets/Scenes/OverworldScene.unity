@@ -226,6 +226,10 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 430152025}
+    - target: {fileID: 4524533448688498606, guid: f04c1bb07d8314c40a858a5a1953c549, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 103
+      objectReference: {fileID: 0}
     - target: {fileID: 5934501453929631873, guid: f04c1bb07d8314c40a858a5a1953c549, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -316,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8454053015757219601, guid: f04c1bb07d8314c40a858a5a1953c549, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 149.6
+      value: 0.000030517578
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
