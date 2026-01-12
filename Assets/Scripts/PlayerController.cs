@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     public float minTimeBetweenFootsteps = 0.3f; 
     public float maxTimeBetweenFootsteps = 0.6f;
     private float timeSinceLastFootstep;
-
     private AudioSource audioSource;
 
     void Awake()
