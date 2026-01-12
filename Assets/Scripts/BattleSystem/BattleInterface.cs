@@ -190,10 +190,11 @@ public class BattleInterface : MonoBehaviour
     {
         Debug.Log("Setting moves for all entities");
 
-        showActionMenu = true;
-
         for (int i = 0; i < players.Count; i++)
         {
+
+            showActionMenu = true;
+            
             selectedEntity = players[i];
             selectedEntity.targeting = true;
 
