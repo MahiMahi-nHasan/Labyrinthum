@@ -32,16 +32,22 @@ public class PopupHandler : MonoBehaviour
             dp.Initialize(damage, tag, color);
     }
 
-    public static void SpawnActionPopup(BattleEntity entity, string action, Color color)
+    public static void SpawnActionPopup(string action, Color color)
     {
-        if (inst == null || inst.damagePopupPrefab == null)
+        if (inst == null || inst.actionPopupPrefab == null)
         {
             Debug.LogWarning("PopupHandler not initialized or prefab missing.");
             return;
         }
+        GameObject turnBarObj = GameObject.FindGameObjectWithTag("TurnBarCenter");
+        if (turnBarObj == null)
+        {
+            Debug.LogWarning("TurnBarCenter not found in scene.");
+            return;
+        }
 
-        Vector3 pos = entity.transform.position + Vector3.up * 1.5f;
-        GameObject obj = Instantiate(inst.actionPopupPrefab, pos, Quaternion.identity, inst.transform);
+        RectTransform turnBarCenter = turnBarObj.GetComponent<RectTransform>();
+        GameObject obj = Instantiate(inst.actionPopupPrefab, turnBarCenter);
         if (obj.TryGetComponent(out ActionPopup ap))
             ap.Initialize(action, color);
     }

@@ -336,7 +336,7 @@ public class BattleRunner : MonoBehaviour
                 continue;
             }
 
-            yield return SimulateTurn(e, 0.5f);
+            yield return SimulateTurn(e, 1.5f);
         }
     }
     public Queue<BattleEntity> GetOrderedEntities()
