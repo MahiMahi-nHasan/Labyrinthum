@@ -306,7 +306,9 @@ public class BattleRunner : MonoBehaviour
         if (gameState == GameState.LOSE)
         {
             OnPlayerLose();
+            SceneManager.LoadScene("GameOverScene");
             yield break;
+
         }
 
         yield return new WaitForSeconds(waitTime);
