@@ -15,7 +15,7 @@ MonoBehaviour:
   entityName: Spirit
   sprite: {fileID: 21300000, guid: 86cc3a19690d3c84b83456a8793673a6, type: 3}
   prefab: {fileID: 6913796708687121901, guid: 28679137199f1ed46af1919441b40bf4, type: 3}
-  battlePrefab: {fileID: 0}
+  battlePrefab: {fileID: 2569346413672870113, guid: 1539cfa1cab510941ac99a5e3597d47f, type: 3}
   maxHealth: 500
   maxMana: 30
   baseStrength: 30
