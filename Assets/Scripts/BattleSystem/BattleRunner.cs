@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class BattleRunner : MonoBehaviour
 {
     public static BattleRunner active;
-
-
-    private Battle battle;
+    List<BattleEntity> entities;
+    public AudioSource audioSource;
+    public AudioClip[] clips;
 
     private List<BattleEntity> players = new();
     private List<BattleEntity> enemies = new();
@@ -129,8 +129,6 @@ public class BattleRunner : MonoBehaviour
         BattleInterface.active.players = players;
         BattleInterface.active.npcs = enemies;
 
-        battle = new(entitiesInBattle);
-
         StartCoroutine(Run());
     }
 
@@ -144,7 +142,7 @@ public class BattleRunner : MonoBehaviour
             Destroy(go);
         
         /// Filter for living entities
-        Queue<BattleEntity> orderedTurns = battle.GetOrderedEntities();
+        Queue<BattleEntity> orderedTurns = GetOrderedEntities();
         Queue<BattleEntity> orderedTurnsAlive = new();
         while (orderedTurns.Count > 0)
         {
@@ -170,7 +168,7 @@ public class BattleRunner : MonoBehaviour
         yield return StartCoroutine(BattleInterface.active.SetMoves(() =>
         {
             Debug.Log("Simulating round");
-            StartCoroutine(battle.SimulateRound());
+            StartCoroutine(SimulateRound());
         }));
 
         UpdateGameState();
@@ -258,5 +256,80 @@ public class BattleRunner : MonoBehaviour
 
             gameState = GameState.OVERWORLD;
         }));
+    }
+    
+
+    // Call this constructor in a MonoBehaviour to make a new list of entities
+    public BattleRunner(List<BattleEntity> entities)
+    {
+        this.entities = entities;
+    }
+
+    // Get an ordered queue of the entities in the battle based on speed
+    public Queue<BattleEntity> GetOrderedEntities()
+    {
+        List<BattleEntity> bkp = new(entities);
+        // Sort entities in order of speed
+        Queue<BattleEntity> orderedEntities = new();
+        while (entities.Count > 0)
+        {
+            int iMaxSpeed = 0;
+            for (int i = 1; i < entities.Count; i++)
+                if (entities[i].Speed > entities[iMaxSpeed].Speed)
+                    iMaxSpeed = i;
+
+            orderedEntities.Enqueue(entities[iMaxSpeed]);
+            entities.RemoveAt(iMaxSpeed);
+        }
+        entities = bkp;
+
+        return orderedEntities;
+    }
+
+    // Assume that all entities in entities list are alive
+    public IEnumerator SimulateRound()
+    {
+        // Reset all entities to default state
+        foreach (BattleEntity e in entities)
+            e.isDefending = false;
+
+        Queue<BattleEntity> orderedEntities = GetOrderedEntities();
+
+        while (orderedEntities.Count > 0)
+        {
+            BattleEntity e = orderedEntities.Dequeue();
+
+            if (e.state.dead)
+            {
+                Debug.Log(e.baseEntity.entityName + " is dead");
+                continue;
+            }
+
+            yield return SimulateTurn(e, 0.5f);
+        }
+    }
+
+    IEnumerator SimulateTurn(BattleEntity e, float waitTime)
+    {
+        switch (e.state.plannedMove)
+        {
+            case BattleEntity.Move.ATTACK:
+                e.state.target.TakeDamage(e.BaseDamage(), e.state.element);
+                audioSource.PlayOneShot(clips[0]);
+                break;
+            case BattleEntity.Move.DEFEND:
+                e.Defend();
+                audioSource.PlayOneShot(clips[1]);
+                break;
+            case BattleEntity.Move.RECHARGE:
+                e.Recharge();
+                audioSource.PlayOneShot(clips[2]);
+                break;
+            case BattleEntity.Move.SPECIAL:
+                e.Special();
+                break;
+        }
+
+        yield return new WaitForSeconds(waitTime);
     }
 }

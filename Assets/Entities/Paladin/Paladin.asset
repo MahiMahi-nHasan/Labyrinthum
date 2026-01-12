@@ -20,8 +20,7 @@ MonoBehaviour:
   maxMana: 20
   baseStrength: 50
   baseDefense: 50
-  baseSpeed: 20
+  baseSpeed: 10
   element: 0
-  manaRequiredForSpecial: 5
   rechargeManaPercent: 0.1
   defendModifier: 5
