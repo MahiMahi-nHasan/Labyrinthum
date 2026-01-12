@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleNPC : BattleEntity
@@ -53,5 +54,20 @@ public class BattleNPC : BattleEntity
         }
 
         return probs;
+    }
+    public Special GetDecidedSpecial()
+    {
+        List<Special> castable = new List<Special>();
+
+        foreach (Special s in specials)
+        {
+            if (s != null && Mana >= s.manaCost)
+                castable.Add(s);
+        }
+
+        if (castable.Count == 0)
+            return null;
+
+        return castable[Utils.rand.Next(castable.Count)];
     }
 }
