@@ -8,7 +8,10 @@ public class  MainMenu : MonoBehaviour
 {
     public void EnterGame()
     {
-        SceneManager.LoadScene("OverworldScene");
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.StartGame();
+        }
     }
     public void Instructions()
     {

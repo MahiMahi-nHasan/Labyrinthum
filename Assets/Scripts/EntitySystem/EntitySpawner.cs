@@ -94,4 +94,19 @@ public class EntitySpawner : MonoBehaviour
         Vector2 rand = Random.insideUnitCircle * radius;
         return origin + new Vector3(rand.x, 0, rand.y);
     }
+    public void SpawnSpecialAtTransform(Entity entity, Transform location)
+    {
+        if (entity == null || location == null)
+            return;
+
+        int id = EntityManager.CreateEntity(entity, location.position);
+
+        GameObject instance = EntityManager.entities[id].instance;
+        OverworldEntity overworldEntity = instance.GetComponent<OverworldEntity>();
+
+        if (overworldEntity != null)
+        {
+            overworldEntity.AddToParty(overworldEntity.id);
+        }
+    }
 }

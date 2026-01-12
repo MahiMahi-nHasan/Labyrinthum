@@ -6,14 +6,12 @@ using System;
 
 public class MazeGenerator : MonoBehaviour
 {
-    public bool persistAcrossScenes = true;
+    public bool persistAcrossScenes = true; 
     public bool usePersistentState = true;
     public string stateKeyPrefix = "MazeState_";
-    public Entity bossEntity;
 
     [Serializable]
-    class MazeState
-    {
+    class MazeState {
         public int seed;
         public int width;
         public int height;
@@ -37,7 +35,7 @@ public class MazeGenerator : MonoBehaviour
 
     public GameObject treasureChestPrefab;
     public bool spawnTreasureChests = true;
-    [Range(0f, 1f)] public float spawnTreasureChance = 0.25f;
+    [Range(0f, 1f)]    public float spawnTreasureChance = 0.25f;
     public float treasureYOffset = 0.05f;
 
     void Awake()
@@ -69,34 +67,8 @@ public class MazeGenerator : MonoBehaviour
     {
         visited = new bool[width, height];
         CreateGrid();
-
-        GenerateInstant(0, 0);
-
-        Vector2Int end = new Vector2Int(width - 1, height - 1);
-        CreateMarkerAt(end, Color.red);
-
-        if (spawnTreasureChests)
-            PlaceTreasureChests();
+        StartCoroutine(RunGenerationAndMark(0, 0));
     }
-    void GenerateInstant(int x, int y)
-    {
-        visited[x, y] = true;
-
-        List<Vector2Int> neighbors = GetUnvisitedNeighbors(x, y);
-
-        while (neighbors.Count > 0)
-        {
-            int idx = UnityEngine.Random.Range(0, neighbors.Count);
-            Vector2Int nb = neighbors[idx];
-
-            RemoveWallBetween(x, y, nb.x, nb.y);
-            GenerateInstant(nb.x, nb.y);
-
-            neighbors = GetUnvisitedNeighbors(x, y);
-        }
-    }
-
-
 
     void CreateGrid()
     {
@@ -135,6 +107,8 @@ public class MazeGenerator : MonoBehaviour
 
         Vector2Int start = new Vector2Int(0, 0);
         Vector2Int end = new Vector2Int(Mathf.Max(0, width - 1), Mathf.Max(0, height - 1));
+
+        CreateMarkerAt(start, Color.green);
         CreateMarkerAt(end, Color.red);
 
         if (spawnTreasureChests)
@@ -154,13 +128,7 @@ public class MazeGenerator : MonoBehaviour
             mr.material = new Material(Shader.Find("Standard"));
             mr.material.color = color;
         }
-        walls.Add(marker);
-        if (color == Color.red && EntitySpawner.instance != null)
-        {
-            EntitySpawner.instance.SpawnSpecialAtTransform(bossEntity,marker.transform);
-        }
-        Destroy(marker);
-
+        walls.Add(marker); 
     }
 
     void PlaceTreasureChests()
@@ -260,7 +228,7 @@ public class MazeGenerator : MonoBehaviour
 
         while (neighbors.Count > 0)
         {
-            int idx = UnityEngine.Random.Range(0, neighbors.Count);
+            int idx = Random.Range(0, neighbors.Count);
             Vector2Int nb = neighbors[idx];
 
             RemoveWallBetween(x, y, nb.x, nb.y);
@@ -331,15 +299,7 @@ public class MazeGenerator : MonoBehaviour
         if (!usePersistentState)
         {
             state = new MazeState();
-            if (GameManager.Instance != null && GameManager.Instance.HasSeed)
-            {
-                state.seed = GameManager.Instance.Seed;
-            }
-            else
-            {
-                state.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
-            }
-
+            state.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             state.width = width;
             state.height = height;
             return;
