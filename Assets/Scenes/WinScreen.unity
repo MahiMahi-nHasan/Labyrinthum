@@ -232,15 +232,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5797261179062031040, guid: 5cc89940162924c88b9c18696753a0a2, type: 3}
       propertyPath: m_Color.b
-      value: 0.1792453
+      value: 0.084535845
       objectReference: {fileID: 0}
     - target: {fileID: 5797261179062031040, guid: 5cc89940162924c88b9c18696753a0a2, type: 3}
       propertyPath: m_Color.g
-      value: 0.01775543
+      value: 0.4056604
       objectReference: {fileID: 0}
     - target: {fileID: 5797261179062031040, guid: 5cc89940162924c88b9c18696753a0a2, type: 3}
       propertyPath: m_Color.r
-      value: 0.03528763
+      value: 0.024875412
       objectReference: {fileID: 0}
     - target: {fileID: 7042904733232469352, guid: 5cc89940162924c88b9c18696753a0a2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -284,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7050951158518121517, guid: 5cc89940162924c88b9c18696753a0a2, type: 3}
       propertyPath: m_Name
-      value: LoserScreen
+      value: WinnerScreen
       objectReference: {fileID: 0}
     - target: {fileID: 7900989911813233473, guid: 5cc89940162924c88b9c18696753a0a2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8292853511653769155, guid: 5cc89940162924c88b9c18696753a0a2, type: 3}
       propertyPath: m_text
-      value: Try Again?
+      value: Play Again?
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -400,7 +400,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -328, y: 60}
+  m_AnchoredPosition: {x: -328, y: 21}
   m_SizeDelta: {x: 107, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &171527616
@@ -475,7 +475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -177, y: 54}
+  m_AnchoredPosition: {x: -177, y: 18}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &590379194
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ....
+  m_text: '!!!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -724,8 +724,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Unfortunately, our heroes have fallen, succumbing to the nightmarish forces
-    within the '
+  m_text: Our heroes have done it! With the power of teamwork and hope in their heart,
+    they have felled the Demon King and destroyed the evil
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
