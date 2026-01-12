@@ -44,6 +44,11 @@ public class BattleRunner : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        UpdateGameState();
+    }
+
     public IEnumerator CallAfterSceneLoad(string sceneName, System.Action callback, LoadSceneMode mode = LoadSceneMode.Single)
     {
         AsyncOperation task = SceneManager.LoadSceneAsync(sceneName, mode);
@@ -171,24 +176,14 @@ public class BattleRunner : MonoBehaviour
             StartCoroutine(SimulateRound());
         }));
 
-        UpdateGameState();
-
-        switch (gameState)
-        {
-            case GameState.PLAYING:
-                StartCoroutine(Run());
-                break;
-            case GameState.WIN:
-                OnPlayerWin();
-                break;
-            case GameState.LOSE:
-                OnPlayerLose();
-                break;
-        }
+        if (gameState == GameState.PLAYING)
+            StartCoroutine(Run());
     }
 
     void UpdateGameState()
     {
+        if (gameState == GameState.OVERWORLD) return;
+
         bool allDead = true;
         foreach (BattleEntity e in players)
         {
@@ -299,6 +294,19 @@ public class BattleRunner : MonoBehaviour
                 }
                 break;
                 
+        }
+
+        UpdateGameState();
+
+        if (gameState == GameState.WIN)
+        {
+            OnPlayerWin();
+            yield break;
+        }
+        if (gameState == GameState.LOSE)
+        {
+            OnPlayerLose();
+            yield break;
         }
 
         yield return new WaitForSeconds(waitTime);
