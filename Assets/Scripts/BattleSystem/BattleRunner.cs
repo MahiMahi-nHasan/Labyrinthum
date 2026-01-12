@@ -68,6 +68,7 @@ public class BattleRunner : MonoBehaviour
 
 
         ));
+
         StartCoroutine(CallAfterSceneLoad(
             battleSceneName,
             () => {
@@ -205,23 +206,29 @@ public class BattleRunner : MonoBehaviour
         bool allDead = true;
         foreach (BattleEntity e in players)
         {
+            Debug.Log($"{e.baseEntity.entityName} is dead: {e.state.dead}");
             if (!e.state.dead)
                 allDead = false;
         }
         if (allDead)
         {
             gameState = GameState.LOSE;
+            Debug.Log("Player lost!");
             return;
         }
 
         allDead = true;
         foreach (BattleEntity e in enemies)
         {
+            Debug.Log($"{e.baseEntity.entityName} is dead: {e.state.dead}");
             if (!e.state.dead)
                 allDead = false;
         }
         if (allDead)
+        {
             gameState = GameState.WIN;
+            Debug.Log("Player won!");
+        }
     }
 
     public void OnPlayerWin()
@@ -292,7 +299,7 @@ public class BattleRunner : MonoBehaviour
                 {
                     audioSource.PlayOneShot(clips[7]);
                 }
-                else{
+                else
                     switch (e.baseEntity.element)
                     {
                         case BattleEntity.Element.PHYS:
@@ -307,9 +314,7 @@ public class BattleRunner : MonoBehaviour
                         case BattleEntity.Element.WIND:
                         audioSource.PlayOneShot(clips[6]);
                         break;
-
-                }
-                }
+                    }
                 break;
                 
         }
