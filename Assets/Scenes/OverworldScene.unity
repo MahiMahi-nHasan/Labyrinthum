@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnChance: 1
-  entityCap: 1
+  entityCap: 20
   minPartySize: 1
   maxPartySize: 1
   possibleSpawns:
